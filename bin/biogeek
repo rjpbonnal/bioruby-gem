@@ -1,5 +1,23 @@
 #!/usr/bin/env ruby
-puts $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
-#require 'jeweler/generator'
-
-#exit Jeweler::Generator::Application.run!(*ARGV)
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require 'jeweler/generator'
+require 'bundler'
+require 'bundler/cli'
+require 'fileutils'
+class Jeweler
+  class Generator 
+      alias original_initialize initialize
+      def initialize(options = {})
+        original_initialize(options)
+        development_dependencies  << ["bio", ">= 1.4.1"]
+      end
+  end
+end
+orig_argv=ARGV.clone
+if (Jeweler::Generator::Application.run!(*ARGV)==0)
+  pwd=FileUtils.pwd
+  FileUtils.cd(ARGV.shift)
+  ARGV<<"install"
+  Bundler::CLI.start
+#no need to go back
+end

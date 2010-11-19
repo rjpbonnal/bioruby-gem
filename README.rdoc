@@ -12,6 +12,26 @@ Description goes here.
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
+==StepByStep
+
+* gem install jeweler
+* jeweler bioruby-mystuff
+* cd bioruby_mysuff
+* bundle install
+* rake version:write
+* rake gemspec
+* rake install
+
+Some of these steps have been condensed:
+
+* gem install biogeek (not yet published on rubygems, grab it from github http://github.com/helios/bioruby-geek and build the gem (gem build bioruby-geek.gemspec; gem install bioruby-geek.gem))
+* biogeek bioruby-mystuff (jeweler bioruby-mystuff; cd bioruby-mystuff; bundle install)
+* cd bioruby_mysuff
+* rake version:write
+* rake gemspec
+* rake install (for local test)
+
+
 == Copyright
 
 Copyright (c) 2010 Raoul J.P. Bonnal. See LICENSE.txt for
