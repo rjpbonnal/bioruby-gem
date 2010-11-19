@@ -26,10 +26,13 @@ Some of these steps have been condensed:
 
 * gem install biogeek (not yet published on rubygems, grab it from github http://github.com/helios/bioruby-geek and build the gem (gem build bioruby-geek.gemspec; gem install bioruby-geek.gem))
 * biogeek bioruby-mystuff (jeweler bioruby-mystuff; cd bioruby-mystuff; bundle install)
+** creates a basic gem structure with a default dependencies for bioruby (bio) bersion 1.4.1
 * cd bioruby_mysuff
 * rake version:write
 * rake gemspec
 * rake install (for local test)
+* hack, git add and commit
+* rake git:release (remember to create the project first)
 
 
 == Copyright
