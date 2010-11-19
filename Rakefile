@@ -12,7 +12,7 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "bioruby-geek"
+  gem.name = "bio-geek"
   gem.homepage = "http://github.com/helios/bioruby-geek"
   gem.license = "MIT"
   gem.summary = %Q{Test}
@@ -23,6 +23,7 @@ Jeweler::Tasks.new do |gem|
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   #  gem.add_runtime_dependency 'jabber4r', '> 0.1'
   #  gem.add_development_dependency 'rspec', '> 1.2.3'
+  gem.version='0.0.1'
 end
 Jeweler::RubygemsDotOrgTasks.new
 
@@ -47,7 +48,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "bioruby-geek #{version}"
+  rdoc.title = "bio-geek #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
