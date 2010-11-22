@@ -5,13 +5,16 @@ require 'bundler'
 require 'bundler/cli'
 require 'fileutils'
 require 'bio-geek'
+require 'rake'
 
 
 orig_argv=ARGV.clone
 if (Jeweler::Generator::Application.run!(*ARGV)==0)
   pwd=FileUtils.pwd
-  FileUtils.cd("bioruby-#{ARGV.shift}")
+  FileUtils.cd "bioruby-#{ARGV.shift}"
   ARGV<<"install"
   #Bundler::CLI.start
+  sh "rake version:write"
+  sh "rake gemspec"
 #no need to go back
 end

@@ -40,9 +40,9 @@ Some of these steps have been condensed:
         |-- helper.rb
         `-- test_bio-mystuff.rb
 
-* cd bioruby-mystuff
-* rake version:write
-* rake gemspec
+  * cd bioruby-mystuff
+  * rake version:write (Initial Updated version: 0.0.0)
+  * rake gemspec
 * rake install (for local test)
 * hack, git add and commit
 * rake git:release (remember to create the project first)
