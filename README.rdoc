@@ -35,12 +35,12 @@ Some of these steps have been condensed:
     |-- README.rdoc
     |-- Rakefile
     |-- lib
-    |   `-- bio-pippo.rb
+    |   `-- bio-mystuff.rb
     `-- test
         |-- helper.rb
-        `-- test_bio-pippo.rb
+        `-- test_bio-mystuff.rb
 
-* cd bioruby-mysuff
+* cd bioruby-mystuff
 * rake version:write
 * rake gemspec
 * rake install (for local test)
