@@ -4,19 +4,13 @@ require 'jeweler/generator'
 require 'bundler'
 require 'bundler/cli'
 require 'fileutils'
-class Jeweler
-  class Generator 
-      alias original_initialize initialize
-      def initialize(options = {})
-        original_initialize(options)
-        development_dependencies  << ["bio", ">= 1.4.1"]
-      end
-  end
-end
+require 'bio-geek'
+
+
 orig_argv=ARGV.clone
 if (Jeweler::Generator::Application.run!(*ARGV)==0)
   pwd=FileUtils.pwd
-  FileUtils.cd(ARGV.shift)
+  FileUtils.cd("bioruby-#{ARGV.shift}")
   ARGV<<"install"
   Bundler::CLI.start
 #no need to go back
