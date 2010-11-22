@@ -12,6 +12,6 @@ if (Jeweler::Generator::Application.run!(*ARGV)==0)
   pwd=FileUtils.pwd
   FileUtils.cd("bioruby-#{ARGV.shift}")
   ARGV<<"install"
-  Bundler::CLI.start
+  #Bundler::CLI.start
 #no need to go back
 end

@@ -24,10 +24,23 @@ Description goes here.
 
 Some of these steps have been condensed:
 
-* gem install biogeek (not yet published on rubygems, grab it from github http://github.com/helios/bioruby-geek and build the gem (gem build bioruby-geek.gemspec; gem install bioruby-geek.gem))
-* biogeek bioruby-mystuff (jeweler bioruby-mystuff; cd bioruby-mystuff; bundle install)
+* gem install bio-geek (not yet published on rubygems, grab it from github http://github.com/helios/bioruby-geek and build the gem (gem build bioruby-geek.gemspec; gem install bioruby-geek.gem))
+* biogeek mystuff
+  * pass just the simple name, it will add bioruby- for the first level directory and for the github repository
+    BUT you'll require the library with bio-mystuff (and this will be the name used on rubygems)
   * creates a basic gem structure with a default dependencies for bioruby (bio) bersion 1.4.1
-* cd bioruby_mysuff
+  * |-- Gemfile
+    |-- Gemfile.lock
+    |-- LICENSE.txt
+    |-- README.rdoc
+    |-- Rakefile
+    |-- lib
+    |   `-- bio-pippo.rb
+    `-- test
+        |-- helper.rb
+        `-- test_bio-pippo.rb
+
+* cd bioruby-mysuff
 * rake version:write
 * rake gemspec
 * rake install (for local test)
