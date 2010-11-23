@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["Raoul J.P. Bonnal"]
   s.date = %q{2010-11-19}
   s.default_executable = %q{biogeek}
-  s.description = %q{TestDescription}
+  s.description = %q{Biogeek helps BioRuby's developers creating a Gem for their project: application or framework.}
   s.email = %q{ilpuccio.febo@gmail.com}
   s.executables = ["biogeek"]
   s.extra_rdoc_files = [
@@ -27,9 +27,9 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "bin/biogeek",
-    "lib/bioruby-geek.rb",
+    "lib/bio-geek.rb",
     "test/helper.rb",
-    "test/test_bioruby-geek.rb"
+    "test/test_bio-geek.rb"
   ]
   s.homepage = %q{http://github.com/helios/bioruby-geek}
   s.licenses = ["MIT"]
@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Test}
   s.test_files = [
     "test/helper.rb",
-    "test/test_bioruby-geek.rb"
+    "test/test_bio-geek.rb"
   ]
 
   if s.respond_to? :specification_version then
