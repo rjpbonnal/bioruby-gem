@@ -1,6 +1,18 @@
 = bioruby-geek
 
-Description goes here.
+BioGeek is a scaffold generator for those Bioinformaticans who want to start coding an application or a library
+for using/extending BioRuby's core library and sharing it through http://rubygems.org .
+The basic idea is to semplify and promote modular approach to the BioRuby package.
+BioGeek is not reinventing the wheel just putting together different tools like Jeweler and Bundler modifing their original behaviour when needed. Jeweler is used to create the initial scaffold, setting up git for versioning, releasing it to github.com and/or rubygems.org and packaging. Bundler is used used for setting up a predefined developing environment.
+
+Remind that
+* Jeweler is based on rake
+  $ rake -T
+  in your project directory gives you an overview of the available actions
+
+* GitHub.com and RubyGems.org
+  are two different services and you need to create different accounts for them
+  if you already use GitHub.com you are already all set for using BioGeek
 
 == Contributing to bioruby-geek
  
@@ -28,7 +40,7 @@ Some of these steps have been condensed:
 * $ biogeek mystuff
   * pass just the simple name, it will add bioruby- for the first level directory and for the github repository
     BUT you'll require the library with bio-mystuff (and this will be the name used on rubygems)
-  * creates a basic gem structure with a default dependencies for bioruby (bio) bersion 1.4.1
+  * creates a basic gem structure with a default dependencies for bioruby (bio) version 1.4.1
 	    |-- Gemfile
 	    |-- Gemfile.lock
 	    |-- LICENSE.txt
@@ -36,6 +48,8 @@ Some of these steps have been condensed:
 	    |-- Rakefile
 	    |-- lib
 	    |   `-- bio-mystuff.rb
+	    |-- data
+	    |   `-- empty but put here your datasets or database(SQLite3?)	
 	    `-- test
 	        |-- helper.rb
 	        `-- test_bio-mystuff.rb
