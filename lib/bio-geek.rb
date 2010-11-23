@@ -36,6 +36,18 @@ class Jeweler
       def require_name
         project_name
       end
+      
+      def data_dir
+        'data'
+      end
+      
+      alias original_create_files create_files
+      # this is the defaul directory for storing library datasets
+      # creates a data directory for every needs.
+      def create_files
+        original_create_files
+        mkdir_in_target data_dir
+      end
             
       def create_and_push_repo
         Net::HTTP.post_form URI.parse('http://github.com/api/v2/yaml/repos/create'),
