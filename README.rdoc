@@ -2,7 +2,9 @@
 
 BioGeek is a scaffold generator for those Bioinformaticans who want to start coding an application or a library
 for using/extending BioRuby's core library and sharing it through http://rubygems.org .
-The basic idea is to semplify and promote modular approach to the BioRuby package.
+
+The basic idea is to simplify and promote a modular approach to the BioRuby package.
+
 BioGeek is not reinventing the wheel just putting together different tools like Jeweler and Bundler modifing their original behaviour when needed. Jeweler is used to create the initial scaffold, setting up git for versioning, releasing it to github.com and/or rubygems.org and packaging. Bundler is used used for setting up a predefined developing environment.
 
 Remind that
