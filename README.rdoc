@@ -24,7 +24,7 @@ Remind that
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-==StepByStep
+== Step by Step
 
 * gem install jeweler
 * jeweler bioruby-mystuff
@@ -61,6 +61,11 @@ Some of these steps have been condensed:
 * hack, git add and commit
 * $ rake git:release (remember to create the project first)
 
+== NoTes For Developers
+* Keep in mind that Jeweler handles everything is under the control of you git repository, so there is no need to modify the Rakefile or the tasks for including some file, directory etc to you project; just git add your_file_or_directory. Remeber to modify .gitignore to exclude files.
+
+== TODO
+* better command line, wrap or reimplement some of the funcionalities provided by Bundler and Jeweler
 
 == Copyright
 
