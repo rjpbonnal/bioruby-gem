@@ -9,9 +9,10 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Raoul J.P. Bonnal"]
-  s.date = %q{2010-11-19}
+  s.date = %q{2010-11-24}
   s.default_executable = %q{biogeek}
-  s.description = %q{Biogeek helps BioRuby's developers creating a Gem for their project: application or framework.}
+  s.description = %q{BioGeek is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .
+  The basic idea is to simplify and promote a modular approach to the BioRuby package.}
   s.email = %q{ilpuccio.febo@gmail.com}
   s.executables = ["biogeek"]
   s.extra_rdoc_files = [
@@ -27,6 +28,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "bin/biogeek",
+    "bio-geek.gemspec",
     "lib/bio-geek.rb",
     "test/helper.rb",
     "test/test_bio-geek.rb"
@@ -35,7 +37,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Test}
+  s.summary = %q{BioGeek helps Bioinformaticians start developing plugins/modules for BioRuby creating a scaffold and a gem package}
   s.test_files = [
     "test/helper.rb",
     "test/test_bio-geek.rb"
