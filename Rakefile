@@ -15,8 +15,9 @@ Jeweler::Tasks.new do |gem|
   gem.name = "bio-geek"
   gem.homepage = "http://github.com/helios/bioruby-geek"
   gem.license = "MIT"
-  gem.summary = %Q{Test}
-  gem.description = %Q{TestDescription}
+  gem.summary = %Q{BioGeek helps Bioinformaticians start developing plugins/modules creating a scaffold and a gem package}
+  gem.description = %Q{BioGeek is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby’s core library and sharing it through rubygems.org .
+  The basic idea is to simplify and promote a modular approach to the BioRuby package.}
   gem.email = "ilpuccio.febo@gmail.com"
   gem.authors = ["Raoul J.P. Bonnal"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
