@@ -64,6 +64,7 @@ Some of these steps have been condensed:
 * $ rake git:release (remember to create the project first)
 
 == NoTes For Developers
+* Update your rubygems environment
 * Keep in mind that Jeweler handles everything is under the control of you git repository, so there is no need to modify the Rakefile or the tasks for including some file, directory etc to you project; just git add your_file_or_directory. Remeber to modify .gitignore to exclude files.
 
 == TODO
