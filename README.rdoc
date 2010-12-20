@@ -62,10 +62,14 @@ Some of these steps have been condensed:
 * $ rake install (for local test)
 * hack, git add and commit
 * $ rake git:release (remember to create the project first)
+* WHEN you have finished with the hacking you can release the gem by typing:
+  * $ rake release
 
 == NoTes For Developers
 * Update your rubygems environment
 * Keep in mind that Jeweler handles everything is under the control of you git repository, so there is no need to modify the Rakefile or the tasks for including some file, directory etc to you project; just git add your_file_or_directory. Remeber to modify .gitignore to exclude files.
+* Explore the rake tasks with
+  * $ rake -T
 
 == TODO
 * better command line, wrap or reimplement some of the funcionalities provided by Bundler and Jeweler
