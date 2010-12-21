@@ -1,4 +1,4 @@
-= bioruby-geek
+= bioruby-gem
 
 BioGeek is a scaffold generator for those Bioinformaticans who want to start coding an application or a library
 for using/extending BioRuby's core library and sharing it through http://rubygems.org .
@@ -16,7 +16,7 @@ Remind that
   are two different services and you need to create different accounts for them
   if you already use GitHub.com you are already all set for using BioGeek
 
-== Contributing to bioruby-geek
+== Contributing to bioruby-gem
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
@@ -38,8 +38,8 @@ Remind that
 
 Some of these steps have been condensed:
 
-* gem install bio-geek (not yet published on rubygems, grab it from github http://github.com/helios/bioruby-geek and build the gem (gem build bioruby-geek.gemspec; gem install bioruby-geek.gem))
-* $ biogeek mystuff
+* gem install bio-geek (not yet published on rubygems, grab it from github http://github.com/helios/bioruby-gem and build the gem (gem build bioruby-gem.gemspec; gem install bioruby-gem.gem))
+* $ biogem mystuff
   * pass just the simple name, it will add bioruby- for the first level directory and for the github repository
     BUT you'll require the library with bio-mystuff (and this will be the name used on rubygems)
   * creates a basic gem structure with a default dependencies for bioruby (bio) version 1.4.1

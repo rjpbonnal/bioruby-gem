@@ -13,7 +13,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "bio-geek"
-  gem.homepage = "http://github.com/helios/bioruby-geek"
+  gem.homepage = "http://github.com/helios/bioruby-gem"
   gem.license = "MIT"
   gem.summary = %Q{BioGeek helps Bioinformaticians start developing plugins/modules for BioRuby creating a scaffold and a gem package}
   gem.description = %Q{BioGeek is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .
