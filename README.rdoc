@@ -66,6 +66,7 @@ Some of these steps have been condensed:
   * $ rake release
 
 == NoTes For Developers
+* Before start developing open Rakefile and modify the gem.summary and gem.description. These parameters are very important because let you describe the your gem and why we need it. If you let them by default the gem will not be packed, it's just a countermeasure :-)
 * Update your rubygems environment
 * Keep in mind that Jeweler handles everything is under the control of you git repository, so there is no need to modify the Rakefile or the tasks for including some file, directory etc to you project; just git add your_file_or_directory. Remeber to modify .gitignore to exclude files.
 * Explore the rake tasks with
