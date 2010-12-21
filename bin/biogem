@@ -4,7 +4,7 @@ require 'jeweler/generator'
 require 'bundler'
 require 'bundler/cli'
 require 'fileutils'
-require 'bio-geek'
+require 'bio-gem'
 require 'rake'
 
 

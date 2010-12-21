@@ -1,11 +1,11 @@
 = bioruby-gem
 
-BioGeek is a scaffold generator for those Bioinformaticans who want to start coding an application or a library
+BioGem is a scaffold generator for those Bioinformaticans who want to start coding an application or a library
 for using/extending BioRuby's core library and sharing it through http://rubygems.org .
 
 The basic idea is to simplify and promote a modular approach to the BioRuby package.
 
-BioGeek is not reinventing the wheel just putting together different tools like Jeweler and Bundler modifing their original behaviour when needed. Jeweler is used to create the initial scaffold, setting up git for versioning, releasing it to github.com and/or rubygems.org and packaging. Bundler is used used for setting up a predefined developing environment.
+BioGem is not reinventing the wheel just putting together different tools like Jeweler and Bundler modifing their original behaviour when needed. Jeweler is used to create the initial scaffold, setting up git for versioning, releasing it to github.com and/or rubygems.org and packaging. Bundler is used used for setting up a predefined developing environment.
 
 Remind that
 * Jeweler is based on rake
@@ -14,7 +14,7 @@ Remind that
 
 * GitHub.com and RubyGems.org
   are two different services and you need to create different accounts for them
-  if you already use GitHub.com you are already all set for using BioGeek
+  if you already use GitHub.com you are already all set for using BioGem
 
 == Contributing to bioruby-gem
  
@@ -38,7 +38,7 @@ Remind that
 
 Some of these steps have been condensed:
 
-* gem install bio-geek (not yet published on rubygems, grab it from github http://github.com/helios/bioruby-gem and build the gem (gem build bioruby-gem.gemspec; gem install bioruby-gem.gem))
+* gem install bio-gem (not yet published on rubygems, grab it from github http://github.com/helios/bioruby-gem and build the gem (gem build bioruby-gem.gemspec; gem install bioruby-gem.gem))
 * $ biogem mystuff
   * pass just the simple name, it will add bioruby- for the first level directory and for the github repository
     BUT you'll require the library with bio-mystuff (and this will be the name used on rubygems)

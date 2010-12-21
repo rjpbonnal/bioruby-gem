@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{bio-geek}
+  s.name = %q{bio-gem}
   s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Raoul J.P. Bonnal"]
   s.date = %q{2010-11-24}
   s.default_executable = %q{biogem}
-  s.description = %q{BioGeek is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .
+  s.description = %q{BioGem is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .
   The basic idea is to simplify and promote a modular approach to the BioRuby package.}
   s.email = %q{ilpuccio.febo@gmail.com}
   s.executables = ["biogem"]
@@ -28,19 +28,19 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "bin/biogem",
-    "bio-geek.gemspec",
-    "lib/bio-geek.rb",
+    "bio-gem.gemspec",
+    "lib/bio-gem.rb",
     "test/helper.rb",
-    "test/test_bio-geek.rb"
+    "test/test_bio-gem.rb"
   ]
   s.homepage = %q{http://github.com/helios/bioruby-gem}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{BioGeek helps Bioinformaticians start developing plugins/modules for BioRuby creating a scaffold and a gem package}
+  s.summary = %q{BioGem helps Bioinformaticians start developing plugins/modules for BioRuby creating a scaffold and a gem package}
   s.test_files = [
     "test/helper.rb",
-    "test/test_bio-geek.rb"
+    "test/test_bio-gem.rb"
   ]
 
   if s.respond_to? :specification_version then
