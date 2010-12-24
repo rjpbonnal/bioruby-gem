@@ -38,7 +38,7 @@ Remind that
 
 Some of these steps have been condensed:
 
-* gem install bio-gem (not yet published on rubygems, grab it from github http://github.com/helios/bioruby-gem and build the gem (gem build bioruby-gem.gemspec; gem install bioruby-gem.gem))
+* gem install bio-gem 
 * $ biogem mystuff
   * pass just the simple name, it will add bioruby- for the first level directory and for the github repository
     BUT you'll require the library with bio-mystuff (and this will be the name used on rubygems)
@@ -61,19 +61,31 @@ Some of these steps have been condensed:
   * $ rake gemspec
 * $ rake install (for local test)
 * hack, git add and commit
-* $ rake git:release (remember to create the project first)
+* $ rake git:release (Before releasing on github or rubygems please see the Notes For Developers)
 * WHEN you have finished with the hacking you can release the gem by typing:
   * $ rake release
 
 == NoTes For Developers
+
+* A GitHub Account is required and you MUST create a repository for your new bioruby plugin.
+  The name of the repository follows this rules:
+  bioruby-mystuff
+  on your local directory you will see bioruby-mystuff but on rubygems you will publish bio-mystuff.
+  This is a clash of namespaces but I think in this way makes more sense.
 * Before start developing open Rakefile and modify the gem.summary and gem.description. These parameters are very important because let you describe your gem and why we need it. If you let them by default the gem will not be packed, it's just a countermeasure :-)
 * Update your rubygems environment
 * Keep in mind that Jeweler handles everything is under the control of you git repository, so there is no need to modify the Rakefile or the tasks for including some file, directory etc to you project; just git add your_file_or_directory. Remeber to modify .gitignore to exclude files.
 * Explore the rake tasks with
   * $ rake -T
 
+ Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bioruby.open-bio.org/wiki/BiogemInstallation.
+
+== BioRuby's Wiki Official Documentation
+
+http://bioruby.open-bio.org/wiki/Plugins
+
 == TODO
-* better command line, wrap or reimplement some of the funcionalities provided by Bundler and Jeweler
+* better command line, wrap or re-implement some of the funcionalities provided by Bundler and Jeweler
 
 == Copyright
 
