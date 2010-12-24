@@ -65,6 +65,10 @@ Some of these steps have been condensed:
 * WHEN you have finished with the hacking you can release the gem by typing:
   * $ rake release
 
+* if you want to make a new release version: major, minor or patch version you can use
+  * $ rake version:bump:(major | minor | patch)
+    the release will be increased by 1 and when you'll release it'll be updated. Note that in GitHub, bumping the version will create a tag with this version and your repository.So for every version you release there is a tag associated.
+
 == NoTes For Developers
 
 * A GitHub Account is required and you MUST create a repository for your new bioruby plugin.
