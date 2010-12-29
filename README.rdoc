@@ -61,6 +61,7 @@ Some of these steps have been condensed:
   * $ rake gemspec
 * $ rake install (for local test)
 * hack, git add and commit
+  * NOTE: It's very important that you add new and changed files so they can be included in the gem you will create, otherwise the files will not be include and you'll end up with a broken gem with missing files.
 * $ rake git:release (Before releasing on github or rubygems please see the Notes For Developers)
 * WHEN you have finished with the hacking you can release the gem by typing:
   * $ rake release
