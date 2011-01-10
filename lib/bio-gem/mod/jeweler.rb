@@ -1,7 +1,7 @@
 #Overdrive Jeweler's classes for properly configure a BioRuby Development Environment/Layout.
 
-require 'mod/jeweler/options'
-require 'mod/jeweler/github_mixin'
+require 'bio-gem/mod/jeweler/options'
+require 'bio-gem/mod/jeweler/github_mixin'
 
 class Jeweler
   class Generator 
