@@ -43,6 +43,7 @@ Some of these steps have been condensed:
   * pass just the simple name, it will add bioruby- for the first level directory and for the github repository
     BUT you'll require the library with bio-mystuff (and this will be the name used on rubygems)
   * creates a basic gem structure with a default dependencies for bioruby (bio) version 1.4.1
+	    |-- bin [optional = --with-bin]
 	    |-- Gemfile
 	    |-- Gemfile.lock
 	    |-- LICENSE.txt
@@ -50,9 +51,10 @@ Some of these steps have been condensed:
 	    |-- Rakefile
 	    |-- lib
 	    |   `-- bio-mystuff.rb
-	    |-- data
+	    |-- db [optional = --with-db]
 	    |   `-- empty but put here your datasets or database(SQLite3?)	
 	    `-- test
+	        |-- data [optional = --with-test-data]
 	        |-- helper.rb
 	        `-- test_bio-mystuff.rb
 
@@ -82,6 +84,8 @@ Some of these steps have been condensed:
 * Keep in mind that Jeweler handles everything is under the control of you git repository, so there is no need to modify the Rakefile or the tasks for including some file, directory etc to you project; just git add your_file_or_directory. Remeber to modify .gitignore to exclude files.
 * Explore the rake tasks with
   * $ rake -T
+* Help
+  * please use help $ biogem -h to discover other options for creating rspec or cucumber tests
 
  Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bioruby.open-bio.org/wiki/BiogemInstallation.
 
