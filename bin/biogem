@@ -9,11 +9,14 @@ require 'rake'
 
 
 orig_argv = ARGV.clone
-if (Jeweler::Generator::Application.run!(*ARGV)==0)
+# application_exit[:exit] exists, application_exit[:options] it depends.
+application_exit = Bio::Gem::Generator::Application.run!(*ARGV)
+if (application_exit[:exit])
   pwd = FileUtils.pwd
-  FileUtils.cd "bioruby-#{ARGV.shift}"
+  FileUtils.cd "bioruby-#{application_exit[:options][:project_name]}"
   ARGV << "install"
   Bundler::CLI.start
+  #TODO: call rake directly not from shell
   sh "rake version:write"
   sh "rake gemspec"
 end
