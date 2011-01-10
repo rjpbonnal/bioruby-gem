@@ -11,10 +11,11 @@ require 'rake'
 orig_argv = ARGV.clone
 # application_exit[:exit] exists, application_exit[:options] it depends.
 application_exit = Bio::Gem::Generator::Application.run!(*ARGV)
-if (application_exit[:exit])
+
+if (application_exit[:exit]==0)
   pwd = FileUtils.pwd
   FileUtils.cd "bioruby-#{application_exit[:options][:project_name]}"
-  ARGV << "install"
+  ARGV.clear << "install"
   Bundler::CLI.start
   #TODO: call rake directly not from shell
   sh "rake version:write"
