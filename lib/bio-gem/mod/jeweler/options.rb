@@ -28,8 +28,11 @@ class Jeweler
           o.on('--directory [DIRECTORY]', 'specify the directory to generate into') do |directory|
             self[:directory] = directory
           end
-
+          
+          o.separator ""
+          
           o.separator "These options are for BioGem"
+          
           #TODO: Scrivere le altre opzioni          
           o.on("--with-bin", 'create the bin directory and an executable template script called bioreponame') do
             self[:biogem_bin] = true
@@ -42,7 +45,9 @@ class Jeweler
           o.on("--with-test-data",'create the data directory inside the test directory if the user need to set up a test with its own dataset') do
             self[:biogem_test_data] = true
           end
-
+          
+          o.separator ""
+          
           o.separator "These options are for Jeweler"
 
           o.on('--rspec', 'generate rspec code examples') do
