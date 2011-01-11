@@ -31,7 +31,7 @@ class Jeweler
 
           o.separator "These options are for BioGem"
           #TODO: Scrivere le altre opzioni          
-          o.on("--with-bin", 'create the bin directory for your eecutable scripts') do
+          o.on("--with-bin", 'create the bin directory and an executable template script called bioreponame') do
             self[:biogem_bin] = true
           end
 
