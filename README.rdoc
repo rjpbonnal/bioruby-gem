@@ -44,6 +44,7 @@ Some of these steps have been condensed:
     BUT you'll require the library with bio-mystuff (and this will be the name used on rubygems)
   * creates a basic gem structure with a default dependencies for bioruby (bio) version 1.4.1
 	    |-- bin [optional = --with-bin]
+	    |   `-- biomystuff (executable)        
 	    |-- Gemfile
 	    |-- Gemfile.lock
 	    |-- LICENSE.txt
@@ -72,6 +73,51 @@ Some of these steps have been condensed:
   * $ rake version:bump:(major | minor | patch)
     the release will be increased by 1 and when you'll release it'll be updated. Note that in GitHub, bumping the version will create a tag with this version and your repository.So for every version you release there is a tag associated.
 
+== Options
+ These are the available options, they come from biogem and from jeweler. I don't know if in the future I'll keep all of them.
+
+Usage: biogem [options] reponame
+e.g. biogem the-perfect-gem
+        --directory [DIRECTORY]      specify the directory to generate into
+These options are for BioGem
+        --with-bin                   create the bin directory and an executable template script called bioreponame
+        --with-db                    create the database directory for a db application-library
+        --with-test-data             create the data directory inside the test directory if the user need to set up a test with its own dataset
+These options are for Jeweler
+        --rspec                      generate rspec code examples
+        --shoulda                    generate shoulda tests
+        --testunit                   generate test/unit tests
+        --bacon                      generate bacon specifications
+        --testspec                   generate test/spec tests
+        --minitest                   generate minitest tests
+        --micronaut                  generate micronaut examples
+        --riot                       generate riot tests
+        --shindo                     generate shindo tests
+
+        --[no-]bundler               use bundler for managing dependencies
+        --cucumber                   generate cucumber stories in addition to the other tests
+
+        --reek                       generate rake task for reek
+        --roodi                      generate rake task for roodi
+
+        --summary [SUMMARY]          specify the summary of the project
+        --description [DESCRIPTION]  specify a description of the project
+
+        --user-name [USER_NAME]      the user's name, ie that is credited in the LICENSE
+        --user-email [USER_EMAIL]    the user's email, ie that is credited in the Gem specification
+
+        --github-username [GITHUB_USERNAME]
+                                     name of the user on GitHub to set the project up under
+        --github-token [GITHUB_TOKEN]
+                                     GitHub token to use for interacting with the GitHub API
+        --git-remote [GIT_REMOTE]    URI to set the git origin remote to
+        --homepage [HOMEPAGE]        the homepage for your project (defaults to the GitHub repo)
+        --create-repo                create the repository on GitHub
+
+        --yard                       use yard for documentation
+        --rdoc                       use rdoc for documentation
+    -h, --help                       display this help and exit
+
 == NoTes For Developers
 
 * A GitHub Account is required and you MUST create a repository for your new bioruby plugin.
@@ -95,6 +141,7 @@ http://bioruby.open-bio.org/wiki/Plugins
 
 == TODO
 * better command line, wrap or re-implement some of the funcionalities provided by Bundler and Jeweler
+* use YAML for database configuration
 
 == Copyright
 
