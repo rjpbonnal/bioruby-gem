@@ -1,7 +1,36 @@
 #!/usr/bin/env ruby
-require '<%= project_name %>'
+#
+# <%= bin_name %>
+#
+# Author:: <%= user_name %>
+# Copyright:: <%= Time.now.year %>
+# License:: BSD License
+#
 
+USAGE = <<EOM
+
+  Describe <%= bin_name %>
+
+EOM
+
+rootpath = File.dirname(File.dirname(__FILE__))
+$: << File.join(rootpath,'lib')
+
+PROJECT_VERSION = File.new(File.join(rootpath,'VERSION')).read.chomp
+
+print "<%= bin_name %>(BioRuby <%= project_name %> Plugin) version "+PROJECT_VERSION+" Copyright (C) <%= Time.now.year %> <%= user_name %>\n\n"
+
+if ARGV.size == 0
+  print USAGE
+end
+
+require '<%= project_name %>'
 require 'optparse'
+
+# Uncomment when using the bio-logger 
+# require 'bio-logger'
+# Bio::Log::CLI.logger('stderr')
+# Bio::Log::CLI.trace('info')
 
 options = {:example_switch=>false,:show_help=>false}
 opts = OptionParser.new do |o|
@@ -18,6 +47,28 @@ opts = OptionParser.new do |o|
     self[:example_switch] = true
   end
 
+  # Uncomment the following when using the bio-logger 
+  # o.separator ""
+  # o.on("--logger filename",String,"Log to file (default stderr)") do | name |
+  #   Bio::Log::CLI.logger(name)
+  # end
+  #
+  # o.on("--trace options",String,"Set log level (default INFO, see bio-logger)") do | s |
+  #   Bio::Log::CLI.trace(s)
+  # end
+  # 
+  # o.on("-q", "--quiet", "Run quietly") do |q|
+  #   Bio::Log::CLI.trace('error')
+  # end
+  # 
+  # o.on("-v", "--verbose", "Run verbosely") do |v|
+  #   Bio::Log::CLI.trace('info')
+  # end
+  # 
+  # o.on("--debug", "Show debug messages") do |v|
+  #   Bio::Log::CLI.trace('debug')
+  # end
+
   o.separator ""
   o.on_tail('-h', '--help', 'display this help and exit') do
     options[:show_help] = true
@@ -26,6 +77,10 @@ end
 
 begin
   opts.parse!(ARGV)
+
+  # Uncomment the following when using the bio-logger 
+  # Bio::Log::CLI.configure('<%= project_name %>')
+
   # TODO: your code here
   # use options for your logic
 rescue OptionParser::InvalidOption => e
