@@ -4,7 +4,7 @@
 #
 # Author:: <%= user_name %>
 # Copyright:: <%= Time.now.year %>
-# License:: BSD License
+# License:: The Ruby License
 #
 
 USAGE = <<EOM
