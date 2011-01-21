@@ -1,24 +1,12 @@
 #!/usr/bin/env ruby
 #
-# <%= bin_name %>
-#
+# BioRuby <%= project_name %> Plugin
+# Version 0.0.0 
 # Author:: <%= user_name %>
 # Copyright:: <%= Time.now.year %>
 # License:: The Ruby License
-#
 
-USAGE = <<EOM
-
-  Describe <%= bin_name %>
-
-EOM
-
-rootpath = File.dirname(File.dirname(__FILE__))
-$: << File.join(rootpath,'lib')
-
-PROJECT_VERSION = File.new(File.join(rootpath,'VERSION')).read.chomp
-
-print "<%= bin_name %>(BioRuby <%= project_name %> Plugin) version "+PROJECT_VERSION+" Copyright (C) <%= Time.now.year %> <%= user_name %>\n\n"
+ USAGE = "Describe <%= bin_name %>"
 
 if ARGV.size == 0
   print USAGE
