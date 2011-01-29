@@ -1,0 +1,16 @@
+Rails.application.routes.draw do |map|
+
+  mount_at = <%= engine_module_name %>::Engine.config.mount_at
+
+# TODO: fix the name prefix, controller and path_prefix, I need to better understand Rails' routing.
+# there is a function ready for name_prefix engine_name_prefix
+# perhaps we need to pass also the single classes
+  # match mount_at => 'gex/pops#index'
+
+#   map.resources :populations, :only => [ :index, :show ],
+#                           :name_prefix => "bio_kb_gex_data_",
+#                           :controller => "bio/kb/gex/populations",                          
+# #                          :path_prefix => mount_at,
+
+<% puts_template_message "Remember to require this library in the Gemfile of your Rails application. Thanks!" %> 
+end
