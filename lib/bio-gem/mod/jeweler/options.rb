@@ -46,6 +46,11 @@ class Jeweler
             self[:biogem_test_data] = true
           end
           
+          o.on("--with-engine", 'create a Rails engine with the namespace give in input. Set default database creation') do |namespace|
+            self[:biogem_engine] = namespace
+            self[:biogem_db] = true
+          end
+          
           o.separator ""
           
           o.separator "These options are for Jeweler"

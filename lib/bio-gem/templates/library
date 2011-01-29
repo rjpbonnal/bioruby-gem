@@ -1,0 +1,6 @@
+
+if (defined?(Rails) && Rails::VERSION::MAJOR == 3)
+  require '<%= engine_name %>'
+else
+  #require the usual dependencies here
+end
