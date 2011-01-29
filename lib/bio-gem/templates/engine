@@ -1,7 +1,7 @@
 require '<%= require_name %>'
 require 'rails'
 
-module <%= project_name.split('-').map{|module| module.capitalize}.join %>
+module <%= engine_module_name %>
   class Engine < Rails::Engine
 
     # Config defaults
