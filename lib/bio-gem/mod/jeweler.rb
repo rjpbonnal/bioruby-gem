@@ -44,7 +44,20 @@ class Jeweler
     def bin_name
       "bio#{original_project_name}"
     end
-
+    
+    def engine_dirs
+      %w{app app/controllers app/views app/helpers config}
+    end
+    
+    def engine_mame
+      "#{project_name}-engine"
+      
+    end
+    
+    def engine_filename
+      "#{engine_name}.rb"
+    end
+    
     def render_template_generic(source, template_dir = template_dir_biogem)
       template_contents = File.read(File.join(template_dir, source))
       template          = ERB.new(template_contents, nil, '<>')
@@ -61,6 +74,15 @@ class Jeweler
 
       $stdout.puts "\tcreate\t#{destination}"
     end
+    
+    def output_template_in_target_generic_update(source, destination = source, template_dir = template_dir_biogem)
+      final_destination = File.join(target_dir, destination)
+      template_result   = render_template_generic(source, template_dir)
+
+      File.open(final_destination, 'a') {|file| file.write(template_result)}
+
+      $stdout.puts "\tcreate\t#{destination}"
+    end    
 
     def template_dir_biogem
       File.join(File.dirname(__FILE__),'..', 'templates')
@@ -76,9 +98,27 @@ class Jeweler
       mkdir_in_target db_dir if options[:biogem_db]
       if options[:biogem_bin] 
         mkdir_in_target bin_dir
+        # rendering my bin template
         output_template_in_target_generic 'bin', File.join(bin_dir, bin_name)
         # TODO: set the file as executable
         File.chmod 0655, File.join(target_dir, bin_dir, bin_name)
+      end
+      
+      #creates the strutures and files needed to have a ready to go Rails' engine
+      if namespace=options[:biogem_engine]
+        engine_dirs.each do |dir|
+          mkdir_in_target dir
+        end
+        output_template_in_target_generic 'engine', File.join('lib', engine_filename )
+        output_template_in_target_generic_update 'library', File.join('lib', lib_filename)
+        # TODO: scrivere il caricamento dell'engine nel caso sia in ambiente rails, nel file della libreria principale.
+        # example....
+        # if (defined?(Rails) && Rails::VERSION::MAJOR == 3)
+        #   require 'bio-kb-gex_data-engine'
+        # else
+        # end
+        
+        #aprire il lib_filename e appenderci il codice sopra, chiamare un erb    
       end
     end
 

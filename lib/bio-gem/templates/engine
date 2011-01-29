@@ -1,0 +1,30 @@
+require '<%= require_name %>'
+require 'rails'
+
+module <%= project_name.split('-').map{|module| module.capitalize}.join %>
+  class Engine < Rails::Engine
+
+    # Config defaults
+    config.widget_factory_name = "default factory name"
+    config.mount_at = '/'
+    
+    # # Load rake tasks
+    # rake_tasks do
+    #   load File.join(File.dirname(__FILE__), 'rails/railties/tasks.rake')
+    # end
+    
+    # Check the gem config
+    initializer "check config" do |app|
+      # make sure mount_at ends with trailing slash
+      config.mount_at += '/'  unless config.mount_at.last == '/'
+    end
+    
+    initializer "static assets" do |app|
+      app.middleware.use ::ActionDispatch::Static, "#{root}/public"
+    end
+    
+    # consider the possibility to keep the modules in the lib directory, which is more compatible
+    # with a normal gem/package
+    paths.app.models           << "lib"
+  end
+end
