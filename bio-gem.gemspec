@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Raoul J.P. Bonnal"]
-  s.date = %q{2011-01-20}
+  s.date = %q{2011-02-09}
   s.default_executable = %q{biogem}
   s.description = %q{BioGem is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .
   The basic idea is to simplify and promote a modular approach to the BioRuby package.}
