@@ -40,7 +40,7 @@ class Jeweler
     def bin_dir
       'bin'
     end
-    
+
     def bin_name
       "bio#{original_project_name}"
     end
@@ -72,8 +72,12 @@ class Jeweler
     #the options are defined in mod/jeweler/options.rb
     def create_files
       original_create_files
-      mkdir_in_target test_data_dir if options[:biogem_test_data]
-      mkdir_in_target db_dir if options[:biogem_db]
+      
+      if options[:biogem_test_data]
+        mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
+        mkdir_in_target test_data_dir  
+      end
+      mkdir_in_target(db_dir) if options[:biogem_db]
       if options[:biogem_bin] 
         mkdir_in_target bin_dir
         output_template_in_target_generic 'bin', File.join(bin_dir, bin_name)
