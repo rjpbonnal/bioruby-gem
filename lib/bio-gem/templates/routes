@@ -2,15 +2,39 @@ Rails.application.routes.draw do |map|
 
   mount_at = <%= engine_module_name %>::Engine.config.mount_at
 
-# TODO: fix the name prefix, controller and path_prefix, I need to better understand Rails' routing.
-# there is a function ready for name_prefix engine_name_prefix
-# perhaps we need to pass also the single classes
-  # match mount_at => 'gex/pops#index'
+## REMOVE
+##questa funziona come mappaggio per il singolo controller e deve essere preciso sul path 
+##  match mount_at => 'bio/kb/gex/populations#index'
+## REMOVE
 
-#   map.resources :populations, :only => [ :index, :show ],
-#                           :name_prefix => "bio_kb_gex_data_",
-#                           :controller => "bio/kb/gex/populations",                          
-# #                          :path_prefix => mount_at,
+#ROUTES from code below:
+# YourPathToTheControllerFiles = populations
+# OtherControllerName = slice
+# 
+#               gex     /gex(.:format)                        {:controller=>"bio/kb/gex/populations", :action=>"index"}
+# filter_population GET /gex/populations/:id/filter(.:format) {:action=>"filter", :controller=>"bio/kb/gex/populations"}
+#       populations GET /gex/populations(.:format)            {:action=>"index", :controller=>"bio/kb/gex/populations"}
+#        population GET /gex/populations/:id(.:format)        {:action=>"show", :controller=>"bio/kb/gex/populations"}
+#           samples GET /gex/samples(.:format)                {:action=>"index", :controller=>"bio/kb/gex/samples"}
+#            sample GET /gex/samples/:id(.:format)            {:action=>"show", :controller=>"bio/kb/gex/samples"}
+#            slices GET /gex/slices(.:format)                 {:action=>"index", :controller=>"bio/kb/gex/slices"}
+#             slice GET /gex/slices/:id(.:format)             {:action=>"show", :controller=>"bio/kb/gex/slices"}
+#  
+# Uncomment to activate the resource
+# :module=>'bio/kb/gex'
+# :ControllerName = :populations
+# :OtherControllerName = :sampels
+#
+#
+  scope mount_at, :module=>'SUBSITITUTE YourPathToTheControllerFiles'do    
+    resources :ControllerName, :only => [ :index, :show] do 
+      member do 
+        get :example
+      end #member      
+    end #resource
+    resources :SUBSTITUTEOtherControllerName, :only => [ :index, :show]
+  end #scope
 
 <% puts_template_message "Remember to require this library in the Gemfile of your Rails application. Thanks!" %> 
+
 end
