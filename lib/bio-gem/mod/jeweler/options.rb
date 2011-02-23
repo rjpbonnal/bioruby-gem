@@ -34,19 +34,19 @@ class Jeweler
           o.separator "These options are for BioGem"
           
           #TODO: Scrivere le altre opzioni          
-          o.on("--with-bin", 'create the bin directory and an executable template script called bioreponame') do
+          o.on('--with-bin', 'create the bin directory and an executable template script called bioreponame') do
             self[:biogem_bin] = true
           end
 
-          o.on("--with-db", 'create the database directory for a db application-library') do
+          o.on('--with-db', 'create the database directory for a db application-library.') do
             self[:biogem_db] = true
           end
 
-          o.on("--with-test-data",'create the data directory inside the test directory if the user need to set up a test with its own dataset') do
+          o.on('--with-test-data','create the data directory inside the test directory if the user need to set up a test with its own dataset') do
             self[:biogem_test_data] = true
           end
           
-          o.on("--with-engine", 'create a Rails engine with the namespace give in input. Set default database creation') do |namespace|
+          o.on('--with-engine [NAMESPACE]', 'create a Rails engine with the namespace give in input Set default database creation') do |namespace|
             self[:biogem_engine] = namespace
             self[:biogem_db] = true
           end
