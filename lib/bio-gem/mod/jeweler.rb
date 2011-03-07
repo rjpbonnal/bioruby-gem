@@ -67,7 +67,7 @@ class Jeweler
     end
 
     alias original_create_files create_files
-    # this is the defaul directory for storing library datasets
+    # this is the default directory for storing library datasets
     # creates a data directory for every needs.
     #the options are defined in mod/jeweler/options.rb
     def create_files
