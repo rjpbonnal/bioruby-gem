@@ -16,6 +16,11 @@ class Jeweler
     def project_name
       "bio-#{original_project_name}"
     end
+    
+    def lib_dir
+      'lib'
+    end
+    
     def lib_filename
       "#{project_name}.rb"
     end
@@ -84,6 +89,9 @@ class Jeweler
         # TODO: set the file as executable
         File.chmod 0655, File.join(target_dir, bin_dir, bin_name)
       end
+      
+      # Fill lib/bio-plugin.rb with some default comments
+      output_template_in_target_generic 'lib', File.join(lib_dir, lib_filename)
     end
 
     def create_and_push_repo
