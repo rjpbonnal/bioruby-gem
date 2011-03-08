@@ -8,7 +8,7 @@ Rails.application.routes.draw do |map|
 ## REMOVE
 
 #ROUTES from code below:
-# YourPathToTheControllerFiles = populations
+# YourPathToTheControllerFiles = bio/kb/gex
 # OtherControllerName = slice
 # 
 #               gex     /gex(.:format)                        {:controller=>"bio/kb/gex/populations", :action=>"index"}
@@ -35,6 +35,8 @@ Rails.application.routes.draw do |map|
     resources :SUBSTITUTEOtherControllerName, :only => [ :index, :show]
   end #scope
 
-<% puts_template_message "Remember to require this library in the Gemfile of your Rails application. Thanks!" %> 
+<% puts_template_message ["Remember to require this library in the Gemfile of your Rails application.",
+                          "Please take a look at #{target_dir}/lib/#{require_name}-engine.rb file for an example of how integrate your engine into a rails application.",
+                          "Thanks!"] %> 
 
 end
