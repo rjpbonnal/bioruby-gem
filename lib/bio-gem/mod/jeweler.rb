@@ -70,6 +70,10 @@ class Jeweler
       project_name.split('-').gsub(/-/,'_')<<'_'
     end
     
+    def engine_namespace
+      "/#{options[:biogem_engine]}"
+    end
+    
     def render_template_generic(source, template_dir = template_dir_biogem)
       template_contents = File.read(File.join(template_dir, source))
       template          = ERB.new(template_contents, nil, '<>')
@@ -131,14 +135,6 @@ class Jeweler
         output_template_in_target_generic 'engine', File.join('lib', engine_filename )
         output_template_in_target_generic_update 'library', File.join('lib', lib_filename)
         output_template_in_target_generic 'routes', File.join('config', "routes.rb" )
-        # TODO: scrivere il caricamento dell'engine nel caso sia in ambiente rails, nel file della libreria principale.
-        # example....
-        # if (defined?(Rails) && Rails::VERSION::MAJOR == 3)
-        #   require 'bio-kb-gex_data-engine'
-        # else
-        # end
-        
-        #aprire il lib_filename e appenderci il codice sopra, chiamare un erb    
       end
     end
 
@@ -156,6 +152,7 @@ class Jeweler
     def puts_template_message(message, length=70, padding=4)
       puts "*"*(length+padding*2+2)
       puts "*"+" "*(length+padding*2)+"*"
+      message=message.join("\n") if message.kind_of? Array
       message.scan(/.{1,70}/).map do |sub_message|
         puts "*"+" "*padding+sub_message+" "*(length-sub_message.size+padding)+"*"
       end

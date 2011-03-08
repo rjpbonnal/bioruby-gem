@@ -28,3 +28,15 @@ module <%= engine_module_name %>
     paths.app.models           << "lib"
   end
 end
+
+# #In your Rails application into 
+# # config/initializers
+# # create a file called <%= require_name %>.rb
+# # you can change the mount point of you engine, using option
+# # --with_engine=namespace like http://YourDomain:port/YourMountPoint
+# # Otherwise, if you want your RailsEngine to be called at root level, leave everything as it now, without that file.
+# module <%= engine_module_name %>
+#    class Engine < Rails::Engine
+#      config.mount_at = '<%= engine_namespace %>'
+#    end
+# end
