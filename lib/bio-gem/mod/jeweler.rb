@@ -9,7 +9,10 @@ class Jeweler
     alias original_initialize initialize
     def initialize(options = {})
       original_initialize(options)
-      development_dependencies  << ["bio", ">= 1.4.1"]
+      development_dependencies << ["bio", ">= 1.4.1"]
+      development_dependencies << ["activerecord", ">= 3.0.7"]
+      development_dependencies << ["activesupport", ">= 3.0.7"]
+      development_dependencies << ["sqlite3", ">= 1.3.3"]
     end
 
     alias original_project_name project_name  
@@ -58,17 +61,32 @@ class Jeweler
       template.result(binding).gsub(/\n\n\n+/, "\n\n")
     end
 
-    def output_template_in_target_generic(source, destination = source, template_dir = template_dir_biogem)
+    def output_template_in_target_generic(source, destination = source, template_dir = template_dir_biogem, write_type='w')
       final_destination = File.join(target_dir, destination)
       template_result   = render_template_generic(source, template_dir)
 
-      File.open(final_destination, 'w') {|file| file.write(template_result)}
-
-      $stdout.puts "\tcreate\t#{destination}"
+      File.open(final_destination, write_type) {|file| file.write(template_result)}
+      status = case write_type
+             when 'w' then 'create'
+             when 'a' then 'update'
+             end
+      $stdout.puts "\t#{status}\t#{destination}"
     end
 
     def template_dir_biogem
       File.join(File.dirname(__FILE__),'..', 'templates')
+    end
+    
+    
+    def create_db_structure
+      migrate_dir = File.join(db_dir, "migrate")
+      mkdir_in_target(db_dir)
+      mkdir_in_target(migrate_dir)
+      mkdir_in_target("conf")
+      output_template_in_target_generic 'database', File.join("conf", "database.yml")
+      output_template_in_target_generic 'migration', File.join(migrate_dir, "001_create_example.rb" )
+      output_template_in_target_generic 'seeds', File.join(db_dir, "seeds.rb")
+      output_template_in_target_generic 'rakefile', 'Rakefile', template_dir_biogem, 'a' #need to spec all the option to enable the append option
     end
 
     alias original_create_files create_files
@@ -82,7 +100,7 @@ class Jeweler
         mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
         mkdir_in_target test_data_dir  
       end
-      mkdir_in_target(db_dir) if options[:biogem_db]
+      create_db_structure if options[:biogem_db]
       if options[:biogem_bin] 
         mkdir_in_target bin_dir
         output_template_in_target_generic 'bin', File.join(bin_dir, bin_name)

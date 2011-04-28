@@ -52,8 +52,11 @@ Some of these steps have been condensed:
 	    |-- Rakefile
 	    |-- lib
 	    |   `-- bio-mystuff.rb
-	    |-- db [optional = --with-db]
-	    |   `-- empty but put here your datasets or database(SQLite3?)	
+	    |-- conf[optional = --with-db]
+	    |   `-- database.yml put here the configuration of your database like in a rails app
+	    |-- db  [optional = --with-db] empty but put here your datasets or database(SQLite3?)
+	    |   |-- seeds.rb a file containing the preloaded datasets, they will be loaded during db setup process
+	    |   `-- migrate directory for migration, you must create migrations by hand, there is a template inside.
 	    `-- test
 	        |-- data [optional = --with-test-data]
 	        |-- helper.rb
@@ -133,7 +136,39 @@ These options are for Jeweler
 * Help
   * please use help $ biogem -h to discover other options for creating rspec or cucumber tests
 
- Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bioruby.open-bio.org/wiki/BiogemInstallation.
+=== DataBaseConnection
+Is a best practices, at least for me, to have a dummy class which establishes the connection with the database and inherit that class by the models. The benefit of this approach is to have multiple connections available at the same time in case you are developing/using multiple gems with different databases. This file is located in lib/bio/kb
+
+    module Bio
+	  module KB
+	    class DummyMySpecialDB < ActiveRecord::Base
+	      self.abstract_class = true
+	      establish_connection(:adapter =>'sqlite3',:database =>"#{File.dirname(__FILE__)}/../../../db/mirbase.sqlite3")
+	    end
+	  end
+	end
+
+The model must be located in a directory structure like lib/bio/kb/mirbase this is important because ActiveRecord can map the namespace with the directory tree.
+
+    module Bio
+	  module KB
+	      module MySpecialDB
+	         class Mytable < Bio::KB::DummyMySpecialDB
+	         end
+	      end
+	  end
+	end
+
+=== Seeds
+Before populate you seeds.rb file you must declare a model. The model is declared in the usual Rails' way, see above.
+
+	 #Use this file to load a default dataset into your database
+	 %w(Raoul Toshiaki Francesco).each do |coder|
+	   Bio::KB::MySpecialDB::Example.create(:name=>coder, :tag=>"bioruby", :type=>"developer")
+	 end
+
+=== StepByStep
+Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bioruby.open-bio.org/wiki/BiogemInstallation.
 
 == BioRuby's Wiki Official Documentation
 
