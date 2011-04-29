@@ -181,12 +181,23 @@ Is a best practices, at least for me, to have a dummy class which establishes th
 	  module KB
 	    class DummyMySpecialDB < ActiveRecord::Base
 	      self.abstract_class = true
-	      establish_connection(:adapter =>'sqlite3',:database =>"#{File.dirname(__FILE__)}/../../../db/mirbase.sqlite3")
+	      establish_connection(:adapter =>'sqlite3',:database =>"#{File.dirname(__FILE__)}/../../../db/yourdb.sqlite3")
 	    end
 	  end
 	end
+	
+or you can use the configuration file db/database.yml and add this code to the module above. Note I don't like very much to add every time this code so in a future release I'll find out a way to add it automatically, probably overwriting the configurations call.
 
-The model must be located in a directory structure like lib/bio/kb/mirbase this is important because ActiveRecord can map the namespace with the directory tree.
+	root_path = File.join(File.dirname(__FILE__),"../../../")
+    configurations = YAML.load_file(File.join(root_path,"conf/database.yml"))
+    configurations.each_pair do |key, db_info|
+      db_info["database"] = File.join(root_path, db_info["database"]) if db_info["adapter"]=='sqlite3'
+    end
+    establish_connection(configurations["default"])
+
+This code is necessary because the db is inside the gem and you can't know where the file will be installed ( using the YAML config file.)
+
+The model must be located in a directory structure like lib/bio/kb/yourclass this is important because ActiveRecord can map the namespace with the directory tree.
 
     module Bio
 	  module KB
