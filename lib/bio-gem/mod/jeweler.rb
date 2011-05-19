@@ -10,20 +10,22 @@ class Jeweler
     def initialize(options = {})
       original_initialize(options)
       development_dependencies << ["bio", ">= 1.4.1"]
-      development_dependencies << ["activerecord", ">= 3.0.7"]
-      development_dependencies << ["activesupport", ">= 3.0.7"]
-      development_dependencies << ["sqlite3", ">= 1.3.3"]
+      if options[:biogem_db]
+        development_dependencies << ["activerecord", ">= 3.0.7"]
+        development_dependencies << ["activesupport", ">= 3.0.7"]
+        development_dependencies << ["sqlite3", ">= 1.3.3"]
+      end
     end
 
     alias original_project_name project_name  
     def project_name
       "bio-#{original_project_name}"
     end
-    
+
     def lib_dir
       'lib'
     end
-    
+
     def lib_filename
       "#{project_name}.rb"
     end
@@ -67,17 +69,17 @@ class Jeweler
 
       File.open(final_destination, write_type) {|file| file.write(template_result)}
       status = case write_type
-             when 'w' then 'create'
-             when 'a' then 'update'
-             end
+      when 'w' then 'create'
+      when 'a' then 'update'
+      end
       $stdout.puts "\t#{status}\t#{destination}"
     end
 
     def template_dir_biogem
       File.join(File.dirname(__FILE__),'..', 'templates')
     end
-    
-    
+
+
     def create_db_structure
       migrate_dir = File.join(db_dir, "migrate")
       mkdir_in_target(db_dir)
@@ -95,7 +97,7 @@ class Jeweler
     #the options are defined in mod/jeweler/options.rb
     def create_files
       original_create_files
-      
+
       if options[:biogem_test_data]
         mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
         mkdir_in_target test_data_dir  
@@ -107,7 +109,7 @@ class Jeweler
         # TODO: set the file as executable
         File.chmod 0655, File.join(target_dir, bin_dir, bin_name)
       end
-      
+
       # Fill lib/bio-plugin.rb with some default comments
       output_template_in_target_generic 'lib', File.join(lib_dir, lib_filename)
     end
