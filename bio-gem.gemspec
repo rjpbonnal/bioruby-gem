@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{bio-gem}
-  s.version = "0.2.2"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Raoul J.P. Bonnal"]
-  s.date = %q{2011-02-09}
+  s.date = %q{2011-08-05}
   s.default_executable = %q{biogem}
   s.description = %q{BioGem is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .
   The basic idea is to simplify and promote a modular approach to the BioRuby package.}
@@ -35,13 +35,18 @@ Gem::Specification.new do |s|
     "lib/bio-gem/mod/jeweler/github_mixin.rb",
     "lib/bio-gem/mod/jeweler/options.rb",
     "lib/bio-gem/templates/bin",
+    "lib/bio-gem/templates/database",
+    "lib/bio-gem/templates/lib",
+    "lib/bio-gem/templates/migration",
+    "lib/bio-gem/templates/rakefile",
+    "lib/bio-gem/templates/seeds",
     "test/helper.rb",
     "test/test_bio-gem.rb"
   ]
   s.homepage = %q{http://github.com/helios/bioruby-gem}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.5.0}
   s.summary = %q{BioGem helps Bioinformaticians start developing plugins/modules for BioRuby creating a scaffold and a gem package}
   s.test_files = [
     "test/helper.rb",
@@ -49,7 +54,6 @@ Gem::Specification.new do |s|
   ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
