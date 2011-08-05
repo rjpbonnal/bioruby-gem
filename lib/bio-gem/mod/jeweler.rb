@@ -96,22 +96,37 @@ class Jeweler
     # creates a data directory for every needs.
     #the options are defined in mod/jeweler/options.rb
     def create_files
-      original_create_files
+      if options[:biogem_meta]
+        unless File.exists?(target_dir) || File.directory?(target_dir)
+          FileUtils.mkdir target_dir
+        else
+          raise FileInTheWay, "The directory #{target_dir} already exists, aborting. Maybe move it out of the way before continuing?"
+        end
+        
+        output_template_in_target '.gitignore'
+        output_template_in_target 'Rakefile'
+        output_template_in_target 'Gemfile'  if should_use_bundler
+        output_template_in_target 'LICENSE.txt'
+        output_template_in_target 'README.rdoc'
+        output_template_in_target '.document'
+      else
+        original_create_files
 
-      if options[:biogem_test_data]
-        mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
-        mkdir_in_target test_data_dir  
-      end
-      create_db_structure if options[:biogem_db]
-      if options[:biogem_bin] 
-        mkdir_in_target bin_dir
-        output_template_in_target_generic 'bin', File.join(bin_dir, bin_name)
-        # TODO: set the file as executable
-        File.chmod 0655, File.join(target_dir, bin_dir, bin_name)
-      end
+        if options[:biogem_test_data]
+          mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
+          mkdir_in_target test_data_dir  
+        end
+        create_db_structure if options[:biogem_db]
+        if options[:biogem_bin] 
+          mkdir_in_target bin_dir
+          output_template_in_target_generic 'bin', File.join(bin_dir, bin_name)
+          # TODO: set the file as executable
+          File.chmod 0655, File.join(target_dir, bin_dir, bin_name)
+        end
 
-      # Fill lib/bio-plugin.rb with some default comments
-      output_template_in_target_generic 'lib', File.join(lib_dir, lib_filename)
+        # Fill lib/bio-plugin.rb with some default comments
+        output_template_in_target_generic 'lib', File.join(lib_dir, lib_filename)
+      end #not_bio_gem_meta
     end
 
     def create_and_push_repo

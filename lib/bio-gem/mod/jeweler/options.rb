@@ -33,7 +33,13 @@ class Jeweler
           
           o.separator "These options are for BioGem"
           
-          #TODO: Scrivere le altre opzioni          
+          #TODO: Scrivere le altre opzioni
+          
+          #Note this option has the priority over all the other options.
+          o.on("--meta", 'create a meta package, just the Rakefile, Gemfile, Licence, Readme. This options takes the precedence over every other option.') do
+            self[:biogem_meta] = true
+          end
+          
           o.on("--with-bin", 'create the bin directory and an executable template script called bioreponame') do
             self[:biogem_bin] = true
           end
