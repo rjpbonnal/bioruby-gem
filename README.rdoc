@@ -1,7 +1,9 @@
 = bioruby-gem
 
-BioGem is a scaffold generator for those Bioinformaticans who want to start coding an application or a library
-for using/extending BioRuby's core library and sharing it through http://rubygems.org .
+BioGem is a scaffold generator for those Bioinformaticans who want to
+start coding an application or a library for using/extending BioRuby's
+core library and sharing it through http://rubygems.org . Biogems are
+listed at http://biogems.info
 
 The basic idea is to simplify and promote a modular approach to the BioRuby package.
 
