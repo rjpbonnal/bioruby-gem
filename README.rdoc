@@ -85,6 +85,7 @@ Usage: biogem [options] reponame
 e.g. biogem the-perfect-gem
         --directory [DIRECTORY]      specify the directory to generate into
 These options are for BioGem
+        --meta                       create a meta package, just the Rakefile, Gemfile, Licence, Readme. This options takes the precedence over every other option.
         --with-bin                   create the bin directory and an executable template script called bioreponame
         --with-db                    create the database directory for a db application-library
         --with-test-data             create the data directory inside the test directory if the user need to set up a test with its own dataset
