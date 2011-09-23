@@ -126,40 +126,40 @@ These options are for Jeweler
 
 == Tasks
 
-	rake build               # Build gem into pkg/
-	rake clobber_rcov        # Remove rcov products for rcov
-	rake clobber_rdoc        # Remove rdoc products
-	rake console[script]     # Start IRB with all runtime dependencies loaded
-	rake db:create           # Create the database from config/database.yml for the current default (use db:create:all to create all dbs in the config)
-	rake db:drop             # Drops the database for the current default (use db:drop:all to drop all databases)
-	rake db:fixtures:load    # Load fixtures into the current environment's database.
-	rake db:migrate          # Migrate the database (options: VERSION=x, VERBOSE=false).
-	rake db:migrate:status   # Display status of migrations
-	rake db:rollback         # Rolls the schema back to the previous version (specify steps w/ STEP=n).
-	rake db:schema:dump      # Create a db/schema.rb file that can be portably used against any DB supported by AR
-	rake db:schema:load      # Load a schema.rb file into the database
-	rake db:seed             # Load the seed data from db/seeds.rb
-	rake db:setup            # Create the database, load the schema, and initialize with the seed data (use db:reset to also drop the db first)
-	rake db:structure:dump   # Dump the database structure to an SQL file
-	rake db:version          # Retrieves the current schema version number
-	rake gemcutter:release   # Release gem to Gemcutter
-	rake gemspec             # Generate and validate gemspec
-	rake gemspec:debug       # Display the gemspec for debugging purposes, as jeweler knows it (not from the filesystem)
-	rake gemspec:generate    # Regenreate the gemspec on the filesystem
-	rake gemspec:release     # Regenerate and validate gemspec, and then commits and pushes to git
-	rake gemspec:validate    # Validates the gemspec on the filesystem
-	rake git:release         # Tag and push release to git.
-	rake install             # Build and install gem using `gem install`
-	rake rcov                # Analyze code coverage with tests
-	rake rdoc                # Build the rdoc HTML Files
-	rake release             # Release gem
-	rake rerdoc              # Force a rebuild of the RDOC files
-	rake test                # Run tests
-	rake version             # Displays the current version
-	rake version:bump:major  # Bump the major version by 1
-	rake version:bump:minor  # Bump the a minor version by 1
-	rake version:bump:patch  # Bump the patch version by 1
-	rake version:write       # Writes out an explicit version.
+    rake build               # Build gem into pkg/
+    rake clobber_rcov        # Remove rcov products for rcov
+    rake clobber_rdoc        # Remove rdoc products
+    rake console[script]     # Start IRB with all runtime dependencies loaded
+    rake db:create           # Create the database from config/database.yml for the current default (use db:create:all to create all dbs in the config)
+    rake db:drop             # Drops the database for the current default (use db:drop:all to drop all databases)
+    rake db:fixtures:load    # Load fixtures into the current environment's database.
+    rake db:migrate          # Migrate the database (options: VERSION=x, VERBOSE=false).
+    rake db:migrate:status   # Display status of migrations
+    rake db:rollback         # Rolls the schema back to the previous version (specify steps w/ STEP=n).
+    rake db:schema:dump      # Create a db/schema.rb file that can be portably used against any DB supported by AR
+    rake db:schema:load      # Load a schema.rb file into the database
+    rake db:seed             # Load the seed data from db/seeds.rb
+    rake db:setup            # Create the database, load the schema, and initialize with the seed data (use db:reset to also drop the db first)
+    rake db:structure:dump   # Dump the database structure to an SQL file
+    rake db:version          # Retrieves the current schema version number
+    rake gemcutter:release   # Release gem to Gemcutter
+    rake gemspec             # Generate and validate gemspec
+    rake gemspec:debug       # Display the gemspec for debugging purposes, as jeweler knows it (not from the filesystem)
+    rake gemspec:generate    # Regenreate the gemspec on the filesystem
+    rake gemspec:release     # Regenerate and validate gemspec, and then commits and pushes to git
+    rake gemspec:validate    # Validates the gemspec on the filesystem
+    rake git:release         # Tag and push release to git.
+    rake install             # Build and install gem using `gem install`
+    rake rcov                # Analyze code coverage with tests
+    rake rdoc                # Build the rdoc HTML Files
+    rake release             # Release gem
+    rake rerdoc              # Force a rebuild of the RDOC files
+    rake test                # Run tests
+    rake version             # Displays the current version
+    rake version:bump:major  # Bump the major version by 1
+    rake version:bump:minor  # Bump the a minor version by 1
+    rake version:bump:patch  # Bump the patch version by 1
+    rake version:write       # Writes out an explicit version.
 
 
 == NoTes For Developers
