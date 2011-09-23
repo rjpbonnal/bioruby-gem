@@ -47,35 +47,31 @@ Gem::Specification.new do |s|
   s.require_paths = [%q{lib}]
   s.rubygems_version = %q{1.8.6}
   s.summary = %q{BioGem helps Bioinformaticians start developing plugins/modules for BioRuby creating a scaffold and a gem package}
-  s.test_files = [
-    "test/helper.rb",
-    "test/test_bio-gem.rb"
-  ]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<bundler>, ["~> 1.0.18"])
-      s.add_runtime_dependency(%q<jeweler>, ["~> 1.5.2"])
+      s.add_runtime_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.18"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
+      s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
     else
       s.add_dependency(%q<bundler>, ["~> 1.0.18"])
-      s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
+      s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.18"])
-      s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
+      s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
     end
   else
     s.add_dependency(%q<bundler>, ["~> 1.0.18"])
-    s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
+    s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.18"])
-    s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
+    s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<rcov>, [">= 0"])
   end
 end
