@@ -1,5 +1,9 @@
-require 'rubygems'
+require 'jeweler/generator'
 require 'bundler'
+require 'bundler/cli'
+require 'fileutils'
+require 'rake'
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -12,7 +16,8 @@ require 'shoulda'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'bioruby-gem'
+
+require 'bio-gem'
 
 class Test::Unit::TestCase
 end
