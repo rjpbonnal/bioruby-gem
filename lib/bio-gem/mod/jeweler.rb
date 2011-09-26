@@ -9,7 +9,7 @@ class Jeweler
     alias original_initialize initialize
     def initialize(options = {})
       original_initialize(options)
-      development_dependencies << ["bio", ">= 1.4.1"]
+      development_dependencies << ["bio", ">= 1.4.2"]
       if options[:biogem_db]
         development_dependencies << ["activerecord", ">= 3.0.7"]
         development_dependencies << ["activesupport", ">= 3.0.7"]

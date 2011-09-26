@@ -44,7 +44,7 @@ Some of these steps have been condensed:
 * $ biogem mystuff
   * pass just the simple name, it will add bioruby- for the first level directory and for the github repository
     BUT you'll require the library with bio-mystuff (and this will be the name used on rubygems)
-  * creates a basic gem structure with a default dependencies for bioruby (bio) version 1.4.1
+  * creates a basic gem structure with a default dependencies for bioruby (bio) version 1.4.2
 	    |-- bin [optional = --with-bin]
 	    |   `-- biomystuff (executable)        
 	    |-- Gemfile
