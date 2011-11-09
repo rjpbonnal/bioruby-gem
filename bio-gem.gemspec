@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Raoul J.P. Bonnal}]
-  s.date = %q{2011-09-26}
+  s.date = %q{2011-11-09}
   s.description = %q{BioGem is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .
   The basic idea is to simplify and promote a modular approach to the BioRuby package.}
   s.email = %q{ilpuccio.febo@gmail.com}
@@ -35,9 +35,16 @@ Gem::Specification.new do |s|
     "lib/bio-gem/mod/jeweler/options.rb",
     "lib/bio-gem/templates/bin",
     "lib/bio-gem/templates/database",
+    "lib/bio-gem/templates/engine",
+    "lib/bio-gem/templates/foos_controller",
+    "lib/bio-gem/templates/foos_view_example",
+    "lib/bio-gem/templates/foos_view_index",
+    "lib/bio-gem/templates/foos_view_show",
     "lib/bio-gem/templates/lib",
+    "lib/bio-gem/templates/library",
     "lib/bio-gem/templates/migration",
     "lib/bio-gem/templates/rakefile",
+    "lib/bio-gem/templates/routes",
     "lib/bio-gem/templates/seeds",
     "test/helper.rb",
     "test/test_bio-gem.rb"
