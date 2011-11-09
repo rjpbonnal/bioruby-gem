@@ -5,6 +5,7 @@ module <%= engine_module_name %>
   class Engine < Rails::Engine
 
     # Config defaults
+# DEPRECATED
     config.widget_factory_name = "default factory name"
     config.mount_at = '/'
     
@@ -25,7 +26,7 @@ module <%= engine_module_name %>
     
     # consider the possibility to keep the modules in the lib directory, which is more compatible
     # with a normal gem/package
-    paths.app.models           << "lib"
+    paths["app/models"]           << "lib"
   end
 end
 
@@ -37,6 +38,6 @@ end
 # # Otherwise, if you want your RailsEngine to be called at root level, leave everything as it now, without that file.
 # module <%= engine_module_name %>
 #    class Engine < Rails::Engine
-#      config.mount_at = '<%= engine_namespace %>'
+#      engine_name = '<%= engine_namespace %>'
 #    end
 # end

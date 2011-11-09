@@ -1,11 +1,8 @@
-Rails.application.routes.draw do |map|
+Rails.application.routes.draw do
 
-  mount_at = <%= engine_module_name %>::Engine.config.mount_at
+ #DEPRECATED 
+ mount_at = <%= engine_module_name %>::Engine.engine_name== "<%= engine_module_name.underscore %>_engine" ? "" : <%= engine_module_name %>::Engine.engine_name
 
-## REMOVE
-##questa funziona come mappaggio per il singolo controller e deve essere preciso sul path 
-##  match mount_at => 'bio/kb/gex/populations#index'
-## REMOVE
 
 #ROUTES from code below:
 # YourPathToTheControllerFiles = bio/kb/gex
@@ -20,20 +17,21 @@ Rails.application.routes.draw do |map|
 #            slices GET /gex/slices(.:format)                 {:action=>"index", :controller=>"bio/kb/gex/slices"}
 #             slice GET /gex/slices/:id(.:format)             {:action=>"show", :controller=>"bio/kb/gex/slices"}
 #  
-# Uncomment to activate the resource
-# :module=>'bio/kb/gex'
-# :ControllerName = :populations
-# :OtherControllerName = :sampels
-#
-#
-  scope mount_at, :module=>'SUBSITITUTE YourPathToTheControllerFiles'do    
-    resources :ControllerName, :only => [ :index, :show] do 
-      member do 
-        get :example
-      end #member      
-    end #resource
-    resources :SUBSTITUTEOtherControllerName, :only => [ :index, :show]
-  end #scope
+# Uncomment to activate the resources
+## or you can reconfigure mount_at 
+## mount <%= engine_module_name %>::Engine=>"your_mount_point", :as=>'your_personal_engine_name' # but is better to redefine the mount point in the Rails application.
+# yourPathToTheControllerFiles = 'foopath'
+# controllerName = :foos
+# otherControllerName = :sampels
+# ---
+# scope mount_at, yourPathToTheControllerFiles do    
+#   resources controllerName, :only => [ :index, :show] do
+#     member do
+#       get :example
+#     end
+#   end
+#   resources otherControllerName, :only =>[:index, :show]
+# end #scope
 
 <% puts_template_message ["Remember to require this library in the Gemfile of your Rails application.",
                           "Please take a look at #{target_dir}/lib/#{require_name}-engine.rb file for an example of how integrate your engine into a rails application.",
