@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
     "lib/bio-gem/templates/foos_view_example",
     "lib/bio-gem/templates/foos_view_index",
     "lib/bio-gem/templates/foos_view_show",
-    "lib/bio-gem/templates/lib",
+    "lib/bio-gem/templates/lib",  
     "lib/bio-gem/templates/library",
     "lib/bio-gem/templates/migration",
     "lib/bio-gem/templates/rakefile",

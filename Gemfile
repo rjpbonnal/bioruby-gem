@@ -4,6 +4,7 @@ source "http://rubygems.org"
 #   gem "activesupport", ">= 2.3.5"
 gem "bundler", "~> 1.0.18"
 gem "jeweler", "~> 1.6.4"
+gem "rdoc"
 
 
 # Add dependencies to develop your gem here.
@@ -13,4 +14,5 @@ group :development do
   gem "bundler", "~> 1.0.18"
   gem "jeweler", "~> 1.6.4"
   gem "rcov", ">= 0"
+  gem "rdoc"
 end
