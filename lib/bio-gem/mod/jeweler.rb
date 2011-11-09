@@ -137,8 +137,10 @@ class Jeweler
       'token' => github_token,
       'description' => summary,
       'name' => github_repo_name
+      # BY DEFAULT THE REPO IS CREATED
+      # DO NOT PUSH THE REPO BECAUSE USER MUST ADD INFO TO CONFIGURATION FILES
       # TODO do a HEAD request to see when it's ready?
-      @repo.push('origin')
+      #@repo.push('origin')
     end
   end #Generator
 end #Jeweler
