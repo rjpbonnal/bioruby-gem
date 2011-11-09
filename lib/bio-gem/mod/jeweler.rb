@@ -5,12 +5,12 @@ require 'bio-gem/mod/jeweler/github_mixin'
 
 class String
   def underscore
-       self.gsub(/::/, '/').
-         gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-         gsub(/([a-z\d])([A-Z])/,'\1_\2').
-         tr("-", "_").
-         downcase
-     end
+    self.gsub(/::/, '/').
+    gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+    gsub(/([a-z\d])([A-Z])/,'\1_\2').
+    tr("-", "_").
+    downcase
+  end
 end
 
 class Jeweler
@@ -27,7 +27,7 @@ class Jeweler
       end
     end
 
-     alias original_project_name project_name  
+    alias original_project_name project_name  
     def project_name
       prj_name = original_project_name=~/^bio-/ ? original_project_name : "bio-#{original_project_name}" 
       prj_name
@@ -65,31 +65,31 @@ class Jeweler
     def bin_name
       "bio#{original_project_name}"
     end
-    
+
     def engine_dirs
       %w{app app/controllers app/views app/helpers config app/views/foos}
     end
-    
+
     def engine_name
       "#{project_name}-engine"
     end
-    
+
     def engine_filename
       "#{engine_name}.rb"
     end
-    
+
     def engine_module_name
       project_name.split('-').map{|module_sub_name| module_sub_name.capitalize}.join      
     end
-    
+
     def engine_name_prefix
       project_name.split('-').gsub(/-/,'_')<<'_'
     end
-    
+
     def engine_namespace
       "/#{options[:biogem_engine]}"
     end
-    
+
     def render_template_generic(source, template_dir = template_dir_biogem)
       template_contents = File.read(File.join(template_dir, source))
       template          = ERB.new(template_contents, nil, '<>')
@@ -109,7 +109,7 @@ class Jeweler
       end
       $stdout.puts "\t#{status}\t#{destination}"
     end
-    
+
     def output_template_in_target_generic_update(source, destination = source, template_dir = template_dir_biogem)
       final_destination = File.join(target_dir, destination)
       template_result   = render_template_generic(source, template_dir)
@@ -147,7 +147,7 @@ class Jeweler
         else
           raise FileInTheWay, "The directory #{target_dir} already exists, aborting. Maybe move it out of the way before continuing?"
         end
-        
+
         output_template_in_target '.gitignore'
         output_template_in_target 'Rakefile'
         output_template_in_target 'Gemfile'  if should_use_bundler
@@ -156,7 +156,7 @@ class Jeweler
         output_template_in_target '.document'
       else
         original_create_files
-        
+
         if options[:biogem_test_data]
           mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
           mkdir_in_target test_data_dir  
@@ -168,10 +168,10 @@ class Jeweler
           # TODO: set the file as executable
           File.chmod 0655, File.join(target_dir, bin_dir, bin_name)
         end
-        
+
         # Fill lib/bio-plugin.rb with some default comments
         output_template_in_target_generic 'lib', File.join(lib_dir, lib_filename)
-                
+
         #creates the strutures and files needed to have a ready to go Rails' engine
         if namespace=options[:biogem_engine]
           engine_dirs.each do |dir|
@@ -189,18 +189,22 @@ class Jeweler
     end
 
     def create_and_push_repo
-      Net::HTTP.post_form URI.parse('http://github.com/api/v2/yaml/repos/create'),
-      'login' => github_username,
-      'token' => github_token,
-      'description' => summary,
-      'name' => github_repo_name
-      # BY DEFAULT THE REPO IS CREATED
-      # DO NOT PUSH THE REPO BECAUSE USER MUST ADD INFO TO CONFIGURATION FILES
-      # TODO do a HEAD request to see when it's ready?
-      #@repo.push('origin')
+      begin 
+        Net::HTTP.post_form URI.parse('http://github.com/api/v2/yaml/repos/create'),
+        'login' => github_username,
+        'token' => github_token,
+        'description' => summary,
+        'name' => github_repo_name
+        # BY DEFAULT THE REPO IS CREATED
+        # DO NOT PUSH THE REPO BECAUSE USER MUST ADD INFO TO CONFIGURATION FILES
+        # TODO do a HEAD request to see when it's ready?
+        #@repo.push('origin')
+      rescue  SocketError => se
+        puts_template_message("Seems you are not connected to Internet, can't create a remote repository. Do not forget to create it by hand, from GitHub, and sync it with this project.")
+      end
     end
-    
-    
+
+
     def puts_template_message(message, length=70, padding=4)
       puts "*"*(length+padding*2+2)
       puts "*"+" "*(length+padding*2)+"*"
