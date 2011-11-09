@@ -9,18 +9,24 @@ class Jeweler
     alias original_initialize initialize
     def initialize(options = {})
       original_initialize(options)
-      development_dependencies  << ["bio", ">= 1.4.1"]
+      development_dependencies << ["bio", ">= 1.4.2"]
+      if options[:biogem_db]
+        development_dependencies << ["activerecord", ">= 3.0.7"]
+        development_dependencies << ["activesupport", ">= 3.0.7"]
+        development_dependencies << ["sqlite3", ">= 1.3.3"]
+      end
     end
 
-    alias original_project_name project_name  
+     alias original_project_name project_name  
     def project_name
-      "bio-#{original_project_name}"
+      prj_name = original_project_name=~/^bio-/ ? original_project_name : "bio-#{original_project_name}" 
+      prj_name
     end
-    
+
     def lib_dir
       'lib'
     end
-    
+
     def lib_filename
       "#{project_name}.rb"
     end
@@ -82,13 +88,16 @@ class Jeweler
       template.result(binding).gsub(/\n\n\n+/, "\n\n")
     end
 
-    def output_template_in_target_generic(source, destination = source, template_dir = template_dir_biogem)
+    def output_template_in_target_generic(source, destination = source, template_dir = template_dir_biogem, write_type='w')
       final_destination = File.join(target_dir, destination)
       template_result   = render_template_generic(source, template_dir)
 
-      File.open(final_destination, 'w') {|file| file.write(template_result)}
-
-      $stdout.puts "\tcreate\t#{destination}"
+      File.open(final_destination, write_type) {|file| file.write(template_result)}
+      status = case write_type
+      when 'w' then 'create'
+      when 'a' then 'update'
+      end
+      $stdout.puts "\t#{status}\t#{destination}"
     end
     
     def output_template_in_target_generic_update(source, destination = source, template_dir = template_dir_biogem)
@@ -104,38 +113,65 @@ class Jeweler
       File.join(File.dirname(__FILE__),'..', 'templates')
     end
 
+
+    def create_db_structure
+      migrate_dir = File.join(db_dir, "migrate")
+      mkdir_in_target(db_dir)
+      mkdir_in_target(migrate_dir)
+      mkdir_in_target("conf")
+      output_template_in_target_generic 'database', File.join("conf", "database.yml")
+      output_template_in_target_generic 'migration', File.join(migrate_dir, "001_create_example.rb" )
+      output_template_in_target_generic 'seeds', File.join(db_dir, "seeds.rb")
+      output_template_in_target_generic 'rakefile', 'Rakefile', template_dir_biogem, 'a' #need to spec all the option to enable the append option
+    end
+
     alias original_create_files create_files
     # this is the default directory for storing library datasets
     # creates a data directory for every needs.
     #the options are defined in mod/jeweler/options.rb
     def create_files
-      original_create_files
-      
-      if options[:biogem_test_data]
-        mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
-        mkdir_in_target test_data_dir  
-      end
-      mkdir_in_target(db_dir) if options[:biogem_db]
-      if options[:biogem_bin] 
-        mkdir_in_target bin_dir
-        # rendering my bin template
-        output_template_in_target_generic 'bin', File.join(bin_dir, bin_name)
-        # TODO: set the file as executable
-        File.chmod 0655, File.join(target_dir, bin_dir, bin_name)
-      end
-      
-      # Fill lib/bio-plugin.rb with some default comments
-      output_template_in_target_generic 'lib', File.join(lib_dir, lib_filename)
+      if options[:biogem_meta]
 
-      #creates the strutures and files needed to have a ready to go Rails' engine
-      if namespace=options[:biogem_engine]
-        engine_dirs.each do |dir|
-          mkdir_in_target dir
+        unless File.exists?(target_dir) || File.directory?(target_dir)
+          FileUtils.mkdir target_dir
+        else
+          raise FileInTheWay, "The directory #{target_dir} already exists, aborting. Maybe move it out of the way before continuing?"
         end
-        output_template_in_target_generic 'engine', File.join('lib', engine_filename )
-        output_template_in_target_generic_update 'library', File.join('lib', lib_filename)
-        output_template_in_target_generic 'routes', File.join('config', "routes.rb" )
-      end
+        
+        output_template_in_target '.gitignore'
+        output_template_in_target 'Rakefile'
+        output_template_in_target 'Gemfile'  if should_use_bundler
+        output_template_in_target 'LICENSE.txt'
+        output_template_in_target 'README.rdoc'
+        output_template_in_target '.document'
+      else
+        original_create_files
+        
+        if options[:biogem_test_data]
+          mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
+          mkdir_in_target test_data_dir  
+        end
+        create_db_structure if options[:biogem_db]
+        if options[:biogem_bin] 
+          mkdir_in_target bin_dir
+          output_template_in_target_generic 'bin', File.join(bin_dir, bin_name)
+          # TODO: set the file as executable
+          File.chmod 0655, File.join(target_dir, bin_dir, bin_name)
+        end
+        
+        # Fill lib/bio-plugin.rb with some default comments
+        output_template_in_target_generic 'lib', File.join(lib_dir, lib_filename)
+                
+        #creates the strutures and files needed to have a ready to go Rails' engine
+        if namespace=options[:biogem_engine]
+          engine_dirs.each do |dir|
+            mkdir_in_target dir
+          end
+          output_template_in_target_generic 'engine', File.join('lib', engine_filename )
+          output_template_in_target_generic_update 'library', File.join('lib', lib_filename)
+          output_template_in_target_generic 'routes', File.join('config', "routes.rb" )
+        end
+      end #not_bio_gem_meta
     end
 
     def create_and_push_repo
@@ -144,8 +180,10 @@ class Jeweler
       'token' => github_token,
       'description' => summary,
       'name' => github_repo_name
+      # BY DEFAULT THE REPO IS CREATED
+      # DO NOT PUSH THE REPO BECAUSE USER MUST ADD INFO TO CONFIGURATION FILES
       # TODO do a HEAD request to see when it's ready?
-      @repo.push('origin')
+      #@repo.push('origin')
     end
     
     

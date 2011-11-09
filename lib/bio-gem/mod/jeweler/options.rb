@@ -10,6 +10,7 @@ class Jeweler
         self[:testing_framework]       = :shoulda
         self[:documentation_framework] = :rdoc
         self[:use_bundler]             = true
+        self[:create_repo]             = true
 
         git_config =  if Pathname.new("~/.gitconfig").expand_path.exist?
           Git.global_config
@@ -33,8 +34,14 @@ class Jeweler
           
           o.separator "These options are for BioGem"
           
-          #TODO: Scrivere le altre opzioni          
-          o.on('--with-bin', 'create the bin directory and an executable template script called bioreponame') do
+          #TODO: Scrivere le altre opzioni
+          
+          #Note this option has the priority over all the other options.
+          o.on("--meta", 'create a meta package, just the Rakefile, Gemfile, Licence, Readme. This options takes the precedence over every other option.') do
+            self[:biogem_meta] = true
+          end
+          
+          o.on("--with-bin", 'create the bin directory and an executable template script called bioreponame') do
             self[:biogem_bin] = true
           end
 

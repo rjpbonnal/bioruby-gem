@@ -5,16 +5,15 @@
 
 Gem::Specification.new do |s|
   s.name = %q{bio-gem}
-  s.version = "0.2.2"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Raoul J.P. Bonnal"]
-  s.date = %q{2011-02-09}
-  s.default_executable = %q{biogem}
+  s.authors = [%q{Raoul J.P. Bonnal}]
+  s.date = %q{2011-09-26}
   s.description = %q{BioGem is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .
   The basic idea is to simplify and promote a modular approach to the BioRuby package.}
   s.email = %q{ilpuccio.febo@gmail.com}
-  s.executables = ["biogem"]
+  s.executables = [%q{biogem}]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -35,38 +34,44 @@ Gem::Specification.new do |s|
     "lib/bio-gem/mod/jeweler/github_mixin.rb",
     "lib/bio-gem/mod/jeweler/options.rb",
     "lib/bio-gem/templates/bin",
+    "lib/bio-gem/templates/database",
+    "lib/bio-gem/templates/lib",
+    "lib/bio-gem/templates/migration",
+    "lib/bio-gem/templates/rakefile",
+    "lib/bio-gem/templates/seeds",
     "test/helper.rb",
     "test/test_bio-gem.rb"
   ]
   s.homepage = %q{http://github.com/helios/bioruby-gem}
-  s.licenses = ["MIT"]
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.licenses = [%q{MIT}]
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.6}
   s.summary = %q{BioGem helps Bioinformaticians start developing plugins/modules for BioRuby creating a scaffold and a gem package}
-  s.test_files = [
-    "test/helper.rb",
-    "test/test_bio-gem.rb"
-  ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<bundler>, ["~> 1.0.18"])
+      s.add_runtime_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
-      s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.5.1"])
+      s.add_development_dependency(%q<bundler>, ["~> 1.0.18"])
+      s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
     else
+      s.add_dependency(%q<bundler>, ["~> 1.0.18"])
+      s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<shoulda>, [">= 0"])
-      s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.5.1"])
+      s.add_dependency(%q<bundler>, ["~> 1.0.18"])
+      s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
     end
   else
+    s.add_dependency(%q<bundler>, ["~> 1.0.18"])
+    s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<shoulda>, [">= 0"])
-    s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.5.1"])
+    s.add_dependency(%q<bundler>, ["~> 1.0.18"])
+    s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<rcov>, [">= 0"])
   end
 end
