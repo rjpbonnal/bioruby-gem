@@ -70,7 +70,7 @@ Some of these steps have been condensed:
 * $ rake install (for local test)
 * hack, git add and commit
   * NOTE: It's very important that you add new and changed files so they can be included in the gem you will create, otherwise the files will not be include and you'll end up with a broken gem with missing files.
-* $ rake git:release (Before releasing on github or rubygems please see the Notes For Developers)
+* $ rake git:release (Before releasing on github or rubygems please see the Notes For Developers). Note: the brand new project is automatically uploaded on GitHub at creation time.
 * WHEN you have finished with the hacking you can release the gem by typing:
   * $ rake release
 
@@ -89,6 +89,7 @@ These options are for BioGem
         --with-bin                   create the bin directory and an executable template script called bioreponame
         --with-db                    create the database directory for a db application-library
         --with-test-data             create the data directory inside the test directory if the user need to set up a test with its own dataset
+        --with-engine [NAMESPACE]    create a Rails engine with the namespace given in input. Dy default set up the environment to use an SQLite3 database
 These options are for Jeweler
         --rspec                      generate rspec code examples
         --shoulda                    generate shoulda tests
@@ -164,16 +165,15 @@ These options are for Jeweler
 
 == NoTes For Developers
 
-* A GitHub Account is required and you MUST create a repository for your new bioruby plugin.
-  The name of the repository follows this rules:
-  bioruby-mystuff
-  on your local directory you will see bioruby-mystuff but on rubygems you will publish bio-mystuff.
-  This is a clash of namespaces but I think in this way makes more sense.
-* Before start developing open Rakefile and modify the gem.summary and gem.description. These parameters are very important because let you describe your gem and why we need it. If you let them by default the gem will not be packed, it's just a countermeasure :-)
+* A GitHub Account is required. The name of the repository follows this rules:
+  bioruby-mystuff 
+on your local directory you will see bioruby-mystuff but on rubygems you will publish bio-mystuff. This is a clash of namespaces but I think in this way makes more sense.
+  * It's VERY IMPORTANT you set up your GitHub environment correctly, please follow the official guide http://help.github.com/set-your-user-name-email-and-github-token/ (USERNAME, EMAIL, TOKEN are very very important)
+* Before start developing open Rakefile and modify the gem.summary and gem.description. These parameters are fundamental because let you describe your gem and why we need it. If you let them by default the gem will not be packed, it's just a countermeasure :-)
 * Update your rubygems environment
-* Keep in mind that Jeweler handles everything is under the control of you git repository, so there is no need to modify the Rakefile or the tasks for including some file, directory etc to you project; just git add your_file_or_directory. Remeber to modify .gitignore to exclude files.
+* Keep in mind that Jeweler handles everything using the local git repository, so there is no need to modify the Rakefile or the tasks for including files, directories; just git add your_file_or_directory. Remember to modify .gitignore to exclude unwanted files.
 * Explore the rake tasks with
-  * $ rake -T
+  * $ bundle exec rake -T
 * Help
   * please use help $ biogem -h to discover other options for creating rspec or cucumber tests
 
@@ -224,7 +224,8 @@ Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bi
 
 == BioRuby's Wiki Official Documentation
 
-http://bioruby.open-bio.org/wiki/Plugins
+* http://bioruby.open-bio.org/wiki/Plugins
+* http://biogems.info/ official collector for BioRuby plugins
 
 == TODO
 * better command line, wrap or re-implement some of the funcionalities provided by Bundler and Jeweler
