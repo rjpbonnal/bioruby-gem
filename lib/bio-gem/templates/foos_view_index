@@ -1,0 +1,1 @@
+This could be a list of item but for now I just read from a fake index <%%= @index %>

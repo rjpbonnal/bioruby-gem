@@ -3,6 +3,16 @@
 require 'bio-gem/mod/jeweler/options'
 require 'bio-gem/mod/jeweler/github_mixin'
 
+class String
+  def underscore
+       self.gsub(/::/, '/').
+         gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+         gsub(/([a-z\d])([A-Z])/,'\1_\2').
+         tr("-", "_").
+         downcase
+     end
+end
+
 class Jeweler
   class Generator 
 
@@ -57,7 +67,7 @@ class Jeweler
     end
     
     def engine_dirs
-      %w{app app/controllers app/views app/helpers config}
+      %w{app app/controllers app/views app/helpers config app/views/foos}
     end
     
     def engine_name
@@ -170,6 +180,10 @@ class Jeweler
           output_template_in_target_generic 'engine', File.join('lib', engine_filename )
           output_template_in_target_generic_update 'library', File.join('lib', lib_filename)
           output_template_in_target_generic 'routes', File.join('config', "routes.rb" )
+          output_template_in_target_generic 'foos_controller', File.join('app',"controllers", "foos_controller.rb" )
+          output_template_in_target_generic 'foos_view_index', File.join('app',"views","foos", "inedx.html.erb" )
+          output_template_in_target_generic 'foos_view_show', File.join('app',"views","foos", "show.html.erb" )
+          output_template_in_target_generic 'foos_view_example', File.join('app',"views","foos", "example.html.erb" )          
         end
       end #not_bio_gem_meta
     end

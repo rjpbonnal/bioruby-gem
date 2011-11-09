@@ -1,0 +1,13 @@
+class FoosController < ApplicationController
+  def example
+    @shuttle =  "TEST CASE"
+  end
+
+  def index
+    @index = "Something relevant"
+  end
+
+  def show
+    @item = "It's me"
+  end
+end
