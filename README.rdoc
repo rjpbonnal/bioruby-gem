@@ -7,7 +7,7 @@ listed at http://biogems.info
 
 The basic idea is to simplify and promote a modular approach to the BioRuby package.
 
-BioGem is not reinventing the wheel just putting together different tools like Jeweler and Bundler modifing their original behaviour when needed. Jeweler is used to create the initial scaffold, setting up git for versioning, releasing it to github.com and/or rubygems.org and packaging. Bundler is used used for setting up a predefined developing environment.
+BioGem is not reinventing the wheel just putting together different tools like Jeweler and Bundler modifying their original behavior when needed. Jeweler is used to create the initial scaffold, setting up git for versioning, releasing it to github.com and/or rubygems.org and packaging. Bundler is used used for setting up a predefined developing environment.
 
 Remind that
 * Jeweler is based on rake
@@ -17,6 +17,11 @@ Remind that
 * GitHub.com and RubyGems.org
   are two different services and you need to create different accounts for them
   if you already use GitHub.com you are already all set for using BioGem
+
+== BioGems Official Plugin Archive
+
+* http://biogems.info/ 
+
 
 == Contributing to bioruby-gem
  
@@ -146,7 +151,7 @@ These options are for Jeweler
     rake gemcutter:release   # Release gem to Gemcutter
     rake gemspec             # Generate and validate gemspec
     rake gemspec:debug       # Display the gemspec for debugging purposes, as jeweler knows it (not from the filesystem)
-    rake gemspec:generate    # Regenreate the gemspec on the filesystem
+    rake gemspec:generate    # Regenerate the gemspec on the filesystem
     rake gemspec:release     # Regenerate and validate gemspec, and then commits and pushes to git
     rake gemspec:validate    # Validates the gemspec on the filesystem
     rake git:release         # Tag and push release to git.
