@@ -1,6 +1,6 @@
 = Biogem Tutorial
 
-(the latest version is on https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc)
+(the latest version of this document is on https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc)
 
 == Installation
 === Pre-requisites
@@ -257,7 +257,9 @@ After hack, git add and commit you may be ready to distribute the plugin and now
    $ bundle exec rake git:release
 === GitHub and Rubygems at the same time
    $ bundle exec rake release
-
+===  Prerelease
+To create a prerelease of your plugin, set the version to include a letter (e.g. 
+alpha). This way the gem is registered as prerelease, listed on http://biogems.info/, but not listed in the standard gem lists.
 
 == Options
 These are the available options, they come from Biogem and from jeweler. I don't know if in the future I'll keep all of them.
