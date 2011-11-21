@@ -303,7 +303,7 @@ These options are for Jeweler
                                      GitHub token to use for interacting with the GitHub API
         --git-remote [GIT_REMOTE]    URI to set the git origin remote to
         --homepage [HOMEPAGE]        the homepage for your project (defaults to the GitHub repo)
-        --create-repo                create the repository on GitHub
+        --no-create-repo                create the repository on GitHub (repo is created by default)
 
         --yard                       use yard for documentation
         --rdoc                       use rdoc for documentation
