@@ -181,7 +181,7 @@ class Jeweler
           output_template_in_target_generic_update 'library', File.join('lib', lib_filename)
           output_template_in_target_generic 'routes', File.join('config', "routes.rb" )
           output_template_in_target_generic 'foos_controller', File.join('app',"controllers", "foos_controller.rb" )
-          output_template_in_target_generic 'foos_view_index', File.join('app',"views","foos", "inedx.html.erb" )
+          output_template_in_target_generic 'foos_view_index', File.join('app',"views","foos", "index.html.erb" )
           output_template_in_target_generic 'foos_view_show', File.join('app',"views","foos", "show.html.erb" )
           output_template_in_target_generic 'foos_view_example', File.join('app',"views","foos", "example.html.erb" )          
         end
