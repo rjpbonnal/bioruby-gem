@@ -3,4 +3,7 @@ if (defined?(Rails) && Rails::VERSION::MAJOR == 3)
   require '<%= engine_name %>'
 else
   #require the usual dependencies here
+  <% if options[:biogem_db] %>
+    require '<%= File.join(sub_module.downcase,"example") %>'
+  <% end %>
 end

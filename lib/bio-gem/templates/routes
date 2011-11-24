@@ -23,9 +23,9 @@ Rails.application.routes.draw do
 # yourPathToTheControllerFiles = 'foopath'
 # controllerName = :foos
 # otherControllerName = :samples
-# ---
+## ---
 # scope mount_at, yourPathToTheControllerFiles do    
-#   resources controllerName, :only => [ :index, :show] do
+#   resources controllerName do #, :only => [ :index, :show, :new] do
 #     member do
 #       get :example
 #     end

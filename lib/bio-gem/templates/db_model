@@ -1,0 +1,4 @@
+module <%= sub_module.capitalize %>
+  class Example < DummyConn
+  end
+end

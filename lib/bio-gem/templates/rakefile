@@ -1,3 +1,6 @@
+# encoding: utf-8
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
 
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__),'lib')
 require 'active_support'
@@ -9,7 +12,7 @@ require 'active_record'
 namespace :db do
   task :load_config do
     require 'active_record'
-    ActiveRecord::Base.configurations = YAML.load_file("conf/database.yml")
+    ActiveRecord::Base.configurations = YAML.load_file("config/database.yml")
   end
 
   task :environment => :load_config do

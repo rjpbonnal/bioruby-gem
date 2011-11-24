@@ -8,3 +8,10 @@
 # and put your plugin's code there. It is bad practice to write other code 
 # directly into this file, because doing so causes confusion if this biogem 
 # was ever to get merged into the main bioruby tree.
+
+<% if options[:biogem_db] %>
+require '<%= File.join(sub_module.downcase,"connect") %>'
+  <% unless options[:biogem_engine] %>
+require '<%= File.join(sub_module.downcase,"example") %>'
+  <% end %>
+<% end %>

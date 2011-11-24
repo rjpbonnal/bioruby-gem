@@ -5,16 +5,16 @@
 # class CreateExample < ActiveRecord::Migration
 #   def self.up
 #     #primary key id is created automatically by ActiveRecord::Migration
-#     create_table :example do |t|
-#       t.string :name
+#     create_table :examples do |t|
+#       t.string :gene_name
 #       t.string :tag
 #       t.string :type
 #     end
 # 
-#     add_index :example, :name
+#     add_index :examples, :gene_name
 #   end
 # 
 #   def self.down
-#     drop_table :example
+#     drop_table :examples
 #   end
 # end
