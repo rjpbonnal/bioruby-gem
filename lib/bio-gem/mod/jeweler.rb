@@ -95,7 +95,7 @@ class Jeweler
     end
     
     def lib_sub_module
-      File.join(lib_dir,sub_module.downcase)
+      File.join(lib_dir,"bio",sub_module.downcase)
     end
     
     def exists_dir?(dir)
@@ -141,6 +141,7 @@ class Jeweler
       mkdir_in_target(db_dir)
       mkdir_in_target(migrate_dir)
       mkdir_in_target("config") unless exists_dir?("config")
+      mkdir_in_target("lib/bio")
       mkdir_in_target(lib_sub_module)
       output_template_in_target_generic 'database', File.join("config", "database.yml")
       output_template_in_target_generic 'migration', File.join(migrate_dir, "001_create_example.rb" )

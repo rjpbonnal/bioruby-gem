@@ -1,7 +1,7 @@
 class FoosController < ApplicationController
   def example
-    @example = Foo::Example.find(params["id"])
-    @examples = Foo:Example.all
+    @example = Bio::Foo::Example.find(params["id"])
+    @examples = Bio::Foo:Example.all
     @togo=TOGOWS.entry('genbank', @example.gene_name)
     @shuttle =  "TEST CASE"
   end
@@ -15,11 +15,11 @@ class FoosController < ApplicationController
   end
 
   def new
-    @example =  Foo::Example.new
+    @example =  Bio::Foo::Example.new
   end
 
   def create
-    @example = Foo::Example.new(params[:example])
+    @example = Bio::Foo::Example.new(params[:example])
     if @example.save
       redirect_to example_url(@example)
     else

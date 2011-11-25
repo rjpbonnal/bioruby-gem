@@ -1,4 +1,6 @@
-module <%= sub_module.capitalize %>
-  class Example < DummyConn
+module Bio
+  module <%= sub_module.capitalize %>
+    class Example < DummyConn
+    end
   end
 end

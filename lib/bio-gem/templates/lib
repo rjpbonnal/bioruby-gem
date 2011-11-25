@@ -10,8 +10,8 @@
 # was ever to get merged into the main bioruby tree.
 
 <% if options[:biogem_db] %>
-require '<%= File.join(sub_module.downcase,"connect") %>'
+require '<%= File.join("bio",sub_module.downcase,"connect") %>'
   <% unless options[:biogem_engine] %>
-require '<%= File.join(sub_module.downcase,"example") %>'
+require '<%= File.join("bio",sub_module.downcase,"example") %>'
   <% end %>
 <% end %>
