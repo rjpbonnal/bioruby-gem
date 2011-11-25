@@ -5,12 +5,14 @@ The latest version is on https://github.com/helios/bioruby-gem/blob/master/Tutor
 == Installation
 === Pre-requisites
 * Ruby: at least 1.9.x, current tested version is 1.9.2
-* [RVM]: RVM is optional. RVM allows multiple ruby interpreters in your home directory in a very straightforward way
+* [RVM]: RVM is optional but kindly suggested. RVM allows multiple ruby interpreters in your home directory in a very straightforward way
 * GitHub & RubyGems: In order to use Biogem to its fullest potential, you must create a regular GitHub  http://github.com and  RubyGems http://rubygems.org account. Why? Because for sharing and keeping track of source code we (currenlty) use github and for distributing the plugin we rely on RubyGems, the reference Ruby gem repository. To configure github and automate most of Biogem's tasks:
    $ git config --global user.name "Firstname Lastname" Sets the name of the user for all git instances on the system
    $ git config --global user.email "your_email@youremail.com"
    $ git config --global github.user "user_id"
    $ git config --global github.token "TOKEN ASSIGNED BY GITHUB"
+
+Note: another Ruby version management system used in BioRuby community is https://github.com/sstephenson/rbenv but for now we can not provide support for it.
 
 === Download
 
