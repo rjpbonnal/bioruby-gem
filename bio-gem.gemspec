@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{bio-gem}
-  s.version = "1.1.1"
+  s.version = "1.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Raoul J.P. Bonnal}]
-  s.date = %q{2011-11-09}
+  s.date = %q{2011-11-29}
   s.description = %q{BioGem is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .
   The basic idea is to simplify and promote a modular approach to the BioRuby package.}
   s.email = %q{ilpuccio.febo@gmail.com}
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
+    "Tutorial.rdoc",
     "VERSION",
     "bin/biogem",
     "bio-gem.gemspec",
@@ -35,10 +36,13 @@ Gem::Specification.new do |s|
     "lib/bio-gem/mod/jeweler/options.rb",
     "lib/bio-gem/templates/bin",
     "lib/bio-gem/templates/database",
+    "lib/bio-gem/templates/db_connection",
+    "lib/bio-gem/templates/db_model",
     "lib/bio-gem/templates/engine",
     "lib/bio-gem/templates/foos_controller",
     "lib/bio-gem/templates/foos_view_example",
     "lib/bio-gem/templates/foos_view_index",
+    "lib/bio-gem/templates/foos_view_new",
     "lib/bio-gem/templates/foos_view_show",
     "lib/bio-gem/templates/lib",
     "lib/bio-gem/templates/library",
