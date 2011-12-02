@@ -1,1 +1,13 @@
-This is just an example of a call from a controller <%%= @shuttle %>
+<p>This is just an example of a call from a controller <%%= @shuttle %></p>
+
+<p>Your query was <%%= @example.gene_name %></p>
+
+<p>I found on TOGOWS this answer: <%%= @togo %></p>
+
+<p>In the past you asked for all this things</p>
+<table>
+	<tr><th>Questions</th></tr>
+	<%% @examples.each do |example|%>
+	<tr><td><%%= example.gene_name%></td></tr>
+	<%% end %>
+</table>

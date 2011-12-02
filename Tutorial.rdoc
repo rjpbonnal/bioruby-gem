@@ -1,16 +1,18 @@
 = Biogem Tutorial
 
-(the latest version of this document is on https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc)
+The latest version of this document is on https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc 
 
 == Installation
 === Pre-requisites
 * Ruby: at least 1.9.x, current tested version is 1.9.2
-* [RVM]: RVM is optional. RVM allows multiple ruby interpreters in your home directory in a very straightforward way
+* [RVM]: RVM is optional but kindly suggested. RVM allows multiple ruby interpreters in your home directory in a very straightforward way
 * GitHub & RubyGems: In order to use Biogem to its fullest potential, you must create a regular GitHub  http://github.com and  RubyGems http://rubygems.org account. Why? Because for sharing and keeping track of source code we (currenlty) use github and for distributing the plugin we rely on RubyGems, the reference Ruby gem repository. To configure github and automate most of Biogem's tasks:
    $ git config --global user.name "Firstname Lastname" Sets the name of the user for all git instances on the system
    $ git config --global user.email "your_email@youremail.com"
    $ git config --global github.user "user_id"
    $ git config --global github.token "TOKEN ASSIGNED BY GITHUB"
+
+Note: another Ruby version management system used in BioRuby community is https://github.com/sstephenson/rbenv but for now we can not provide support for it.
 
 === Download
 
@@ -81,11 +83,13 @@ If you want to distribute a library which uses a local database Biogem creates f
      create	test/test_bio-foo.rb
    + create	db
    + create	db/migrate
-   + create	conf
-   + create	conf/database.yml
+   + create	config
+   + create	config/database.yml
    + create	db/migrate/001_create_example.rb
    + create	db/seeds.rb
      update	Rakefile
+   + create	lib/foo/connect.rb
+   + create	lib/foo/example.rb
      create	lib/bio-foo.rb
      Jeweler has prepared your gem in bioruby-foo
      Jeweler has pushed your repo to http://github.com/helios/bioruby-foo
@@ -111,18 +115,18 @@ Rows with symbol + are differences between the standard command
 
 
 ==== DataBaseConnection
-Is a best practice, at least for me, to have a dummy class which establishes the connection with the database and then inherit that class by models. The benefit of this approach is to have multiple connections available at the same time, just in case you are developing/using multiple gems with different databases. This file is located in lib/bio/your_module
+Is a best practice, at least for me, to have a dummy class which establishes the connection with the database and then inherit that class by models. The benefit of this approach is to have multiple connections available at the same time, just in case you are developing/using multiple gems with different databases. This file is located in lib/bio/your_module/connect.rb
 
     module Bio
-	  module YourModule
-	    class DummyMySpecialDB < ActiveRecord::Base
-	      self.abstract_class = true
-	      establish_connection(:adapter =>'sqlite3',:database =>"#{File.dirname(__FILE__)}/../../../db/yourdb.sqlite3")
-	    end
-	  end
-	end
+      module YourModule
+        class DummyMySpecialDB < ActiveRecord::Base
+          self.abstract_class = true
+          establish_connection(:adapter =>'sqlite3',:database =>"#{File.dirname(__FILE__)}/../../../db/yourdb.sqlite3")
+        end
+      end
+    end
 	
-or you can use configuration file located in db/database.yml and add the following code to the module above:
+or you can use configuration file located in config/database.yml and add the following code to the module above:
 
    root_path = File.join(File.dirname(__FILE__),"../../../")
    configurations = YAML.load_file(File.join(root_path,"conf/database.yml"))
@@ -131,10 +135,10 @@ or you can use configuration file located in db/database.yml and add the followi
    end
    establish_connection(configurations["default"])
 
-Note: I don't like very much to add every time this code so in a future release I'll find out a way to add it automatically, probably overwriting the configurations call. This code is necessary because the db is inside the gem and you can't know where the file will be installed ( using the YAML config file.)
+Note: The latter is the default method.
 
 ===== DBConfiguration
-In file conf/database.yml
+In file config/database.yml
 
    # SQLite version 3.x
    # gem install sqlite3
@@ -180,9 +184,7 @@ The model must be located in a directory structure like lib/bio/your_module/your
 
     module Bio
       module YourModule
-        module MySpecialDB
-          class Mytable < Bio::KB::DummyMySpecialDB
-          end
+        class Mytable < Bio::YourModule::DummyMySpecialDB
         end
       end
     end
@@ -193,9 +195,69 @@ Before populate your databse file you must declare a model. The model is declare
 Use file db/seeds.rb to load a default dataset into your database
 
    %w(Raoul Toshiaki Francesco).each do |coder|
-     Bio::KB::MySpecialDB::Example.create(:name=>coder, :tag=>"bioruby", :type=>"developer")
+     Bio::YourModule::Example.create(:name=>coder, :tag=>"bioruby", :type=>"developer")
    end
-	
+
+=== Rails Engine With Database a BioPlugin
+Biogem is intended to help you also in advanced task like create a gem that can be reused in multiple rails applications, serving for instance a database, libraries and/or controllers,models,views.
+==== Why Rails Engine
+In bioinformatics is very common to presents data using a web application, and often you find are re using the same libraries and database for the same purpose, with a just a small difference in applications or your need to put together different functionalities which are spread along multiple database and libraries.
+==== HowToEngines
+To example this Biogem's features we want to create a Rails application which provides a form to users. Data submitted are submitted to TogoWS and the result is returned in a web page. In the mean time we want to store suers queries and return them in the page of TogoWS' result. We'll create a Rails application and a separated Biogem to store queries and provide connection to TogoWS, following "man in the middle" pattern.
+
+    $ biogem --with-engine Foo foo
+Note: a database is automatically configure for the newly created gem
+
+    $ rails new Webfoo
+
+You can test your application just inserting into Rails application Gemfile the newly created gem:
+    gem 'bio-foo', :path=>'path_gem_dir'
+
+update the installation running:
+     cd Webfoo
+     bundle install
+
+Enable the route for the added gem (in biouby-foo/config/routes.rb) uncomment:
+    yourPathToTheControllerFiles = 'foopath'
+    controllerName = :foos
+    otherControllerName = :samples
+    #---
+    scope mount_at, yourPathToTheControllerFiles do    
+      resources controllerName do
+        member do
+          get :example
+        end
+      end
+      resources otherControllerName, :only =>[:index, :show]
+    end #scope
+
+In bioruby-foo/lib/bio/foo/example.rb be sure the example class is uncommented:
+    module Bio
+      module Foo
+        class Example < DummyConn
+        end
+      end
+    end
+
+Create and migrate bioruby-foo database:
+    cd bioruby-foo
+    bundle exec rake db:create
+    bundle exec rake db:migrate
+
+Run your Rails server and load the web page
+    cd Webfoo
+    rails s
+
+open your browser to http://localhost:3000/foos/new
+
+Controller,Views and Module are located in bioruby-foo:
+* app/controllers
+* app/views
+* app/helpers
+* lib/bio/your_module/your_table.rb
+
+The latter path has modified by purpose from standard Rails configuration to keep a consistency with a normal ruby/gem library, in case developer wants to use a database but not a rails engine.
+
 === A Meta Plugin
 A meta package or plugin is a very simple gem, essentially a configuration's gem. This particular plugin is used to aggregate other plugins or gems taking advantage of RubyGems dependencies. An example of this feature are: bio-core, bio-ext, bio-biollinux plugins which have different purposes and they can contain the same plugins but in different versions.
 
@@ -231,10 +293,6 @@ In general if you add gems to the development section that gems will be installe
 Note: because this file is used by bundler as well, you can specify multiple source. For development purposes is also possible to specify different location than rubygems, local or github:
    gem "the_perfect_gem", :path=>"your_local_path_on_your_hard_drive"
    gem "JohnDoe_perfect_gem", :git=>"http://github.com/johndow/the_perfect_gem"
-
-=== Rails Engine BioPlugin
-
-
 
 == Manage Plugin Versions
    $ rake version:bump:(major | minor | patch)
@@ -304,7 +362,7 @@ These options are for Jeweler
                                      GitHub token to use for interacting with the GitHub API
         --git-remote [GIT_REMOTE]    URI to set the git origin remote to
         --homepage [HOMEPAGE]        the homepage for your project (defaults to the GitHub repo)
-        --create-repo                create the repository on GitHub
+        --no-create-repo                create the repository on GitHub (repo is created by default)
 
         --yard                       use yard for documentation
         --rdoc                       use rdoc for documentation

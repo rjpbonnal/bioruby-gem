@@ -89,6 +89,18 @@ class Jeweler
     def engine_namespace
       "/#{options[:biogem_engine]}"
     end
+    
+    def sub_module
+      project_name.split('-')[1..-1].map{|x| x.capitalize}.join
+    end
+    
+    def lib_sub_module
+      File.join(lib_dir,"bio",sub_module.downcase)
+    end
+    
+    def exists_dir?(dir)
+      Dir.exists?(File.join(target_dir,dir))
+    end
 
     def render_template_generic(source, template_dir = template_dir_biogem)
       template_contents = File.read(File.join(template_dir, source))
@@ -128,11 +140,16 @@ class Jeweler
       migrate_dir = File.join(db_dir, "migrate")
       mkdir_in_target(db_dir)
       mkdir_in_target(migrate_dir)
-      mkdir_in_target("conf")
-      output_template_in_target_generic 'database', File.join("conf", "database.yml")
+      mkdir_in_target("config") unless exists_dir?("config")
+      mkdir_in_target("lib/bio")
+      mkdir_in_target(lib_sub_module)
+      output_template_in_target_generic 'database', File.join("config", "database.yml")
       output_template_in_target_generic 'migration', File.join(migrate_dir, "001_create_example.rb" )
       output_template_in_target_generic 'seeds', File.join(db_dir, "seeds.rb")
       output_template_in_target_generic 'rakefile', 'Rakefile', template_dir_biogem, 'a' #need to spec all the option to enable the append option
+      #TODO I'd like to have a parameter from command like with defines the Namespace of the created bio-gem to automatically costruct directory structure
+      output_template_in_target_generic 'db_connection', File.join(lib_sub_module,"connect.rb")
+      output_template_in_target_generic 'db_model', File.join(lib_sub_module,"example.rb")
     end
 
     alias original_create_files create_files
@@ -175,15 +192,16 @@ class Jeweler
         #creates the strutures and files needed to have a ready to go Rails' engine
         if namespace=options[:biogem_engine]
           engine_dirs.each do |dir|
-            mkdir_in_target dir
+            mkdir_in_target(dir) unless exists_dir?(dir)
           end
           output_template_in_target_generic 'engine', File.join('lib', engine_filename )
           output_template_in_target_generic_update 'library', File.join('lib', lib_filename)
           output_template_in_target_generic 'routes', File.join('config', "routes.rb" )
           output_template_in_target_generic 'foos_controller', File.join('app',"controllers", "foos_controller.rb" )
-          output_template_in_target_generic 'foos_view_index', File.join('app',"views","foos", "inedx.html.erb" )
+          output_template_in_target_generic 'foos_view_index', File.join('app',"views","foos", "index.html.erb" )
           output_template_in_target_generic 'foos_view_show', File.join('app',"views","foos", "show.html.erb" )
-          output_template_in_target_generic 'foos_view_example', File.join('app',"views","foos", "example.html.erb" )          
+          output_template_in_target_generic 'foos_view_example', File.join('app',"views","foos", "example.html.erb" )
+          output_template_in_target_generic 'foos_view_new', File.join('app',"views","foos", "new.html.erb" )
         end
       end #not_bio_gem_meta
     end

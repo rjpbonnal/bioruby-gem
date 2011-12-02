@@ -10,7 +10,7 @@ class Jeweler
         self[:testing_framework]       = :shoulda
         self[:documentation_framework] = :rdoc
         self[:use_bundler]             = true
-        self[:create_repo]             = true
+        self[:create_repo]             = self[:create_repo] || true
 
         git_config =  if Pathname.new("~/.gitconfig").expand_path.exist?
           Git.global_config
@@ -156,8 +156,8 @@ class Jeweler
             self[:homepage] = homepage
           end
 
-          o.on('--create-repo', 'create the repository on GitHub') do
-            self[:create_repo] = true
+          o.on('--no-create-repo', 'create the repository on GitHub') do
+            self[:create_repo] = false
           end
 
 

@@ -22,9 +22,13 @@ Remind that
 
 * http://biogems.info/ 
 
+== Biogem Tutorial
 
-== Contributing to bioruby-gem
- 
+The latest version is on https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc 
+
+./file.Tutorial.html
+
+== Contributing to bioruby-gem 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
@@ -50,24 +54,24 @@ Some of these steps have been condensed:
   * pass just the simple name, it will add bioruby- for the first level directory and for the github repository
     BUT you'll require the library with bio-mystuff (and this will be the name used on rubygems)
   * creates a basic gem structure with a default dependencies for bioruby (bio) version 1.4.2
-	    |-- bin [optional = --with-bin]
-	    |   `-- biomystuff (executable)        
-	    |-- Gemfile
-	    |-- Gemfile.lock
-	    |-- LICENSE.txt
-	    |-- README.rdoc
-	    |-- Rakefile
-	    |-- lib
-	    |   `-- bio-mystuff.rb
-	    |-- conf[optional = --with-db]
-	    |   `-- database.yml put here the configuration of your database like in a rails app
-	    |-- db  [optional = --with-db] empty but put here your datasets or database(SQLite3?)
-	    |   |-- seeds.rb a file containing the preloaded datasets, they will be loaded during db setup process
-	    |   `-- migrate directory for migration, you must create migrations by hand, there is a template inside.
-	    `-- test
-	        |-- data [optional = --with-test-data]
-	        |-- helper.rb
-	        `-- test_bio-mystuff.rb
+        |-- bin [optional = --with-bin]
+        |   `-- biomystuff (executable)        
+        |-- Gemfile
+        |-- Gemfile.lock
+        |-- LICENSE.txt
+        |-- README.rdoc
+        |-- Rakefile
+        |-- lib
+        |   `-- bio-mystuff.rb
+        |-- conf[optional = --with-db]
+        |   `-- database.yml put here the configuration of your database like in a rails app
+        |-- db  [optional = --with-db] empty but put here your datasets or database(SQLite3?)
+        |   |-- seeds.rb a file containing the preloaded datasets, they will be loaded during db setup process
+        |   `-- migrate directory for migration, you must create migrations by hand, there is a template inside.
+        `-- test
+            |-- data [optional = --with-test-data]
+            |-- helper.rb
+            `-- test_bio-mystuff.rb
 
   * $ cd bioruby-mystuff
   * $ rake version:write (Initial Updated version: 0.0.0)
@@ -124,7 +128,7 @@ These options are for Jeweler
                                      GitHub token to use for interacting with the GitHub API
         --git-remote [GIT_REMOTE]    URI to set the git origin remote to
         --homepage [HOMEPAGE]        the homepage for your project (defaults to the GitHub repo)
-        --create-repo                create the repository on GitHub
+        --no-create-repo                create the repository on GitHub (repo is created by default)
 
         --yard                       use yard for documentation
         --rdoc                       use rdoc for documentation
@@ -186,17 +190,17 @@ on your local directory you will see bioruby-mystuff but on rubygems you will pu
 Is a best practices, at least for me, to have a dummy class which establishes the connection with the database and inherit that class by the models. The benefit of this approach is to have multiple connections available at the same time in case you are developing/using multiple gems with different databases. This file is located in lib/bio/kb
 
     module Bio
-	  module KB
-	    class DummyMySpecialDB < ActiveRecord::Base
-	      self.abstract_class = true
-	      establish_connection(:adapter =>'sqlite3',:database =>"#{File.dirname(__FILE__)}/../../../db/yourdb.sqlite3")
-	    end
-	  end
-	end
-	
+      module KB
+        class DummyMySpecialDB < ActiveRecord::Base
+          self.abstract_class = true
+          establish_connection(:adapter =>'sqlite3',:database =>"#{File.dirname(__FILE__)}/../../../db/yourdb.sqlite3")
+        end
+      end
+    end
+    
 or you can use the configuration file db/database.yml and add this code to the module above. Note I don't like very much to add every time this code so in a future release I'll find out a way to add it automatically, probably overwriting the configurations call.
 
-	root_path = File.join(File.dirname(__FILE__),"../../../")
+    root_path = File.join(File.dirname(__FILE__),"../../../")
     configurations = YAML.load_file(File.join(root_path,"conf/database.yml"))
     configurations.each_pair do |key, db_info|
       db_info["database"] = File.join(root_path, db_info["database"]) if db_info["adapter"]=='sqlite3'
@@ -208,21 +212,21 @@ This code is necessary because the db is inside the gem and you can't know where
 The model must be located in a directory structure like lib/bio/kb/yourclass this is important because ActiveRecord can map the namespace with the directory tree.
 
     module Bio
-	  module KB
-	      module MySpecialDB
-	         class Mytable < Bio::KB::DummyMySpecialDB
-	         end
-	      end
-	  end
-	end
+      module KB
+        module MySpecialDB
+          class Mytable < Bio::KB::DummyMySpecialDB
+          end
+        end
+     end
+    end
 
 === Seeds
 Before populate you seeds.rb file you must declare a model. The model is declared in the usual Rails' way, see above.
 
-	 #Use this file to load a default dataset into your database
-	 %w(Raoul Toshiaki Francesco).each do |coder|
-	   Bio::KB::MySpecialDB::Example.create(:name=>coder, :tag=>"bioruby", :type=>"developer")
-	 end
+     #Use this file to load a default dataset into your database
+     %w(Raoul Toshiaki Francesco).each do |coder|
+       Bio::KB::MySpecialDB::Example.create(:name=>coder, :tag=>"bioruby", :type=>"developer")
+     end
 
 === StepByStep
 Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bioruby.open-bio.org/wiki/BiogemInstallation.
