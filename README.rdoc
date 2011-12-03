@@ -1,24 +1,33 @@
-= bioruby-gem
+= Biogem
 
-BioGem is a scaffold generator for those Bioinformaticans who want to
-start coding an application or a library for using/extending BioRuby's
-core library and sharing it through http://rubygems.org . Biogems are
-listed at http://biogems.info
+Biogem provides a set of tools for those Bioinformaticans who want to
+start coding an application, or a library for using/extending
+BioRuby's core library and sharing the code as a gem through
+http://rubygems.org. Biogems are automatically listed at
+http://biogems.info
 
-The basic idea is to simplify and promote a modular approach to the BioRuby package.
+The basic idea is to promote a modular approach to the BioRuby
+package, and simplify creating such modules. Biogem creates the
+necessary directory structure for a gem, and generates files, based on
+templates. Biogem includes templates for parsing the command line,
+logging, libraries,
+documentation, tests. Also there is Ruby on Rails support, BioSQL and
+FFI (for binding to C libraries).
 
-BioGem is not reinventing the wheel just putting together different tools like Jeweler and Bundler modifying their original behavior when needed. Jeweler is used to create the initial scaffold, setting up git for versioning, releasing it to github.com and/or rubygems.org and packaging. Bundler is used used for setting up a predefined developing environment.
+Biogem does not reinvent the wheel, but puts together different
+tools and modifies their original behavior, when needed. The tool
+jeweler is used to create the initial scaffold, setting up git for
+versioning, releasing it to github.com and/or rubygems.org and
+packaging. Bundler is used used for setting up a predefined developing
+environment.
 
-Remind that
-* Jeweler is based on rake
-  $ rake -T
-  in your project directory gives you an overview of the available actions
+Also Biogem makes use of webservices. E.g.
 
 * GitHub.com and RubyGems.org
   are two different services and you need to create different accounts for them
-  if you already use GitHub.com you are already all set for using BioGem
+  if you already use GitHub.com you are set for using Biogem
 
-== BioGems Official Plugin Archive
+== Biogems Official Archive
 
 * http://biogems.info/ 
 
@@ -26,209 +35,14 @@ Remind that
 
 The latest version is on https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc 
 
-./file.Tutorial.html
+== Contributing to Biogem
 
-== Contributing to bioruby-gem 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
-* Fork the project
-* Start a feature/bugfix branch
-* Commit and push until you are happy with your contribution
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
-
-== Step by Step
-
-* gem install jeweler
-* jeweler bioruby-mystuff
-* cd bioruby_mysuff
-* bundle install
-* rake version:write
-* rake gemspec
-* rake install
-
-Some of these steps have been condensed:
-
-* gem install bio-gem 
-* $ biogem mystuff
-  * pass just the simple name, it will add bioruby- for the first level directory and for the github repository
-    BUT you'll require the library with bio-mystuff (and this will be the name used on rubygems)
-  * creates a basic gem structure with a default dependencies for bioruby (bio) version 1.4.2
-        |-- bin [optional = --with-bin]
-        |   `-- biomystuff (executable)        
-        |-- Gemfile
-        |-- Gemfile.lock
-        |-- LICENSE.txt
-        |-- README.rdoc
-        |-- Rakefile
-        |-- lib
-        |   `-- bio-mystuff.rb
-        |-- conf[optional = --with-db]
-        |   `-- database.yml put here the configuration of your database like in a rails app
-        |-- db  [optional = --with-db] empty but put here your datasets or database(SQLite3?)
-        |   |-- seeds.rb a file containing the preloaded datasets, they will be loaded during db setup process
-        |   `-- migrate directory for migration, you must create migrations by hand, there is a template inside.
-        `-- test
-            |-- data [optional = --with-test-data]
-            |-- helper.rb
-            `-- test_bio-mystuff.rb
-
-  * $ cd bioruby-mystuff
-  * $ rake version:write (Initial Updated version: 0.0.0)
-  * $ rake gemspec
-* $ rake install (for local test)
-* hack, git add and commit
-  * NOTE: It's very important that you add new and changed files so they can be included in the gem you will create, otherwise the files will not be include and you'll end up with a broken gem with missing files.
-* $ rake git:release (Before releasing on github or rubygems please see the Notes For Developers). Note: the brand new project is automatically uploaded on GitHub at creation time.
-* WHEN you have finished with the hacking you can release the gem by typing:
-  * $ rake release
-
-* if you want to make a new release version: major, minor or patch version you can use
-  * $ rake version:bump:(major | minor | patch)
-    the release will be increased by 1 and when you'll release it'll be updated. Note that in GitHub, bumping the version will create a tag with this version and your repository.So for every version you release there is a tag associated.
-
-== Options
- These are the available options, they come from biogem and from jeweler. I don't know if in the future I'll keep all of them.
-
-Usage: biogem [options] reponame
-e.g. biogem the-perfect-gem
-        --directory [DIRECTORY]      specify the directory to generate into
-These options are for BioGem
-        --meta                       create a meta package, just the Rakefile, Gemfile, Licence, Readme. This options takes the precedence over every other option.
-        --with-bin                   create the bin directory and an executable template script called bioreponame
-        --with-db                    create the database directory for a db application-library
-        --with-test-data             create the data directory inside the test directory if the user need to set up a test with its own dataset
-        --with-engine [NAMESPACE]    create a Rails engine with the namespace given in input. Dy default set up the environment to use an SQLite3 database
-These options are for Jeweler
-        --rspec                      generate rspec code examples
-        --shoulda                    generate shoulda tests
-        --testunit                   generate test/unit tests
-        --bacon                      generate bacon specifications
-        --testspec                   generate test/spec tests
-        --minitest                   generate minitest tests
-        --micronaut                  generate micronaut examples
-        --riot                       generate riot tests
-        --shindo                     generate shindo tests
-
-        --[no-]bundler               use bundler for managing dependencies
-        --cucumber                   generate cucumber stories in addition to the other tests
-
-        --reek                       generate rake task for reek
-        --roodi                      generate rake task for roodi
-
-        --summary [SUMMARY]          specify the summary of the project
-        --description [DESCRIPTION]  specify a description of the project
-
-        --user-name [USER_NAME]      the user's name, ie that is credited in the LICENSE
-        --user-email [USER_EMAIL]    the user's email, ie that is credited in the Gem specification
-
-        --github-username [GITHUB_USERNAME]
-                                     name of the user on GitHub to set the project up under
-        --github-token [GITHUB_TOKEN]
-                                     GitHub token to use for interacting with the GitHub API
-        --git-remote [GIT_REMOTE]    URI to set the git origin remote to
-        --homepage [HOMEPAGE]        the homepage for your project (defaults to the GitHub repo)
-        --no-create-repo                create the repository on GitHub (repo is created by default)
-
-        --yard                       use yard for documentation
-        --rdoc                       use rdoc for documentation
-    -h, --help                       display this help and exit
-
-== Tasks
-
-    rake build               # Build gem into pkg/
-    rake clobber_rcov        # Remove rcov products for rcov
-    rake clobber_rdoc        # Remove rdoc products
-    rake console[script]     # Start IRB with all runtime dependencies loaded
-    rake db:create           # Create the database from config/database.yml for the current default (use db:create:all to create all dbs in the config)
-    rake db:drop             # Drops the database for the current default (use db:drop:all to drop all databases)
-    rake db:fixtures:load    # Load fixtures into the current environment's database.
-    rake db:migrate          # Migrate the database (options: VERSION=x, VERBOSE=false).
-    rake db:migrate:status   # Display status of migrations
-    rake db:rollback         # Rolls the schema back to the previous version (specify steps w/ STEP=n).
-    rake db:schema:dump      # Create a db/schema.rb file that can be portably used against any DB supported by AR
-    rake db:schema:load      # Load a schema.rb file into the database
-    rake db:seed             # Load the seed data from db/seeds.rb
-    rake db:setup            # Create the database, load the schema, and initialize with the seed data (use db:reset to also drop the db first)
-    rake db:structure:dump   # Dump the database structure to an SQL file
-    rake db:version          # Retrieves the current schema version number
-    rake gemcutter:release   # Release gem to Gemcutter
-    rake gemspec             # Generate and validate gemspec
-    rake gemspec:debug       # Display the gemspec for debugging purposes, as jeweler knows it (not from the filesystem)
-    rake gemspec:generate    # Regenerate the gemspec on the filesystem
-    rake gemspec:release     # Regenerate and validate gemspec, and then commits and pushes to git
-    rake gemspec:validate    # Validates the gemspec on the filesystem
-    rake git:release         # Tag and push release to git.
-    rake install             # Build and install gem using `gem install`
-    rake rcov                # Analyze code coverage with tests
-    rake rdoc                # Build the rdoc HTML Files
-    rake release             # Release gem
-    rake rerdoc              # Force a rebuild of the RDOC files
-    rake test                # Run tests
-    rake version             # Displays the current version
-    rake version:bump:major  # Bump the major version by 1
-    rake version:bump:minor  # Bump the a minor version by 1
-    rake version:bump:patch  # Bump the patch version by 1
-    rake version:write       # Writes out an explicit version.
-
-
-== NoTes For Developers
-
-* A GitHub Account is required. The name of the repository follows this rules:
-  bioruby-mystuff 
-on your local directory you will see bioruby-mystuff but on rubygems you will publish bio-mystuff. This is a clash of namespaces but I think in this way makes more sense.
-  * It's VERY IMPORTANT you set up your GitHub environment correctly, please follow the official guide http://help.github.com/set-your-user-name-email-and-github-token/ (USERNAME, EMAIL, TOKEN are very very important)
-* Before start developing open Rakefile and modify the gem.summary and gem.description. These parameters are fundamental because let you describe your gem and why we need it. If you let them by default the gem will not be packed, it's just a countermeasure :-)
-* Update your rubygems environment
-* Keep in mind that Jeweler handles everything using the local git repository, so there is no need to modify the Rakefile or the tasks for including files, directories; just git add your_file_or_directory. Remember to modify .gitignore to exclude unwanted files.
-* Explore the rake tasks with
-  * $ bundle exec rake -T
-* Help
-  * please use help $ biogem -h to discover other options for creating rspec or cucumber tests
-
-=== DataBaseConnection
-Is a best practices, at least for me, to have a dummy class which establishes the connection with the database and inherit that class by the models. The benefit of this approach is to have multiple connections available at the same time in case you are developing/using multiple gems with different databases. This file is located in lib/bio/kb
-
-    module Bio
-      module KB
-        class DummyMySpecialDB < ActiveRecord::Base
-          self.abstract_class = true
-          establish_connection(:adapter =>'sqlite3',:database =>"#{File.dirname(__FILE__)}/../../../db/yourdb.sqlite3")
-        end
-      end
-    end
-    
-or you can use the configuration file db/database.yml and add this code to the module above. Note I don't like very much to add every time this code so in a future release I'll find out a way to add it automatically, probably overwriting the configurations call.
-
-    root_path = File.join(File.dirname(__FILE__),"../../../")
-    configurations = YAML.load_file(File.join(root_path,"conf/database.yml"))
-    configurations.each_pair do |key, db_info|
-      db_info["database"] = File.join(root_path, db_info["database"]) if db_info["adapter"]=='sqlite3'
-    end
-    establish_connection(configurations["default"])
-
-This code is necessary because the db is inside the gem and you can't know where the file will be installed ( using the YAML config file.)
-
-The model must be located in a directory structure like lib/bio/kb/yourclass this is important because ActiveRecord can map the namespace with the directory tree.
-
-    module Bio
-      module KB
-        module MySpecialDB
-          class Mytable < Bio::KB::DummyMySpecialDB
-          end
-        end
-     end
-    end
-
-=== Seeds
-Before populate you seeds.rb file you must declare a model. The model is declared in the usual Rails' way, see above.
-
-     #Use this file to load a default dataset into your database
-     %w(Raoul Toshiaki Francesco).each do |coder|
-       Bio::KB::MySpecialDB::Example.create(:name=>coder, :tag=>"bioruby", :type=>"developer")
-     end
+The source code repositories for Biogem and http://biogems.info
+website are on github. If you want to contribute, feel free! Clone the
+project!
 
 === StepByStep
+
 Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bioruby.open-bio.org/wiki/BiogemInstallation.
 
 == BioRuby's Wiki Official Documentation
@@ -236,12 +50,8 @@ Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bi
 * http://bioruby.open-bio.org/wiki/Plugins
 * http://biogems.info/ official collector for BioRuby plugins
 
-== TODO
-* better command line, wrap or re-implement some of the funcionalities provided by Bundler and Jeweler
-* use YAML for database configuration
-
 == Copyright
 
-Copyright (c) 2010 Raoul J.P. Bonnal. See LICENSE.txt for
+Copyright (c) 2010, 2011 Raoul J.P. Bonnal. See LICENSE.txt for
 further details.
 
