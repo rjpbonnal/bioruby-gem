@@ -50,8 +50,61 @@ Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bi
 * http://bioruby.open-bio.org/wiki/Plugins
 * http://biogems.info/ official collector for BioRuby plugins
 
+== Biogem options
+
+Usage: biogem [options] reponame
+
+e.g. biogem the-perfect-gem
+
+        --directory [DIRECTORY]      specify the directory to generate into
+
+These options are for BioGem
+
+--meta                       create a meta package, just the Rakefile, Gemfile, Licence, Readme. This options takes the precedence over every other option.
+        --with-bin                   create the bin directory and an executable template script called bioreponame
+        --with-db                    create the database directory for a db application-library.
+        --with-test-data             create the data directory inside the test directory if the user need to set up a test with its own dataset
+        --with-engine [NAMESPACE]    create a Rails engine with the namespace given in input. Set default database creation
+
+These options are for Jeweler
+
+        --rspec                      generate rspec code examples
+        --shoulda                    generate shoulda tests
+        --testunit                   generate test/unit tests
+        --bacon                      generate bacon specifications
+        --testspec                   generate test/spec tests
+        --minitest                   generate minitest tests
+        --micronaut                  generate micronaut examples
+        --riot                       generate riot tests
+        --shindo                     generate shindo tests
+
+        --[no-]bundler               use bundler for managing dependencies
+        --cucumber                   generate cucumber stories in addition to the other tests
+
+        --reek                       generate rake task for reek
+        --roodi                      generate rake task for roodi
+
+        --summary [SUMMARY]          specify the summary of the project
+        --description [DESCRIPTION]  specify a description of the project
+
+        --user-name [USER_NAME]      the user's name, ie that is credited in the LICENSE
+        --user-email [USER_EMAIL]    the user's email, ie that is credited in the Gem specification
+
+        --github-username [GITHUB_USERNAME]
+                                     name of the user on GitHub to set the project up under
+        --github-token [GITHUB_TOKEN]
+                                     GitHub token to use for interacting with the GitHub API
+        --git-remote [GIT_REMOTE]    URI to set the git origin remote to
+        --homepage [HOMEPAGE]        the homepage for your project (defaults to the GitHub repo)
+        --no-create-repo             create the repository on GitHub
+
+        --yard                       use yard for documentation
+        --rdoc                       use rdoc for documentation
+    -h, --help                       display this help and exit
+
 == Copyright
 
 Copyright (c) 2010, 2011 Raoul J.P. Bonnal. See LICENSE.txt for
 further details.
+
 
