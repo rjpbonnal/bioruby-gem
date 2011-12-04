@@ -1,11 +1,13 @@
 = Biogem Tutorial
 
-The latest version is on https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc 
+The latest version of this document is on https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc 
 
 == Installation
 === Pre-requisites
-* Ruby: at least 1.9.x, current tested version is 1.9.2
-* [RVM]: RVM is optional but kindly suggested. RVM allows multiple ruby interpreters in your home directory in a very straightforward way
+* Ruby: at least 1.9.x, current tested version is 1.9.2, moving to 1.9.3
+* [RVM]: RVM is optional, but suggested. Not only can you specify the Ruby interpreter version that works best with Biogem, RVM also allows multiple ruby interpreters in your home directory for testing purposes. When using RVM, make sure to compile with openssl support, e.g. on Debian
+   $ sudo apt-get install libssl-dev 
+   $ rvm install 1.9.3 --with-openssl-dir=$HOME/.rvm/usr
 * GitHub & RubyGems: In order to use Biogem to its fullest potential, you must create a regular GitHub  http://github.com and  RubyGems http://rubygems.org account. Why? Because for sharing and keeping track of source code we (currenlty) use github and for distributing the plugin we rely on RubyGems, the reference Ruby gem repository. To configure github and automate most of Biogem's tasks:
    $ git config --global user.name "Firstname Lastname" Sets the name of the user for all git instances on the system
    $ git config --global user.email "your_email@youremail.com"
@@ -315,7 +317,9 @@ After hack, git add and commit you may be ready to distribute the plugin and now
    $ bundle exec rake git:release
 === GitHub and Rubygems at the same time
    $ bundle exec rake release
-
+===  Prerelease
+To create a prerelease of your plugin, set the version to include a letter (e.g. 
+alpha). This way the gem is registered as prerelease, listed on http://biogems.info/, but not listed in the standard gem lists.
 
 == Options
 These are the available options, they come from Biogem and from jeweler. I don't know if in the future I'll keep all of them.
