@@ -3,12 +3,18 @@
 The latest version of this document is on https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc 
 
 == Installation
+
 === Pre-requisites
+
 * Ruby: at least 1.9.x, current tested version is 1.9.2, moving to 1.9.3
-* [RVM]: RVM is optional, but suggested. Not only can you specify the Ruby interpreter version that works best with Biogem, RVM also allows multiple ruby interpreters in your home directory for testing purposes. When using RVM, make sure to compile with openssl support, e.g. on Debian
+
+* RVM: RVM http://beginrescueend.com/ is optional, but suggested. Not only can you specify the Ruby interpreter version that works best with Biogem, RVM also allows multiple ruby interpreters in your home directory for testing purposes. When using RVM, make sure to compile with openssl support, e.g. on Debian
+
    $ sudo apt-get install libssl-dev 
    $ rvm install 1.9.3 --with-openssl-dir=$HOME/.rvm/usr
+
 * GitHub & RubyGems: In order to use Biogem to its fullest potential, you must create a regular GitHub  http://github.com and  RubyGems http://rubygems.org account. Why? Because for sharing and keeping track of source code we (currenlty) use github and for distributing the plugin we rely on RubyGems, the reference Ruby gem repository. To configure github and automate most of Biogem's tasks:
+
    $ git config --global user.name "Firstname Lastname" Sets the name of the user for all git instances on the system
    $ git config --global user.email "your_email@youremail.com"
    $ git config --global github.user "user_id"
@@ -18,19 +24,51 @@ Note: another Ruby version management system used in BioRuby community is https:
 
 === Download
 
-Install the biogem toolset with
+Install the Biogem toolset with
 
    $ gem install bio-gem
 
 all the required dependencies will be downloaded and installed automatically.
 
+   Fetching: bundler-1.0.21.gem (100%)
+   Fetching: git-1.2.5.gem (100%)
+   Fetching: jeweler-1.6.4.gem (100%)
+   Fetching: json-1.6.3.gem (100%)
+   Building native extensions.  This could take a while...
+   Fetching: rdoc-3.11.gem (100%)
+   Depending on your version of ruby, you may need to install ruby rdoc/ri data:
+   <= 1.8.6 : unsupported
+    = 1.8.7 : gem install rdoc-data; rdoc-data --install
+    = 1.9.1 : gem install rdoc-data; rdoc-data --install
+   >= 1.9.2 : nothing to do! Yay!
+   Fetching: bio-gem-1.1.2.gem (100%)
+   Successfully installed bundler-1.0.21
+   Successfully installed git-1.2.5
+   Successfully installed jeweler-1.6.4
+   Successfully installed json-1.6.3
+   Successfully installed rdoc-3.11
+   Successfully installed bio-gem-1.1.2
+   6 gems installed
+   Installing ri documentation for bundler-1.0.21...
+   Installing ri documentation for git-1.2.5...
+   Installing ri documentation for jeweler-1.6.4...
+   Installing ri documentation for json-1.6.3...
+   Installing ri documentation for rdoc-3.11...
+   Installing ri documentation for bio-gem-1.1.2...
+   Installing RDoc documentation for bundler-1.0.21...
+   Installing RDoc documentation for git-1.2.5...
+   Installing RDoc documentation for jeweler-1.6.4...
+   Installing RDoc documentation for json-1.6.3...
+   Installing RDoc documentation for rdoc-3.11...
+   Installing RDoc documentation for bio-gem-1.1.2...
+
 == Create your first BioRuby Plugin
+
 === Standard
 
 To create a BioRuby plugin named bio-foo in the bioruby-foo directory
 
-   $ Biogem foo
-
+   $ biogem foo
    create	.gitignore
    create	Rakefile
    create	Gemfile
@@ -63,15 +101,21 @@ In case you are not connected to internet the following message will appear:
    Seems you are not connected to Internet, can't create a remote repository.
    Do not forget to create it by hand, from GitHub, and sync it with this project.
 
-Note the name of the plugin is important. Plugins are published as Ruby gems on http://rubygems.org/. All plugins that start with the name bio dash (bio-) are automatically listed on the Biogems website http://biogems.info/ !
+Note the name of the plugin is important. Plugins are published as Ruby gems on http://rubygems.org/. All plugins that start with the name bio dash (bio-) are automatically listed on the Biogem website http://biogems.info/ !
 
-The first step is to open Rakefile and modify the gem.summary and gem.description. These parameters are necessary, because they describe your gem and its importance. If you let them as default the gem, will not publish. Examples of summary and description can be found on http://biogems.info/
+The first step is to open Rakefile and modify the gem.summary and gem.description.
+
+  gem.summary = %Q{TODO: one-line summary of your gem}
+  gem.description = %Q{TODO: longer description of your gem}
+
+These parameters are necessary, because they describe your gem and its importance. If you let them as default the gem, will not publish. Examples of summary and description can be found on http://biogems.info/
 
 
 === With a DataBase
-If you want to distribute a library which uses a local database Biogem creates for you a database template and add features coming from Ruby on Rails to manage the database. You can define Models, Fixtures and Migrations like a regular Rails application. SQLite3 is the default database engine in order to have a portable library, is also possible to configure the library to use different RDBMS like PostgreSQL, MySQL; please refer to ActiveRecord for further details.
 
-   $ Biogem --with-db foo      
+If you want to distribute a library which uses a local database biogem creates for you a database template and add features coming from Ruby on Rails to manage the database. You can define Models, Fixtures and Migrations like a regular Rails application. SQLite3 is the default database engine in order to have a portable library, is also possible to configure the library to use different RDBMS like PostgreSQL, MySQL; please refer to ActiveRecord for further details.
+
+   $ biogem --with-db foo      
      create	.gitignore
      create	Rakefile
      create	Gemfile
@@ -115,8 +159,8 @@ If you want to distribute a library which uses a local database Biogem creates f
 
 Rows with symbol + are differences between the standard command
 
-
 ==== DataBaseConnection
+
 Is a best practice, at least for me, to have a dummy class which establishes the connection with the database and then inherit that class by models. The benefit of this approach is to have multiple connections available at the same time, just in case you are developing/using multiple gems with different databases. This file is located in lib/bio/your_module/connect.rb
 
     module Bio
@@ -140,6 +184,7 @@ or you can use configuration file located in config/database.yml and add the fol
 Note: The latter is the default method.
 
 ===== DBConfiguration
+
 In file config/database.yml
 
    # SQLite version 3.x
@@ -151,10 +196,13 @@ In file config/database.yml
      timeout: 5000
 
 ===== Create the database
+
    bundle exec rake db:create 
+
 Create the database from config/database.yml for the current default (use db:create:all to create all dbs in the config
 
 ==== Create A Table Using Migration
+
 In file db/migrate/001_create_example.rb
 
 The code below create a table name example. As best practice name this file with a prefix index like 001_create_example.rb and the next migration 002.... and so on, this will help you to keep track over the time.
@@ -178,10 +226,13 @@ Please refer to Rails' documentation
    end
 
 Once you have defined the table you can create it
+
    $ bundle exec rake db:migrate
+
 Migrate the database (options: VERSION=x, VERBOSE=false)
 
 ===== Defining a Model
+
 The model must be located in a directory structure like lib/bio/your_module/your_class this is important because ActiveRecord map the namespace with the directory tree.
 
     module Bio
@@ -190,9 +241,11 @@ The model must be located in a directory structure like lib/bio/your_module/your
         end
       end
     end
-Then using the 
+
+Then using the [FIXME]
 
 ===== Seeds
+
 Before populate your databse file you must declare a model. The model is declared in the usual Rails' way, see above.
 Use file db/seeds.rb to load a default dataset into your database
 
@@ -201,25 +254,34 @@ Use file db/seeds.rb to load a default dataset into your database
    end
 
 === Rails Engine With Database a BioPlugin
+
 Biogem is intended to help you also in advanced task like create a gem that can be reused in multiple rails applications, serving for instance a database, libraries and/or controllers,models,views.
+
 ==== Why Rails Engine
+
 In bioinformatics is very common to presents data using a web application, and often you find are re using the same libraries and database for the same purpose, with a just a small difference in applications or your need to put together different functionalities which are spread along multiple database and libraries.
+
 ==== HowToEngines
-To example this Biogem's features we want to create a Rails application which provides a form to users. Data submitted are submitted to TogoWS and the result is returned in a web page. In the mean time we want to store suers queries and return them in the page of TogoWS' result. We'll create a Rails application and a separated Biogem to store queries and provide connection to TogoWS, following "man in the middle" pattern.
+
+To example this Biogem's features we want to create a Rails application which provides a form to users. Data are submitted to TogoWS http://togows.dbcls.jp/ and the result is returned in a web page. In the mean time we want to store suers queries and return them in the page of TogoWS' result. We'll create a Rails application and a separated Biogem to store queries and provide connection to TogoWS, following "man in the middle" pattern.
 
     $ biogem --with-engine Foo foo
+
 Note: a database is automatically configure for the newly created gem
 
     $ rails new Webfoo
 
 You can test your application just inserting into Rails application Gemfile the newly created gem:
+
     gem 'bio-foo', :path=>'path_gem_dir'
 
 update the installation running:
+
      cd Webfoo
      bundle install
 
 Enable the route for the added gem (in biouby-foo/config/routes.rb) uncomment:
+
     yourPathToTheControllerFiles = 'foopath'
     controllerName = :foos
     otherControllerName = :samples
@@ -234,6 +296,7 @@ Enable the route for the added gem (in biouby-foo/config/routes.rb) uncomment:
     end #scope
 
 In bioruby-foo/lib/bio/foo/example.rb be sure the example class is uncommented:
+
     module Bio
       module Foo
         class Example < DummyConn
@@ -242,17 +305,20 @@ In bioruby-foo/lib/bio/foo/example.rb be sure the example class is uncommented:
     end
 
 Create and migrate bioruby-foo database:
+
     cd bioruby-foo
     bundle exec rake db:create
     bundle exec rake db:migrate
 
 Run your Rails server and load the web page
+
     cd Webfoo
     rails s
 
 open your browser to http://localhost:3000/foos/new
 
 Controller,Views and Module are located in bioruby-foo:
+
 * app/controllers
 * app/views
 * app/helpers
@@ -261,10 +327,10 @@ Controller,Views and Module are located in bioruby-foo:
 The latter path has modified by purpose from standard Rails configuration to keep a consistency with a normal ruby/gem library, in case developer wants to use a database but not a rails engine.
 
 === A Meta Plugin
+
 A meta package or plugin is a very simple gem, essentially a configuration's gem. This particular plugin is used to aggregate other plugins or gems taking advantage of RubyGems dependencies. An example of this feature are: bio-core, bio-ext, bio-biollinux plugins which have different purposes and they can contain the same plugins but in different versions.
 
-   $ Biogem --meta foo                            
-
+   $ biogem --meta foo                            
    create	.gitignore
    create	Rakefile
    create	Gemfile
@@ -275,7 +341,9 @@ A meta package or plugin is a very simple gem, essentially a configuration's gem
 Those are the only files created by Biogem and are the only required to work as a meta-package. The user can add its libraries to the Gemfile and update information in Rakefile
 
 ===== Gemfile
+
 This is Gemfile's content
+
    source "http://rubygems.org"
    # Add dependencies required to use your gem here.
    # Example:
@@ -293,49 +361,69 @@ This is Gemfile's content
 
 In general if you add gems to the development section that gems will be installed only if you want to contribute the the original plugin source code. Otherwise you must add your gem requirements outside development group.
 Note: because this file is used by bundler as well, you can specify multiple source. For development purposes is also possible to specify different location than rubygems, local or github:
+
    gem "the_perfect_gem", :path=>"your_local_path_on_your_hard_drive"
    gem "JohnDoe_perfect_gem", :git=>"http://github.com/johndow/the_perfect_gem"
 
 == Manage Plugin Versions
+
    $ rake version:bump:(major | minor | patch)
+
 will increase the level of your actual version by 1. A version is composed by X.Y.Z where X = major, Y = minor, Z = patch and we suggest the following approach for bumping the version:
+
 * major: new features or modifications which introduce incompatibilities with older version
 * minor: new features which keep backward compatibility
 * patch: fix a bug keeping backward compatibility
+
 Note: every time you want to publish your plugin on RubyGems the version must be bumped by 1 in at least one of the X.Y.Z otherwise RubyGems will give your an error. If you want to remove a specific version from RubyGems you must yank it but remember that version number, will not be available anymore
+
    gem yank GEM -v VERSION [-p PLATFORM] [--undo] [options]
+
 === Bumping Minor Version
+
    $ bundle exec rake version:bump:minor
    Current version: 0.0.0
    Updated version: 0.1.0
 
 == Releasing the Plugin
+
 After hack, git add and commit you may be ready to distribute the plugin and now you have two ways
+
 * Only GitHub
 * GitHub and RubyGems
+
 ===  Only on GitHub
+
    $ bundle exec rake git:release
+
 === GitHub and Rubygems at the same time
+
    $ bundle exec rake release
+
 ===  Prerelease
-To create a prerelease of your plugin, set the version to include a letter (e.g. 
-alpha). This way the gem is registered as prerelease, listed on http://biogems.info/, but not listed in the standard gem lists.
+
+To create a prerelease of your plugin, set the version to include a letter (e.g. alpha). This way the gem is registered as prerelease, listed on http://biogems.info/, but not listed in the standard gem lists.
 
 == Options
-These are the available options, they come from Biogem and from jeweler. I don't know if in the future I'll keep all of them.
 
-Usage: Biogem [options] reponame, e.g.
-   $ Biogem the-perfect-gem
+These are the available options, they come from biogem and from jeweler. I don't know if in the future I'll keep all of them.
 
+Usage: biogem [options] reponame, e.g.
+
+   $ biogem the-perfect-gem
 
         --directory [DIRECTORY]      specify the directory to generate into
+
 These options are for Biogem
+
         --meta                       create a meta package, just the Rakefile, Gemfile, Licence, Readme. This options takes the precedence over every other option.
         --with-bin                   create the bin directory and an executable template script called bioreponame
         --with-db                    create the database directory for a db application-library
         --with-test-data             create the data directory inside the test directory if the user need to set up a test with its own dataset
         --with-engine [NAMESPACE]    create a Rails engine with the namespace given in input. Dy default set up the environment to use an SQLite3 database
+
 These options are for Jeweler
+
         --rspec                      generate rspec code examples
         --shoulda                    generate shoulda tests
         --testunit                   generate test/unit tests
@@ -371,10 +459,15 @@ These options are for Jeweler
     -h, --help                       display this help and exit
 
 == Tasks
-Biogems, like other frameworks, offers a bunch of predefined and common operations for the developers. These are so called tasks and can be listed simply typing:
+
+Biogem, like other frameworks, offers a bunch of predefined and common operations for the developers. These are so called tasks and can be listed simply typing:
+
    $ rake -T 
+
 but because we are in a "development environment" is strongly suggested to use a very similar command 
+
    $ bundle exec rake -T
+
 which guarantees that all the called programs/tasks will be executed inside the current development environment (bound to specific libraries versions). Follows the list of all available tasks for Biogem
 
     rake build               # Build gem into pkg/
@@ -420,21 +513,21 @@ which guarantees that all the called programs/tasks will be executed inside the 
 == BioRuby's Wiki Official Documentation
 
 * http://bioruby.open-bio.org/wiki/Plugins
+
 === StepByStep
+
 Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bioruby.open-bio.org/wiki/BiogemInstallation; note this information could be older than this.
 
+== Biogem Official Plugin Archive
 
-== Biogems Official Plugin Archive
-
-* http://Biogems.info/ 
-
+* http://biogems.info/ 
 
 == TODO
+
 * better command line, wrap or re-implement some of the funcionalities provided by Bundler and Jeweler
 * use YAML for database configuration
 
 == Copyright
 
-Copyright (c) 2010 Raoul J.P. Bonnal, Toshiaki Katayama, and Pjotr Prins. See LICENSE.txt for
-further details.
+Copyright (c) 2010 Raoul J.P. Bonnal, Toshiaki Katayama, and Pjotr Prins. See LICENSE.txt for further details.
 
