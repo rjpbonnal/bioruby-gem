@@ -1,4 +1,4 @@
-= BioGems Tutorial
+= Biogem Tutorial
 
 The latest version of this document is on https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc 
 
@@ -8,12 +8,12 @@ The latest version of this document is on https://github.com/helios/bioruby-gem/
 
 * Ruby: at least 1.9.x, current tested version is 1.9.2, moving to 1.9.3
 
-* RVM: RVM http://beginrescueend.com/ is optional, but suggested. Not only can you specify the Ruby interpreter version that works best with BioGems, RVM also allows multiple ruby interpreters in your home directory for testing purposes. When using RVM, make sure to compile with openssl support, e.g. on Debian
+* RVM: RVM http://beginrescueend.com/ is optional, but suggested. Not only can you specify the Ruby interpreter version that works best with Biogem, RVM also allows multiple ruby interpreters in your home directory for testing purposes. When using RVM, make sure to compile with openssl support, e.g. on Debian
 
    $ sudo apt-get install libssl-dev 
    $ rvm install 1.9.3 --with-openssl-dir=$HOME/.rvm/usr
 
-* GitHub & RubyGems: In order to use BioGems to its fullest potential, you must create a regular GitHub  http://github.com and  RubyGems http://rubygems.org account. Why? Because for sharing and keeping track of source code we (currenlty) use github and for distributing the plugin we rely on RubyGems, the reference Ruby gem repository. To configure github and automate most of BioGems' tasks:
+* GitHub & RubyGems: In order to use Biogem to its fullest potential, you must create a regular GitHub  http://github.com and  RubyGems http://rubygems.org account. Why? Because for sharing and keeping track of source code we (currenlty) use github and for distributing the plugin we rely on RubyGems, the reference Ruby gem repository. To configure github and automate most of Biogem's tasks:
 
    $ git config --global user.name "Firstname Lastname" Sets the name of the user for all git instances on the system
    $ git config --global user.email "your_email@youremail.com"
@@ -24,7 +24,7 @@ Note: another Ruby version management system used in BioRuby community is https:
 
 === Download
 
-Install the BioGems toolset with
+Install the Biogem toolset with
 
    $ gem install bio-gem
 
@@ -101,7 +101,7 @@ In case you are not connected to internet the following message will appear:
    Seems you are not connected to Internet, can't create a remote repository.
    Do not forget to create it by hand, from GitHub, and sync it with this project.
 
-Note the name of the plugin is important. Plugins are published as Ruby gems on http://rubygems.org/. All plugins that start with the name bio dash (bio-) are automatically listed on the BioGems website http://biogems.info/ !
+Note the name of the plugin is important. Plugins are published as Ruby gems on http://rubygems.org/. All plugins that start with the name bio dash (bio-) are automatically listed on the Biogem website http://biogems.info/ !
 
 The first step is to open Rakefile and modify the gem.summary and gem.description.
 
@@ -242,7 +242,7 @@ The model must be located in a directory structure like lib/bio/your_module/your
       end
     end
 
-Then using the [TODO: missing]
+Then using the [FIXME]
 
 ===== Seeds
 
@@ -255,7 +255,7 @@ Use file db/seeds.rb to load a default dataset into your database
 
 === Rails Engine With Database a BioPlugin
 
-BioGems is intended to help you also in advanced task like create a gem that can be reused in multiple rails applications, serving for instance a database, libraries and/or controllers,models,views.
+Biogem is intended to help you also in advanced task like create a gem that can be reused in multiple rails applications, serving for instance a database, libraries and/or controllers,models,views.
 
 ==== Why Rails Engine
 
@@ -263,7 +263,7 @@ In bioinformatics is very common to presents data using a web application, and o
 
 ==== HowToEngines
 
-To example this BioGems' features we want to create a Rails application which provides a form to users. Data submitted are submitted to TogoWS and the result is returned in a web page. In the mean time we want to store suers queries and return them in the page of TogoWS' result. We'll create a Rails application and a separated BioGems to store queries and provide connection to TogoWS, following "man in the middle" pattern.
+To example this Biogem's features we want to create a Rails application which provides a form to users. Data are submitted to TogoWS http://togows.dbcls.jp/ and the result is returned in a web page. In the mean time we want to store suers queries and return them in the page of TogoWS' result. We'll create a Rails application and a separated Biogem to store queries and provide connection to TogoWS, following "man in the middle" pattern.
 
     $ biogem --with-engine Foo foo
 
@@ -338,7 +338,7 @@ A meta package or plugin is a very simple gem, essentially a configuration's gem
    create	README.rdoc
    create	.document
 
-Those are the only files created by BioGems and are the only required to work as a meta-package. The user can add its libraries to the Gemfile and update information in Rakefile
+Those are the only files created by Biogem and are the only required to work as a meta-package. The user can add its libraries to the Gemfile and update information in Rakefile
 
 ===== Gemfile
 
@@ -414,7 +414,7 @@ Usage: biogem [options] reponame, e.g.
 
         --directory [DIRECTORY]      specify the directory to generate into
 
-These options are for BioGems
+These options are for Biogem
 
         --meta                       create a meta package, just the Rakefile, Gemfile, Licence, Readme. This options takes the precedence over every other option.
         --with-bin                   create the bin directory and an executable template script called bioreponame
@@ -460,7 +460,7 @@ These options are for Jeweler
 
 == Tasks
 
-BioGems, like other frameworks, offers a bunch of predefined and common operations for the developers. These are so called tasks and can be listed simply typing:
+Biogem, like other frameworks, offers a bunch of predefined and common operations for the developers. These are so called tasks and can be listed simply typing:
 
    $ rake -T 
 
@@ -468,7 +468,7 @@ but because we are in a "development environment" is strongly suggested to use a
 
    $ bundle exec rake -T
 
-which guarantees that all the called programs/tasks will be executed inside the current development environment (bound to specific libraries versions). Follows the list of all available tasks for BioGems
+which guarantees that all the called programs/tasks will be executed inside the current development environment (bound to specific libraries versions). Follows the list of all available tasks for Biogem
 
     rake build               # Build gem into pkg/
     rake clobber_rcov        # Remove rcov products for rcov
@@ -518,7 +518,7 @@ which guarantees that all the called programs/tasks will be executed inside the 
 
 Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bioruby.open-bio.org/wiki/BiogemInstallation; note this information could be older than this.
 
-== BioGems Official Plugin Archive
+== Biogem Official Plugin Archive
 
 * http://biogems.info/ 
 
