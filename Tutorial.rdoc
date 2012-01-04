@@ -514,13 +514,9 @@ which guarantees that all the called programs/tasks will be executed inside the 
 
 * http://bioruby.open-bio.org/wiki/Plugins
 
-=== StepByStep
-
-Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bioruby.open-bio.org/wiki/BiogemInstallation; note this information could be older than this.
-
 == Biogem Official Plugin Archive
 
-* http://biogems.info/ 
+* http://biogems.info
 
 == TODO
 

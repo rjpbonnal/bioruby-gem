@@ -27,9 +27,15 @@ Also Biogem makes use of webservices. E.g.
   are two different services and you need to create different accounts for them
   if you already use GitHub.com you are set for using Biogem
 
+=== Pre-requisites
+
+* Ruby: at least 1.	 9.x, current tested version is 1.9.2, moving to 1.9.3.
+
+Note: Rubygems will not let you install Biogem in an environment with a Ruby interpreter older than 1.9.X
+
 == Biogems Official Archive
 
-* http://biogems.info/ 
+* http://biogems.info
 
 == Biogem Tutorial
 
@@ -41,14 +47,9 @@ The source code repositories for Biogem and http://biogems.info
 website are on github. If you want to contribute, feel free! Clone the
 project!
 
-=== StepByStep
-
-Toshiaki Katayama wrote a step by step guide for a bio-foobar plugin @ http://bioruby.open-bio.org/wiki/BiogemInstallation.
-
 == BioRuby's Wiki Official Documentation
 
 * http://bioruby.open-bio.org/wiki/Plugins
-* http://biogems.info/ official collector for BioRuby plugins
 
 == Biogem options
 
