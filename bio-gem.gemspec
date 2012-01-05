@@ -4,16 +4,15 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{bio-gem}
+  s.name = "bio-gem"
   s.version = "1.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Raoul J.P. Bonnal}]
-  s.date = %q{2012-01-05}
-  s.description = %q{BioGem is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .
-  The basic idea is to simplify and promote a modular approach to the BioRuby package.}
-  s.email = %q{ilpuccio.febo@gmail.com}
-  s.executables = [%q{biogem}]
+  s.authors = ["Raoul J.P. Bonnal"]
+  s.date = "2012-01-05"
+  s.description = "BioGem is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .\n  The basic idea is to simplify and promote a modular approach to the BioRuby package."
+  s.email = "ilpuccio.febo@gmail.com"
+  s.executables = ["biogem"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc",
@@ -54,12 +53,13 @@ Gem::Specification.new do |s|
     "test/helper.rb",
     "test/test_bio-gem.rb"
   ]
-  s.homepage = %q{http://github.com/helios/bioruby-gem}
-  s.licenses = [%q{MIT}]
-  s.require_paths = [%q{lib}]
+  s.homepage = "http://github.com/helios/bioruby-gem"
+  s.licenses = ["MIT"]
+  s.rdoc_options = ["--main", "README", "--line-numbers"]
+  s.require_paths = ["lib"]
   s.required_ruby_version = Gem::Requirement.new("~> 1.9")
-  s.rubygems_version = %q{1.8.6}
-  s.summary = %q{BioGem helps Bioinformaticians start developing plugins/modules for BioRuby creating a scaffold and a gem package}
+  s.rubygems_version = "1.8.10"
+  s.summary = "BioGem helps Bioinformaticians start developing plugins/modules for BioRuby creating a scaffold and a gem package"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3

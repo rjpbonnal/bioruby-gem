@@ -31,21 +31,22 @@ Also Biogem makes use of webservices. E.g.
 
 === Pre-requisites
 
-* Ruby: Ruby: 1.9, development and installation have been tested on 1.9.2, 1.9.3. Note: Rubygems will not let you install Biogem in an environment with a Ruby interpreter older than 1.9.X
+* Ruby: Ruby: 1.9
+  * development and installation have been tested on 1.9.2, 1.9.3.
 
 * RVM: RVM http://beginrescueend.com/ is optional, but suggested. Not only can you specify the Ruby interpreter version that works best with Biogem, RVM also allows multiple ruby interpreters in your home directory for testing purposes. When using RVM, make sure to compile with openssl support, e.g. on Debian
-
    $ sudo apt-get install libssl-dev 
    $ rvm install 1.9.3 --with-openssl-dir=$HOME/.rvm/usr
 
 * GitHub & RubyGems: In order to use Biogem to its fullest potential, you must create a regular GitHub  http://github.com and  RubyGems http://rubygems.org account. Why? Because for sharing and keeping track of source code we (currenlty) use github and for distributing the plugin we rely on RubyGems, the reference Ruby gem repository. To configure github and automate most of Biogem's tasks:
-
    $ git config --global user.name "Firstname Lastname" Sets the name of the user for all git instances on the system
    $ git config --global user.email "your_email@youremail.com"
    $ git config --global github.user "user_id"
    $ git config --global github.token "TOKEN ASSIGNED BY GITHUB"
 
 Note: another Ruby version management system used in BioRuby community is https://github.com/sstephenson/rbenv but for now we can not provide support for it.
+==== IMPORTANT NOTE
+Rubygems will not let you install Biogem in an environment with a Ruby interpreter older than 1.9.X
 
 === Download
 
@@ -55,39 +56,55 @@ Install the Biogem toolset with
 
 all the required dependencies will be downloaded and installed automatically.
 
-   Fetching: bundler-1.0.21.gem (100%)
+   $ gem install bio-gem
+   Fetching: rake-0.9.2.2.gem (100%)
    Fetching: git-1.2.5.gem (100%)
    Fetching: jeweler-1.6.4.gem (100%)
-   Fetching: json-1.6.3.gem (100%)
+   Fetching: json-1.6.4.gem (100%)
    Building native extensions.  This could take a while...
-   Fetching: rdoc-3.11.gem (100%)
+   Fetching: rdoc-3.12.gem (100%)
    Depending on your version of ruby, you may need to install ruby rdoc/ri data:
    <= 1.8.6 : unsupported
     = 1.8.7 : gem install rdoc-data; rdoc-data --install
     = 1.9.1 : gem install rdoc-data; rdoc-data --install
    >= 1.9.2 : nothing to do! Yay!
-   Fetching: bio-gem-1.1.2.gem (100%)
-   Successfully installed bundler-1.0.21
+   Fetching: bio-gem-1.2.0.gem (100%)
+   Successfully installed rake-0.9.2.2
    Successfully installed git-1.2.5
    Successfully installed jeweler-1.6.4
-   Successfully installed json-1.6.3
-   Successfully installed rdoc-3.11
-   Successfully installed bio-gem-1.1.2
+   Successfully installed json-1.6.4
+   Successfully installed rdoc-3.12
+   Successfully installed bio-gem-1.2.0
    6 gems installed
-   Installing ri documentation for bundler-1.0.21...
+   Installing ri documentation for rake-0.9.2.2...
    Installing ri documentation for git-1.2.5...
    Installing ri documentation for jeweler-1.6.4...
-   Installing ri documentation for json-1.6.3...
-   Installing ri documentation for rdoc-3.11...
-   Installing ri documentation for bio-gem-1.1.2...
-   Installing RDoc documentation for bundler-1.0.21...
+   Installing ri documentation for json-1.6.4...
+   Installing ri documentation for rdoc-3.12...
+   Installing ri documentation for bio-gem-1.2.0...
+   Installing RDoc documentation for rake-0.9.2.2...
    Installing RDoc documentation for git-1.2.5...
    Installing RDoc documentation for jeweler-1.6.4...
-   Installing RDoc documentation for json-1.6.3...
-   Installing RDoc documentation for rdoc-3.11...
-   Installing RDoc documentation for bio-gem-1.1.2...
+   Installing RDoc documentation for json-1.6.4...
+   Installing RDoc documentation for rdoc-3.12...
+   Installing RDoc documentation for bio-gem-1.2.0...
 
-== HowTo Develop a plugins
+Note: the above list of dependencies is just an example and it may vary from your current installation.
+
+== Browse the documentation
+
+During the installation you may note how Rubygems install the documentation for you, for each library installed.
+Is possible to access to all the documentations and API installed simply typing in the command line:
+    $ gem server
+	Server started at http://0.0.0.0:8808
+	Server started at http://[::ffff:0.0.0.0]:8808
+
+To see Biogem documentation locally use this link:
+    http://localhost:8808/doc_root/bio-gem-1.2.0/rdoc/README_rdoc.html
+
+Note: the above link must be update with your current version of Biogem
+
+== Biogem Tutorial HowTo Develop a plugins
 
 Please follow the guide reported in tutorial https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc, which is the most up to date version.
 You'll find out how to create:
@@ -100,10 +117,6 @@ and much more
 == Biogems Official Archive
 
 * http://biogems.info
-
-== Biogem Tutorial
-
-The latest version is on https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc 
 
 == Contributing to Biogem
 
@@ -122,17 +135,13 @@ Usage: biogem [options] reponame
 e.g. biogem the-perfect-gem
 
         --directory [DIRECTORY]      specify the directory to generate into
-
-These options are for BioGem
-
---meta                       create a meta package, just the Rakefile, Gemfile, Licence, Readme. This options takes the precedence over every other option.
+    These options are for BioGem
+        --meta                       create a meta package, just the Rakefile, Gemfile, Licence, Readme. This options takes the precedence over every other option.
         --with-bin                   create the bin directory and an executable template script called bioreponame
         --with-db                    create the database directory for a db application-library.
         --with-test-data             create the data directory inside the test directory if the user need to set up a test with its own dataset
         --with-engine [NAMESPACE]    create a Rails engine with the namespace given in input. Set default database creation
-
-These options are for Jeweler
-
+    These options are for Jeweler
         --rspec                      generate rspec code examples
         --shoulda                    generate shoulda tests
         --testunit                   generate test/unit tests
@@ -142,27 +151,19 @@ These options are for Jeweler
         --micronaut                  generate micronaut examples
         --riot                       generate riot tests
         --shindo                     generate shindo tests
-
         --[no-]bundler               use bundler for managing dependencies
         --cucumber                   generate cucumber stories in addition to the other tests
-
         --reek                       generate rake task for reek
         --roodi                      generate rake task for roodi
-
         --summary [SUMMARY]          specify the summary of the project
         --description [DESCRIPTION]  specify a description of the project
-
         --user-name [USER_NAME]      the user's name, ie that is credited in the LICENSE
         --user-email [USER_EMAIL]    the user's email, ie that is credited in the Gem specification
-
-        --github-username [GITHUB_USERNAME]
-                                     name of the user on GitHub to set the project up under
-        --github-token [GITHUB_TOKEN]
-                                     GitHub token to use for interacting with the GitHub API
+        --github-username [GITHUB_USERNAME] name of the user on GitHub to set the project up under
+        --github-token [GITHUB_TOKEN] GitHub token to use for interacting with the GitHub API
         --git-remote [GIT_REMOTE]    URI to set the git origin remote to
         --homepage [HOMEPAGE]        the homepage for your project (defaults to the GitHub repo)
         --no-create-repo             create the repository on GitHub
-
         --yard                       use yard for documentation
         --rdoc                       use rdoc for documentation
     -h, --help                       display this help and exit
