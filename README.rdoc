@@ -121,7 +121,10 @@ and much more
 == Contributing to Biogem
 
 The source code repositories for Biogem and http://biogems.info
-website are on github. If you want to contribute, feel free! Clone the
+website are on github.
+* https://github.com/helios/bioruby-gem
+* https://github.com/pjotrp/biogems.info
+If you want to contribute, feel free! Clone the
 project!
 
 == BioRuby's Wiki Official Documentation
