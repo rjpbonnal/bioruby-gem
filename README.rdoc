@@ -27,11 +27,75 @@ Also Biogem makes use of webservices. E.g.
   are two different services and you need to create different accounts for them
   if you already use GitHub.com you are set for using Biogem
 
+== Installation
+
 === Pre-requisites
 
-* Ruby: at least 1.	 9.x, current tested version is 1.9.2, moving to 1.9.3.
+* Ruby: Ruby: 1.9, development and installation have been tested on 1.9.2, 1.9.3. Note: Rubygems will not let you install Biogem in an environment with a Ruby interpreter older than 1.9.X
 
-Note: Rubygems will not let you install Biogem in an environment with a Ruby interpreter older than 1.9.X
+* RVM: RVM http://beginrescueend.com/ is optional, but suggested. Not only can you specify the Ruby interpreter version that works best with Biogem, RVM also allows multiple ruby interpreters in your home directory for testing purposes. When using RVM, make sure to compile with openssl support, e.g. on Debian
+
+   $ sudo apt-get install libssl-dev 
+   $ rvm install 1.9.3 --with-openssl-dir=$HOME/.rvm/usr
+
+* GitHub & RubyGems: In order to use Biogem to its fullest potential, you must create a regular GitHub  http://github.com and  RubyGems http://rubygems.org account. Why? Because for sharing and keeping track of source code we (currenlty) use github and for distributing the plugin we rely on RubyGems, the reference Ruby gem repository. To configure github and automate most of Biogem's tasks:
+
+   $ git config --global user.name "Firstname Lastname" Sets the name of the user for all git instances on the system
+   $ git config --global user.email "your_email@youremail.com"
+   $ git config --global github.user "user_id"
+   $ git config --global github.token "TOKEN ASSIGNED BY GITHUB"
+
+Note: another Ruby version management system used in BioRuby community is https://github.com/sstephenson/rbenv but for now we can not provide support for it.
+
+=== Download
+
+Install the Biogem toolset with
+
+   $ gem install bio-gem
+
+all the required dependencies will be downloaded and installed automatically.
+
+   Fetching: bundler-1.0.21.gem (100%)
+   Fetching: git-1.2.5.gem (100%)
+   Fetching: jeweler-1.6.4.gem (100%)
+   Fetching: json-1.6.3.gem (100%)
+   Building native extensions.  This could take a while...
+   Fetching: rdoc-3.11.gem (100%)
+   Depending on your version of ruby, you may need to install ruby rdoc/ri data:
+   <= 1.8.6 : unsupported
+    = 1.8.7 : gem install rdoc-data; rdoc-data --install
+    = 1.9.1 : gem install rdoc-data; rdoc-data --install
+   >= 1.9.2 : nothing to do! Yay!
+   Fetching: bio-gem-1.1.2.gem (100%)
+   Successfully installed bundler-1.0.21
+   Successfully installed git-1.2.5
+   Successfully installed jeweler-1.6.4
+   Successfully installed json-1.6.3
+   Successfully installed rdoc-3.11
+   Successfully installed bio-gem-1.1.2
+   6 gems installed
+   Installing ri documentation for bundler-1.0.21...
+   Installing ri documentation for git-1.2.5...
+   Installing ri documentation for jeweler-1.6.4...
+   Installing ri documentation for json-1.6.3...
+   Installing ri documentation for rdoc-3.11...
+   Installing ri documentation for bio-gem-1.1.2...
+   Installing RDoc documentation for bundler-1.0.21...
+   Installing RDoc documentation for git-1.2.5...
+   Installing RDoc documentation for jeweler-1.6.4...
+   Installing RDoc documentation for json-1.6.3...
+   Installing RDoc documentation for rdoc-3.11...
+   Installing RDoc documentation for bio-gem-1.1.2...
+
+== HowTo Develop a plugins
+
+Please follow the guide reported in tutorial https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc, which is the most up to date version.
+You'll find out how to create:
+* a simple plugin
+* embed a database
+* create a Biogem Engine to embed your gem into a Ruby on Rails web application
+and much more
+
 
 == Biogems Official Archive
 
