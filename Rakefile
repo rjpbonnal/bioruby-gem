@@ -24,7 +24,18 @@ Jeweler::Tasks.new do |gem|
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   #gem.version='0.0.1'
   gem.required_ruby_version = "~>1.9"
+  gem.extra_rdoc_files = ['LICENSE.txt', 'README.rdoc','Tutorial.rdoc']
 end
+
+
+
+# # Ricordati ti aggiungere README e Tutorial
+# #  spec.extra_rdoc_files = ['README', 'doc/user-guide.txt']
+# 
+# def extra_rdoc_files
+#   @extra_rdoc_files ||= []
+# end
+# 
 Jeweler::RubygemsDotOrgTasks.new
 
 require 'rake/testtask'
