@@ -46,7 +46,7 @@ Also Biogem makes use of webservices. E.g.
 
 Note: another Ruby version management system used in BioRuby community is https://github.com/sstephenson/rbenv but for now we can not provide support for it.
 ==== IMPORTANT NOTE
-Rubygems will not let you install Biogem in an environment with a Ruby interpreter older than 1.9.X
+Rubygems will not let you install Biogem in an environment with a Ruby interpreter older than 1.9
 
 === Download
 
