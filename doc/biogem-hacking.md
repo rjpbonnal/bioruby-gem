@@ -10,9 +10,9 @@ hack it.
 
 Biogem builds on [Jeweler](https://github.com/technicalpickles/jeweler).
 
-Jeweller comes with a library for managing and releasing RubyGem projects, and
+jeweler comes with a library for managing and releasing RubyGem projects, and
 a scaffold generator for starting new RubyGem projects. Using typical Ruby
-overrides of Jeweller methods, also known as meta-programming, Biogem subverts
+overrides of jeweler methods, also known as meta-programming, Biogem subverts
 Jeweler for our bioinformatics needs (see jeweler::Generator.new example below).
 
 ## Invoking the Biogem code generator
@@ -28,7 +28,7 @@ tests etc. Nothing special so far. Where it gets interesting is that biogem
 overrides Jeweler classes in [./lib/bio-gem/mod/jeweler.rb](https://github.com/helios/bioruby-gem/blob/master/lib/bio-gem/mod/jeweler.rb). In this file, at runtime,
 Jeweler::Generator.new is replaced with our own version, which calls the
 original first, but continues to plug in information. Any time jeweler::Generator.new is called,
-our edition is called. Even from within Jeweller!
+our edition is called. Even from within jeweler!
 
 It is important to check out this file, as many overrides are defined here.
 Also have a look at the *create_files* function. That is where directories and
@@ -52,10 +52,10 @@ it is all fairly straightforward.
 
 ## Check out the jeweler source code
 
-From the above you can see how we reprogram Jeweller for our needs. To find new
-ways of generating code, we strongly suggest to also check out the [jeweller
+From the above you can see how we reprogram jeweler for our needs. To find new
+ways of generating code, we strongly suggest to also check out the [jeweler
 source code](https://github.com/technicalpickles/jeweler/tree/master/lib). The
-Jeweller code base is well thought out, and stable.
+jeweler code base is well thought out, and stable.
 
 ## Changing jeweler behaviour
 
@@ -76,14 +76,111 @@ In the Jeweler source code tree rcov is used in two files:
         jeweler/templates/other_tasks.erb:  <%= test_task %>.rcov_opts << '--exclude "gems/*"'
 
 The first step is to remove the rcov entry from development_dependencies. This can be
-done by adding a line in Biogems lib/bio-gem/mod/jeweler.rb
+done by adding a line in Biogems lib/bio-gem/mod/jeweler.rb. Change it to 
+
+        class Jeweler
+          class Generator 
+            alias original_initialize initialize
+            def initialize(options = {})
+              original_initialize(options)
+              development_dependencies << ["bio", ">= 1.4.2"]
+              development_dependencies.delete_if { |k,v| k == "rcov" }
+              (...) 
+
+You can see here that BioRuby support is always added. The next step is to change 
+the behaviour of jeweler/templates/other_tasks.erb. The code to generate the
+Rakefile lists is 
+
+        <% case testing_framework %>
+        <% when :rspec %>
+          (...)
+        <% when :micronaut %>
+          (...)
+        <% else %>
+        require 'rcov/rcovtask'
+        Rcov::RcovTask.new do |<%= test_task %>|
+          (...)
+        end
+        <% end %>
+
+and, annoyingly, shows that rcov is always added by default (in the final
+'else'). We should communicate with the author of Jeweler to fix this. However, we
+also have the option to override the Rakefile generator. The jeweler Rakefile
+template has the form
+
+        require 'rubygems'
+        <%= render_template 'bundler_setup.erb' %>
+        require 'rake'
+        <%= render_template 'jeweler_tasks.erb' %>
+        <%= render_template 'other_tasks.erb' %>
+
+The two important functions in jeweler.rb are:
+
+    def render_template(source)
+      template_contents = File.read(File.join(template_dir, source))
+      template          = ERB.new(template_contents, nil, '<>')
+      # squish extraneous whitespace from some of the conditionals
+      template.result(binding).gsub(/\n\n\n+/, "\n\n")
+    end
+
+    def output_template_in_target(source, destination = source)
+      final_destination = File.join(target_dir, destination)
+      template_result   = render_template(source)
+      File.open(final_destination, 'w') {|file| file.write(template_result)}
+      $stdout.puts "\tcreate\t#{destination}"
+    end
+
+these find the templates and render them through ERB. 
+
+Naturally, Biogem has needed some overriding behaviour.  In this case Biogems jeweler.rb
+has
+
+    def output_template_in_target_generic_update(source, destination = source, template_dir = template_dir_biogem)
+      final_destination = File.join(target_dir, destination)
+      template_result   = render_template_generic(source, template_dir)
+      File.open(final_destination, 'a') {|file| file.write(template_result)}
+      $stdout.puts "\tcreate\t#{destination}"
+    end    
+
+and, in the case of the --with-db option, the Rakefile already gets modified by 
+
+    output_template_in_target_generic 'rakefile', 'Rakefile', template_dir_biogem
+
+so, what would be the best route here, to change biogem behaviour? We have to rewrite
+the Rakefile template to remove the rcov lines, as there is not switch. We also have
+to change *render_template* allow rewriting the template. Unfortunately there is no
+existing hook for that in jeweler. So, let us add a hook named *after_render_template*
+to *render_template*. First we move the method to biogem jeweler.rb
+
+        class Jeweler
+          class Generator 
+            alias original_render_template render_template
+            def render_template(source)
+              buf = original_render_template(source)
+              # call hook
+              after_render_template(source,buf)
+            end
+
+            # hook for removing stuff
+            def after_render_template(source,buf)
+              if source == 'other_tasks.erb'
+                # remove rcov related lines
+                buf.gsub!(/require 'rcov/rcovtask'/,'')
+                (...)
+              end
+            end
+
+anyway, you probably get the gist. The solution chosen overrides jeweler
+behaviour. If it can be handled in jeweler, it is preferred, because a small
+change in jeweler may now break biogem (our fix is brittle). Still, for stuff
+that can not go into jeweler, this is a way of changing behaviour.
 
 ## DRY (Do not repeat yourself)
 
 This document should help you preventing repeating yourself. Code generation
-can be very useful. When you have something bioinformatics, add it to biogem.
-When it is more generic, add it to Jeweller. That will make a lot of people
-happy.
+can be very useful. When you have something that is useful to yourself, or
+others, and is bioinformatics related, add it to biogem.  When it is more
+generic, add it to jeweler. You may make a lot of people happy.
 
 
 
