@@ -4,7 +4,8 @@ Biogem is a Ruby code generator for bioinformatics. It generates a plugin, in th
 form of a gem, which is published automatically on both github and rubygems.org.
 
 In this document we discuss the design of the biogem code generator, and ways to
-hack it.
+hack it. Warning, this document is about Ruby meta-programming. Not for the faint of 
+heart.
 
 ## Introduction
 
@@ -186,7 +187,8 @@ can be very useful. When you have something that is useful to yourself, or
 others, and is bioinformatics related, add it to biogem.  When it is more
 generic, add it to jeweler. You may make a lot of people happy.
 
+## More on meta-programming
 
+The Pragmatic programmers book on [Ruby metaprogramming](http://www.amazon.com/Metaprogramming-Ruby-Program-Like-Pros/dp/1934356476/ref=cm_cr_pr_product_top) is recommended reading.
 
-
-
+Copyright (C) 2012 Pjotr Prins <pjotr.prins@thebird.nl>
