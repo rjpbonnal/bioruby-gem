@@ -20,6 +20,7 @@ class Jeweler
     def initialize(options = {})
       original_initialize(options)
       development_dependencies << ["bio", ">= 1.4.2"]
+      development_dependencies.delete_if { |k,v| k == "rcov" }
       if options[:biogem_db]
         development_dependencies << ["activerecord", ">= 3.0.7"]
         development_dependencies << ["activesupport", ">= 3.0.7"]
