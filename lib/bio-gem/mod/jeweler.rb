@@ -34,6 +34,25 @@ class Jeweler
       prj_name
     end
 
+    alias original_render_template render_template
+    def render_template(source)
+      buf = original_render_template(source)
+      # call hook (returns edited buf)
+      after_render_template(source,buf)
+    end
+
+    # new hook for removing stuff
+    def after_render_template(source,buf)
+      if source == 'other_tasks.erb'
+        $stdout.puts "\tRemoving rcov lines"
+        # remove rcov related lines from jeweler Rakefile
+        buf1 = buf.split(/\n/)
+        buf = buf1[0..6] + buf1[14..-1]
+        $stdout.puts buf,'---'
+      end
+      buf
+    end
+
     def lib_dir
       'lib'
     end

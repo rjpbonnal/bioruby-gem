@@ -142,26 +142,26 @@ has
       $stdout.puts "\tcreate\t#{destination}"
     end    
 
-and, in the case of the --with-db option, the Rakefile already gets modified by 
+and, in the case of the --with-db option, the Rakefile already gets modified by Biogem
 
     output_template_in_target_generic 'rakefile', 'Rakefile', template_dir_biogem
 
-so, what would be the best route here, to change biogem behaviour? We have to rewrite
-the Rakefile template to remove the rcov lines, as there is not switch. We also have
-to change *render_template* allow rewriting the template. Unfortunately there is no
-existing hook for that in jeweler. So, let us add a hook named *after_render_template*
-to *render_template*. First we move the method to biogem jeweler.rb
+So, what would be the best route here, to change biogem behaviour? We have to rewrite
+the Rakefile template to remove the rcov lines. We can 
+change the *render_template* to allow rewriting the template. Unfortunately there is no
+existing hook for that in jeweler. So, let us inject a hook named *after_render_template*
+to a *render_template* override. First we open the Jeweler::Generator class and move the method to biogem jeweler.rb, renaming the original method to original_render_template:
 
         class Jeweler
           class Generator 
             alias original_render_template render_template
             def render_template(source)
               buf = original_render_template(source)
-              # call hook
+              # call hook (returns edited buf)
               after_render_template(source,buf)
             end
 
-            # hook for removing stuff
+            # new hook for removing stuff
             def after_render_template(source,buf)
               if source == 'other_tasks.erb'
                 # remove rcov related lines
@@ -170,10 +170,14 @@ to *render_template*. First we move the method to biogem jeweler.rb
               end
             end
 
-anyway, you probably get the gist. The solution chosen overrides jeweler
-behaviour. If it can be handled in jeweler, it is preferred, because a small
-change in jeweler may now break biogem (our fix is brittle). Still, for stuff
-that can not go into jeweler, this is a way of changing behaviour.
+you probably get the gist (the stuff you can do with Ruby meta-programming!).
+The solution chosen overrides original jeweler behaviour without touching
+jeweler itself. Naturally, if it can be handled in jeweler, it is strongly
+preferred.  With our solution a small change in jeweler may now break biogem
+(in software engineering terms: the fix is brittle).
+
+Still, for stuff that will not go into jeweler, this is a way of changing
+behaviour.
 
 ## DRY (Do not repeat yourself)
 
