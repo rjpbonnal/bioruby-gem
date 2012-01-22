@@ -13,6 +13,25 @@ a directory, generate a file through a template, and add a test through a
 helper. In the second section we will modify some undesired behaviour in biogem
 through meta-programming.
 
+## Check out the source
+
+
+To change biogem, checkout the source tree to your local machine. E.g.
+
+      git clone https://github.com/helios/bioruby-gem.git
+      cd bioruby-gem
+      bundle
+
+Make sure you are running a supported version of Ruby (check the README). 
+Now you can invoke biogem with
+
+      bundle exec ./bin/biogem foo
+
+which will create the bioruby-foo plugin for testing. Every time you rerun biogem, make
+sure to remove the bioruby-foo directory first
+
+      rm -rf bioruby-foo ; bundle exec ./bin/biogem foo
+
 ## Invoking the Biogem code generator
 
 In the file ./bin/biogem rake, jeweler and bundler support are loaded and
