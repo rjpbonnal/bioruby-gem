@@ -82,6 +82,10 @@ class Jeweler
       'bin'
     end
 
+    def ext_dir
+      'ext'
+    end
+
     def bin_name
       "bio#{original_project_name}"
     end
@@ -155,6 +159,17 @@ class Jeweler
       File.join(File.dirname(__FILE__),'..', 'templates')
     end
 
+    def create_ffi_structure
+      # create ./ext/src and ./ext/include for the .c and .h files
+      mkdir_in_target(ext_dir)
+      src_dir = File.join(ext_dir,'src')
+      mkdir_in_target(src_dir)
+      # create ./lib/ffi for the Ruby ffi
+      mkdir_in_target(File.join(lib_dir,"ffi"))
+      # copy C files
+      output_template_in_target_generic File.join('ffi','ext.c'), File.join(src_dir, "ext.c" )
+      output_template_in_target_generic File.join('ffi','ext.h'), File.join(src_dir, "ext.h" )
+    end
 
     def create_db_structure
       migrate_dir = File.join(db_dir, "migrate")
@@ -198,6 +213,7 @@ class Jeweler
           mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
           mkdir_in_target test_data_dir  
         end
+        create_ffi_structure if options[:biogem_ffi]
         create_db_structure if options[:biogem_db]
         if options[:biogem_bin] 
           mkdir_in_target bin_dir

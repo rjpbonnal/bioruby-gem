@@ -1,13 +1,96 @@
 # Hacking biogem
 
-Biogem is a Ruby code generator for bioinformatics. It generates a plugin, in the
-form of a gem, which is published automatically on both github and rubygems.org.
+Biogem is a Ruby code generator for bioinformatics. It generates a plugin, in
+the form of a gem, which is published automatically on both github and
+rubygems.org.
 
-In this document we discuss the design of the biogem code generator, and ways to
-hack it. Warning, this document is about Ruby meta-programming. Not for the faint of 
-heart.
+In this document we discuss ways to modify Biogem, so you can generate your own
+code, and avoid repetitious work. The design of the biogem code generator is based on
+templates, and there are accessible ways to hack it, or even add your own templates.
 
-## Introduction
+This document is divided into two sections. In the first section we will create
+a directory, generate a file through a template, and add a test through a
+helper. In the second section we will modify some undesired behaviour in biogem
+through meta-programming.
+
+## Invoking the Biogem code generator
+
+In the file ./bin/biogem rake, jeweler and bundler support are loaded and
+Bio::Gem::Generator::Application invoked, which generates the new directory and
+files. After generating code biogem changes directory and runs some rake
+commands in the newly generated plugin.
+
+## Add an CLI option to Biogem
+
+In the first step we want to add a switch to the biogem command line. For our 
+purpose we will add --with-ffi, a switch which will create a template for a foreign
+function interface. Switches are defined in [options.rb](https://github.com/helios/bioruby-gem/blob/master/lib/bio-gem/mod/jeweler/options.rb). We add
+a switch with
+
+          o.on('--with-ffi', 'generate a foreign function interface (FFI)') do
+            self[:biogem_ffi] = true
+          end
+
+This switch will be available as *options[:biogem_ffi]* further on.
+
+## Create a directory
+
+In the method *create_files* in Biogem [jeweler.rb](https://github.com/helios/bioruby-gem/blob/master/lib/bio-gem/mod/jeweler.rb) directories and files get
+created. For example the plugin library file is generated with
+
+        # Fill lib/bio-plugin.rb with some default comments
+        output_template_in_target_generic 'lib', File.join(lib_dir, lib_filename)
+
+which also creates the directory. We explicitly add a directory to store C 
+source files and headers with
+
+        create_ffi_structure if options[:biogem_ffi]
+
+and
+
+        def create_ffi_structure
+          # create ./ext/src and ./ext/include for the .c and .h files
+          mkdir_in_target(ext_dir)
+          mkdir_in_target(File.join(ext_dir,"src"))
+          # create ./lib/ffi for the Ruby ffi
+          mkdir_in_target(File.join(lib_dir,"ffi"))
+        end
+
+## Generate file from template
+
+Templates are stored in lib/bio-gem/templates. We create a template for
+our C extension named [ext.c](https://github.com/helios/bioruby-gem/tree/master/lib/bio-gem/templates/ffi/ext.c), e.g. the C function
+
+        int add_one(int number) {
+          return number + 1;
+        }
+
+which gets copied into the plugins ./ext/src directory with 
+
+        output_template_in_target_generic File.join('ffi','ext.c'), File.join(src_dir, "ext.c" )
+
+Likewise, an include file ext.h gets copied, a Makefile, and the Ruby ffi file, which defines the bindings to ext.c.
+
+(to be continued)
+
+## Modify the file with a helper
+
+Generate tests by adding a helper
+
+(to be continued)
+
+## Adapt the Rakefile
+
+The Rakefile needs to be adapted to compile the C file(s).
+
+(to be continued)
+
+# Hacking jeweler for Biogem 
+
+The following section discusses surgical changes to biogem.
+
+''Warning, the rest of this document is about Ruby meta-programming. It is not for the faint of 
+heart.''
 
 Biogem builds on [Jeweler](https://github.com/technicalpickles/jeweler).
 
@@ -188,6 +271,14 @@ others, and is bioinformatics related, add it to biogem.  When it is more
 generic, add it to jeweler. You may make a lot of people happy.
 
 ## More on meta-programming
+
+Thanks to Ruby meta-programming we do not have to change jeweler. With another
+computer language, we would have cloned jeweler and modified the source code
+for our purposes. This would imply a fork of the code base - and the projects
+would have diverged irrevocably. As it stands, we can build on the existing
+jeweler project. Some 'brittleness' may exist, as explained above, but in
+general we should normally be able to continue adapting our code base to that
+of jeweler.
 
 The Pragmatic programmers book on [Ruby metaprogramming](http://www.amazon.com/Metaprogramming-Ruby-Program-Like-Pros/dp/1934356476/ref=cm_cr_pr_product_top) is recommended reading.
 
