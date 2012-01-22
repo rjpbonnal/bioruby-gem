@@ -20,6 +20,7 @@ class Jeweler
     def initialize(options = {})
       original_initialize(options)
       development_dependencies << ["bio", ">= 1.4.2"]
+      development_dependencies.delete_if { |k,v| k == "rcov" }
       if options[:biogem_db]
         development_dependencies << ["activerecord", ">= 3.0.7"]
         development_dependencies << ["activesupport", ">= 3.0.7"]
@@ -31,6 +32,25 @@ class Jeweler
     def project_name
       prj_name = original_project_name=~/^bio-/ ? original_project_name : "bio-#{original_project_name}" 
       prj_name
+    end
+
+    alias original_render_template render_template
+    def render_template(source)
+      buf = original_render_template(source)
+      # call hook (returns edited buf)
+      after_render_template(source,buf)
+    end
+
+    # new hook for removing stuff
+    def after_render_template(source,buf)
+      if source == 'other_tasks.erb'
+        $stdout.puts "\tRemoving rcov lines"
+        # remove rcov related lines from jeweler Rakefile
+        buf1 = buf.split(/\n/)
+        buf = buf1[0..6] + buf1[14..-1]
+        $stdout.puts buf,'---'
+      end
+      buf
     end
 
     def lib_dir
@@ -60,6 +80,10 @@ class Jeweler
 
     def bin_dir
       'bin'
+    end
+
+    def ext_dir
+      'ext'
     end
 
     def bin_name
@@ -135,6 +159,17 @@ class Jeweler
       File.join(File.dirname(__FILE__),'..', 'templates')
     end
 
+    def create_ffi_structure
+      # create ./ext/src and ./ext/include for the .c and .h files
+      mkdir_in_target(ext_dir)
+      src_dir = File.join(ext_dir,'src')
+      mkdir_in_target(src_dir)
+      # create ./lib/ffi for the Ruby ffi
+      mkdir_in_target(File.join(lib_dir,"ffi"))
+      # copy C files
+      output_template_in_target_generic File.join('ffi','ext.c'), File.join(src_dir, "ext.c" )
+      output_template_in_target_generic File.join('ffi','ext.h'), File.join(src_dir, "ext.h" )
+    end
 
     def create_db_structure
       migrate_dir = File.join(db_dir, "migrate")
@@ -178,6 +213,7 @@ class Jeweler
           mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
           mkdir_in_target test_data_dir  
         end
+        create_ffi_structure if options[:biogem_ffi]
         create_db_structure if options[:biogem_db]
         if options[:biogem_bin] 
           mkdir_in_target bin_dir

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Raoul J.P. Bonnal"]
-  s.date = "2012-01-05"
+  s.date = "2012-01-21"
   s.description = "BioGem is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .\n  The basic idea is to simplify and promote a modular approach to the BioRuby package."
   s.email = "ilpuccio.febo@gmail.com"
   s.executables = ["biogem"]
@@ -71,7 +71,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.18"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
-      s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, [">= 0"])
     else
       s.add_dependency(%q<bundler>, ["~> 1.0.18"])
@@ -80,7 +79,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.18"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
-      s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<rdoc>, [">= 0"])
     end
   else
@@ -90,7 +88,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.18"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
-    s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<rdoc>, [">= 0"])
   end
 end

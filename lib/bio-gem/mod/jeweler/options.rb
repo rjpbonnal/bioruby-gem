@@ -45,6 +45,10 @@ class Jeweler
             self[:biogem_bin] = true
           end
 
+          o.on('--with-ffi', 'generate a C extension with foreign function interface (FFI)') do
+            self[:biogem_ffi] = true
+          end
+
           o.on('--with-db', 'create the database directory for a db application-library.') do
             self[:biogem_db] = true
           end
