@@ -15,11 +15,11 @@ Jeweler::Tasks.new do |gem|
   gem.name = "bio-gem"
   gem.homepage = "http://github.com/helios/bioruby-gem"
   gem.license = "MIT"
-  gem.summary = %Q{BioGem helps Bioinformaticians start developing plugins/modules for BioRuby creating a scaffold and a gem package}
-  gem.description = %Q{BioGem is a scaffold generator for those Bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .
-  The basic idea is to simplify and promote a modular approach to the BioRuby package.}
+  gem.summary = %Q{Biogem is a software generator for Ruby in bioinformatics}
+  gem.description = %Q{Biogem is a software generator for those bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .
+  The basic idea is to simplify and promote a modular approach to bioinformatics software development}
   gem.email = "ilpuccio.febo@gmail.com"
-  gem.authors = ["Raoul J.P. Bonnal"]
+  gem.authors = ["Raoul J.P. Bonnal", "Pjotr Prins"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   #gem.version='0.0.1'
