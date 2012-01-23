@@ -279,6 +279,9 @@ jeweler itself. Naturally, if it can be handled in jeweler, it is strongly
 preferred.  With our solution a small change in jeweler may now break biogem
 (in software engineering terms: the fix is brittle).
 
+In fact, the jeweler author has responded that the default behaviour for rcov will change now. I.e.
+our fix will go upstream.
+
 Still, for stuff that will not go into jeweler, this is a way of changing
 behaviour.
 
