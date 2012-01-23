@@ -46,19 +46,12 @@ class Jeweler
       if source == 'other_tasks.erb'
         $stdout.puts "\tRemoving rcov lines"
         # remove rcov related lines from jeweler Rakefile
-        remove =<< REMOVE
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-  test.rcov_opts << '--exclude "gems/*"'
-end
-REMOVE
-        if buf =~ /#{REMOVE}/
+        remove = "require 'rcov/rcovtask'"
+        if buf =~ /#{remove}/
           # $stdout.puts buf,'---'
           buf1 = buf.split(/\n/)
-          buf = buf1[0..6] + buf1[14..-1]
+          i = buf1.index(remove)
+          buf = (buf1[0..i-1] + buf1[i+7..-1]).join("\n")
         end
       end
       buf
