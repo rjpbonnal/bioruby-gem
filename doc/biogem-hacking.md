@@ -156,7 +156,7 @@ exist in the Jeweler name space.
   
 ## Adapt the Rakefile
 
-For our FFI the Rakefile needs to be adapted to compile the C file(s).
+For our FFI DRY the Rakefile needs to be adapted to compile the C file(s).
 
 (to be continued)
 
