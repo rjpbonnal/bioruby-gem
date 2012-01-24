@@ -145,38 +145,28 @@ gets included by everyone using your plugin using
 require 'bio-myawesomeplugin'
 ```
 
-The generated file is in your module *lib* directory. The template for that file can be found [here](https://github.com/pjotrp/bioruby-gem/blob/master/lib/bio-gem/templates/lib/bioruby-plugin.rb) and contains the erb code:
-
-```ruby
-        <% if options[:biogem_db] %>
-          require '<%= File.join("bio",sub_module.downcase,"connect") %>'
-          <% unless options[:biogem_engine] %>
-            require '<%= File.join("bio",sub_module.downcase,"example") %>'
-          <% end %>
-        <% end %>
-```
-
-which contains Ruby code that gets invoked at code generation time. This
-example contains no real helper functions. Another example that generates the
-binary from a [template](https://github.com/pjotrp/bioruby-gem/blob/master/lib/bio-gem/templates/bin/bio-plugin), when generating with the --with-bin switch, contains the line
+The generated file is in your module *lib* directory. The template for that file can be found [here](https://github.com/pjotrp/bioruby-gem/blob/master/lib/bio-gem/templates/lib/bioruby-plugin.rb). 
+Another example generates the
+binary from a [template](https://github.com/pjotrp/bioruby-gem/blob/master/lib/bio-gem/templates/bin/bio-plugin), when generating with the --with-bin switch. It contains the line
 
 ```ruby
         require '<%= project_name %>'
 ```  
 
-Here *project_name* is a helper, with is defined in *lib/bio-gem/mod/jeweler.rb* as
+*project_name* is a helper, a method which is defined in *lib/bio-gem/mod/jeweler.rb* as
 
 ```ruby
     alias original_project_name project_name  
     def project_name
-      prj_name = original_project_name=~/^bio-/ ? original_project_name : "bio-#{original_project_name}" 
-      prj_name
+      name = original_project_name
+      return 'bio-'+name if name !~ /^bio-/
+      name
     end
 ```
 
-Here, original_project_name is a method of jeweler. The main thing to note is that you
-can create your own helpers - they are available in the erb based templates when they 
-exist in the Jeweler name space.
+Here, original_project_name is the original method in jeweler. The main thing to note is that you
+can easily create your own helpers - they are available in the erb based templates when they 
+exist in the Jeweler::Generator namespace.
   
 ## Adapt the Rakefile
 
