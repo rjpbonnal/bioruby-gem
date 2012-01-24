@@ -112,6 +112,51 @@ Likewise, an include file ext.h gets copied, a Makefile, and the Ruby ffi file, 
 
 ## Modify a generated file with a helper
 
+Similar to Ruby on Rails, we use erb to modify templates based on input parameters.
+Erb is part of the Ruby [standard library](http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html).
+To use erb we create helper functions. A good example is the main library file that
+gets included by everyone using your plugin using
+
+```ruby
+require 'bio-myawesomeplugin'
+```
+
+The generated file is in your module *lib* directory. The template for that file can be found [here](https://github.com/pjotrp/bioruby-gem/blob/master/lib/bio-gem/templates/lib/bioruby-plugin.rb) and contains the erb code:
+
+```ruby
+        <% if options[:biogem_db] %>
+          require '<%= File.join("bio",sub_module.downcase,"connect") %>'
+          <% unless options[:biogem_engine] %>
+            require '<%= File.join("bio",sub_module.downcase,"example") %>'
+          <% end %>
+        <% end %>
+```
+
+which contains Ruby code that gets invoked at code generation time. This example
+contains no real helper functions. Another example that generates the binary
+contains the line
+
+```ruby
+        require '<%= project_name %>'
+```  
+
+Here *project_name* is a helper, with is defined in *lib/bio-gem/mod/jeweler.rb* as
+
+```ruby
+    alias original_project_name project_name  
+    def project_name
+      prj_name = original_project_name=~/^bio-/ ? original_project_name : "bio-#{original_project_name}" 
+      prj_name
+    end
+```
+
+where original_project_name is a method of jeweler. The main thing to note is that you
+can create your own helpers - they are available in the erb based templates.
+  
+
+
+
+
 Generate tests by adding a helper
 
 (to be continued)
