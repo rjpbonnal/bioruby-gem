@@ -91,7 +91,7 @@ class Jeweler
     end
 
     def bin_name
-      "bio#{original_project_name}"
+      "#{original_project_name}"
     end
 
     def engine_dirs
@@ -220,14 +220,15 @@ class Jeweler
         create_ffi_structure if options[:biogem_ffi]
         create_db_structure if options[:biogem_db]
         if options[:biogem_bin] 
+          # create the 'binary' in ./bin
           mkdir_in_target bin_dir
-          output_template_in_target_generic 'bin', File.join(bin_dir, bin_name)
+          output_template_in_target_generic File.join('bin','bio-plugin'), File.join(bin_dir, bin_name)
           # TODO: set the file as executable
           File.chmod 0655, File.join(target_dir, bin_dir, bin_name)
         end
 
         # create lib/bio-plugin.rb with some default comments
-        output_template_in_target_generic 'lib/bioruby-plugin.rb', File.join(lib_dir, lib_filename)
+        output_template_in_target_generic File.join('lib','bioruby-plugin.rb'), File.join(lib_dir, lib_filename)
 
         # creates the strutures and files needed to have a ready to go Rails' engine
         if namespace=options[:biogem_engine]

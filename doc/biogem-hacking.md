@@ -132,9 +132,9 @@ The generated file is in your module *lib* directory. The template for that file
         <% end %>
 ```
 
-which contains Ruby code that gets invoked at code generation time. This example
-contains no real helper functions. Another example that generates the binary
-contains the line
+which contains Ruby code that gets invoked at code generation time. This
+example contains no real helper functions. Another example that generates the
+binary, when generating with the --with-bin switch, contains the line
 
 ```ruby
         require '<%= project_name %>'
@@ -150,8 +150,9 @@ Here *project_name* is a helper, with is defined in *lib/bio-gem/mod/jeweler.rb*
     end
 ```
 
-where original_project_name is a method of jeweler. The main thing to note is that you
-can create your own helpers - they are available in the erb based templates.
+Here, original_project_name is a method of jeweler. The main thing to note is that you
+can create your own helpers - they are available in the erb based templates when they 
+exist in the Jeweler name space.
   
 
 
