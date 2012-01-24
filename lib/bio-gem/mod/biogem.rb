@@ -79,13 +79,13 @@ module Biogem
         if options[:biogem_bin] 
           # create the 'binary' in ./bin
           mkdir_in_target bin_dir
-          output_template_in_target_generic path('bin','bio-plugin'), path(bin_dir, bin_name)
+          output_template_in_target_generic path('bin/bio-plugin'), path(bin_dir, bin_name)
           # TODO: set the file as executable
           File.chmod 0655, path(target_dir, bin_dir, bin_name)
         end
 
         # create lib/bio-plugin.rb with some default comments
-        output_template_in_target_generic path('lib','bioruby-plugin.rb'), path(lib_dir, lib_filename)
+        output_template_in_target_generic path('lib/bioruby-plugin.rb'), path(lib_dir, lib_filename)
 
         # creates the strutures and files needed to have a ready to go Rails' engine
         if namespace=options[:biogem_engine]
@@ -114,8 +114,8 @@ module Biogem
       # create ./lib/ffi for the Ruby ffi
       mkdir_in_target(path(lib_dir,"ffi"))
       # copy C files
-      output_template_in_target_generic path('ffi','ext.c'), path(src_dir, "ext.c" )
-      output_template_in_target_generic path('ffi','ext.h'), path(src_dir, "ext.h" )
+      output_template_in_target_generic path('ffi/ext.c'), path(src_dir, "ext.c" )
+      output_template_in_target_generic path('ffi/ext.h'), path(src_dir, "ext.h" )
     end
 
     def create_db_structure
