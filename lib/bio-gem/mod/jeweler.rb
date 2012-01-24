@@ -18,6 +18,7 @@ class Jeweler
     def initialize(options = {})
       original_initialize(options)
       development_dependencies << ["bio", ">= 1.4.2"]
+      # RCov is not properly supported for Ruby 1.9.2, so we remove it
       development_dependencies.delete_if { |k,v| k == "rcov" }
       if options[:biogem_db]
         development_dependencies << ["activerecord", ">= 3.0.7"]
@@ -79,7 +80,5 @@ class Jeweler
         puts_template_message("Seems you are not connected to Internet, can't create a remote repository. Do not forget to create it by hand, from GitHub, and sync it with this project.")
       end
     end
-
-
   end #Generator
 end #Jeweler
