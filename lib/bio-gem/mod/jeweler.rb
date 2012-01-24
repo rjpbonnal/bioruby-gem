@@ -226,10 +226,10 @@ class Jeweler
           File.chmod 0655, File.join(target_dir, bin_dir, bin_name)
         end
 
-        # Fill lib/bio-plugin.rb with some default comments
-        output_template_in_target_generic 'lib', File.join(lib_dir, lib_filename)
+        # create lib/bio-plugin.rb with some default comments
+        output_template_in_target_generic 'lib/bioruby-plugin.rb', File.join(lib_dir, lib_filename)
 
-        #creates the strutures and files needed to have a ready to go Rails' engine
+        # creates the strutures and files needed to have a ready to go Rails' engine
         if namespace=options[:biogem_engine]
           engine_dirs.each do |dir|
             mkdir_in_target(dir) unless exists_dir?(dir)
