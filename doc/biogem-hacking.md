@@ -18,19 +18,25 @@ through meta-programming.
 
 To change biogem, checkout the source tree to your local machine. E.g.
 
+```sh
       git clone https://github.com/helios/bioruby-gem.git
       cd bioruby-gem
       bundle
+```
 
 Make sure you are running a supported version of Ruby (check the README). 
 Now you can invoke biogem with
 
+```sh
       bundle exec ./bin/biogem foo
+```
 
 which will create the bioruby-foo plugin for testing. Every time you rerun biogem, make
 sure to remove the bioruby-foo directory first
 
+```sh
       rm -rf bioruby-foo ; bundle exec ./bin/biogem foo
+```
 
 ## Invoking the Biogem code generator
 
@@ -46,9 +52,11 @@ purpose we will add --with-ffi, a switch which will create a template for a fore
 function interface. Switches are defined in [options.rb](https://github.com/helios/bioruby-gem/blob/master/lib/bio-gem/mod/jeweler/options.rb). We add
 a switch with
 
+```ruby
           o.on('--with-ffi', 'generate a foreign function interface (FFI)') do
             self[:biogem_ffi] = true
           end
+```
 
 This switch will be available as *options[:biogem_ffi]* further on.
 
@@ -57,16 +65,21 @@ This switch will be available as *options[:biogem_ffi]* further on.
 In the method *create_files* in Biogem [jeweler.rb](https://github.com/helios/bioruby-gem/blob/master/lib/bio-gem/mod/jeweler.rb) directories and files get
 created. For example the plugin library file is generated with
 
+```ruby
         # Fill lib/bio-plugin.rb with some default comments
         output_template_in_target_generic 'lib', File.join(lib_dir, lib_filename)
+```
 
 which also creates the directory. We explicitly add a directory to store C 
 source files and headers with
 
+```ruby
         create_ffi_structure if options[:biogem_ffi]
+```
 
 and
 
+```ruby
         def create_ffi_structure
           # create ./ext/src and ./ext/include for the .c and .h files
           mkdir_in_target(ext_dir)
@@ -74,25 +87,30 @@ and
           # create ./lib/ffi for the Ruby ffi
           mkdir_in_target(File.join(lib_dir,"ffi"))
         end
+```
 
 ## Generate file from template
 
 Templates are stored in lib/bio-gem/templates. We create a template for
 our C extension named [ext.c](https://github.com/helios/bioruby-gem/tree/master/lib/bio-gem/templates/ffi/ext.c), e.g. the C function
 
+```ruby
         int add_one(int number) {
           return number + 1;
         }
+```
 
 which gets copied into the plugins ./ext/src directory with 
 
+```ruby
         output_template_in_target_generic File.join('ffi','ext.c'), File.join(src_dir, "ext.c" )
+```
 
 Likewise, an include file ext.h gets copied, a Makefile, and the Ruby ffi file, which defines the bindings to ext.c.
 
 (to be continued)
 
-## Modify the file with a helper
+## Modify a generated file with a helper
 
 Generate tests by adding a helper
 
@@ -149,7 +167,9 @@ Biogem templates are listed in [./lib/bio-gem/templates](https://github.com/heli
 Templates are by in the jeweler.rb override (described above). For example the Rakefile is 
 generated with
 
+```ruby
         output_template_in_target 'Rakefile'
+```
 
 it is all fairly straightforward. 
 
@@ -168,6 +188,7 @@ without touching the Jeweler code base.
 
 In the Jeweler source code tree rcov is used in two files:
 
+```ruby
         grep -r rcov *
         jeweler/generator.rb:      development_dependencies << ["rcov", ">= 0"]
         jeweler/templates/other_tasks.erb:RSpec::Core::RakeTask.new(:rcov) do |spec|
@@ -177,10 +198,12 @@ In the Jeweler source code tree rcov is used in two files:
         jeweler/templates/other_tasks.erb:  examples.rcov = true
         jeweler/templates/other_tasks.erb:require 'rcov/rcovtask'
         jeweler/templates/other_tasks.erb:  <%= test_task %>.rcov_opts << '--exclude "gems/*"'
+```
 
 The first step is to remove the rcov entry from development_dependencies. This can be
 done by adding a line in Biogems lib/bio-gem/mod/jeweler.rb. Change it to 
 
+```ruby
         class Jeweler
           class Generator 
             alias original_initialize initialize
@@ -189,11 +212,13 @@ done by adding a line in Biogems lib/bio-gem/mod/jeweler.rb. Change it to
               development_dependencies << ["bio", ">= 1.4.2"]
               development_dependencies.delete_if { |k,v| k == "rcov" }
               (...) 
+```
 
 You can see here that BioRuby support is always added. The next step is to change 
 the behaviour of jeweler/templates/other_tasks.erb. The code to generate the
 Rakefile lists is 
 
+```ruby
         <% case testing_framework %>
         <% when :rspec %>
           (...)
@@ -205,20 +230,24 @@ Rakefile lists is
           (...)
         end
         <% end %>
+```
 
 and, annoyingly, shows that rcov is always added by default (in the final
 'else'). We should communicate with the author of Jeweler to fix this. However, we
 also have the option to override the Rakefile generator. The jeweler Rakefile
 template has the form
 
+```ruby
         require 'rubygems'
         <%= render_template 'bundler_setup.erb' %>
         require 'rake'
         <%= render_template 'jeweler_tasks.erb' %>
         <%= render_template 'other_tasks.erb' %>
+```
 
 The two important functions in jeweler.rb are:
 
+```ruby
     def render_template(source)
       template_contents = File.read(File.join(template_dir, source))
       template          = ERB.new(template_contents, nil, '<>')
@@ -232,22 +261,27 @@ The two important functions in jeweler.rb are:
       File.open(final_destination, 'w') {|file| file.write(template_result)}
       $stdout.puts "\tcreate\t#{destination}"
     end
+```
 
 these find the templates and render them through ERB. 
 
 Naturally, Biogem has needed some overriding behaviour.  In this case Biogems jeweler.rb
 has
 
+```ruby
     def output_template_in_target_generic_update(source, destination = source, template_dir = template_dir_biogem)
       final_destination = File.join(target_dir, destination)
       template_result   = render_template_generic(source, template_dir)
       File.open(final_destination, 'a') {|file| file.write(template_result)}
       $stdout.puts "\tcreate\t#{destination}"
     end    
+```
 
 and, in the case of the --with-db option, the Rakefile already gets modified by Biogem
 
+```ruby
     output_template_in_target_generic 'rakefile', 'Rakefile', template_dir_biogem
+```
 
 So, what would be the best route here, to change biogem behaviour? We have to rewrite
 the Rakefile template to remove the rcov lines. We can 
@@ -255,6 +289,7 @@ change the *render_template* to allow rewriting the template. Unfortunately ther
 existing hook for that in jeweler. So, let us inject a hook named *after_render_template*
 to a *render_template* override. First we open the Jeweler::Generator class and move the method to biogem jeweler.rb, renaming the original method to original_render_template:
 
+```ruby
         class Jeweler
           class Generator 
             alias original_render_template render_template
@@ -272,6 +307,7 @@ to a *render_template* override. First we open the Jeweler::Generator class and 
                 (...)
               end
             end
+```
 
 you probably get the gist (the stuff you can do with Ruby meta-programming!).
 The solution chosen overrides original jeweler behaviour without touching
