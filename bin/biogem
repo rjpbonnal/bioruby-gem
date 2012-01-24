@@ -16,8 +16,11 @@ if (application_exit[:exit]==0)
   pwd = FileUtils.pwd
   FileUtils.cd "bioruby-#{application_exit[:options][:project_name]}"
   ARGV.clear << "install"
+
   Bundler::CLI.start
   #TODO: call rake directly not from shell
-  sh "rake version:write"
-  sh "rake gemspec"
+  print "\tExecute bundle exec rake version:write\n"
+  sh "bundle exec rake version:write"
+  print "\tExecute bundle exec rake gemspec\n"
+  sh "bundle exec rake gemspec"
 end

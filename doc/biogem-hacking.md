@@ -35,7 +35,31 @@ which will create the bioruby-foo plugin for testing. Every time you rerun bioge
 sure to remove the bioruby-foo directory first
 
 ```sh
-      rm -rf bioruby-foo ; bundle exec ./bin/biogem foo
+      rm -rf bioruby-foo 
+```
+
+Recommended biogem switches are --with-bin and --rspec
+
+```sh
+      bundle exec ./bin/biogem --with-bin --rspec foo
+```
+
+Note that we are running biogem here within bundler. This may cause a rakefile
+error after generating the plugin (nesting bundler is not a good idea). This can simply be fixed by running the following by hand in the plugin directory after generation
+
+```sh
+      cd bioruby-foo
+      bundle
+      bundle exec rake version:write
+      bundle exec rake gemspec
+```
+
+Alternatively install an updated version of biogem, and run biogem without
+bundler with
+
+```sh
+      bundle exec rake install
+      biogem --with-bin --rspec foo
 ```
 
 ## Invoking the Biogem code generator
