@@ -43,62 +43,14 @@ class Jeweler
     def target_dir
       project_name.sub('bio','bioruby')
     end      
-    alias github_repo_name target_dir  # this a Biogem alias
+    alias github_repo_name target_dir
 
     alias original_create_files create_files
     # this is the default directory for storing library datasets
     # creates a data directory for every needs.
     #the options are defined in mod/jeweler/options.rb
     def create_files
-      if options[:biogem_meta]
-
-        unless File.exists?(target_dir) || File.directory?(target_dir)
-          FileUtils.mkdir target_dir
-        else
-          raise FileInTheWay, "The directory #{target_dir} already exists, aborting. Maybe move it out of the way before continuing?"
-        end
-
-        output_template_in_target '.gitignore'
-        output_template_in_target 'Rakefile'
-        output_template_in_target 'Gemfile'  if should_use_bundler
-        output_template_in_target 'LICENSE.txt'
-        output_template_in_target 'README.rdoc'
-        output_template_in_target '.document'
-      else
-        original_create_files
-
-        if options[:biogem_test_data]
-          mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
-          mkdir_in_target test_data_dir  
-        end
-        create_ffi_structure if options[:biogem_ffi]
-        create_db_structure if options[:biogem_db]
-        if options[:biogem_bin] 
-          # create the 'binary' in ./bin
-          mkdir_in_target bin_dir
-          output_template_in_target_generic File.join('bin','bio-plugin'), File.join(bin_dir, bin_name)
-          # TODO: set the file as executable
-          File.chmod 0655, File.join(target_dir, bin_dir, bin_name)
-        end
-
-        # create lib/bio-plugin.rb with some default comments
-        output_template_in_target_generic File.join('lib','bioruby-plugin.rb'), File.join(lib_dir, lib_filename)
-
-        # creates the strutures and files needed to have a ready to go Rails' engine
-        if namespace=options[:biogem_engine]
-          engine_dirs.each do |dir|
-            mkdir_in_target(dir) unless exists_dir?(dir)
-          end
-          output_template_in_target_generic 'engine', File.join('lib', engine_filename )
-          output_template_in_target_generic_update 'library', File.join('lib', lib_filename)
-          output_template_in_target_generic 'routes', File.join('config', "routes.rb" )
-          output_template_in_target_generic 'foos_controller', File.join('app',"controllers", "foos_controller.rb" )
-          output_template_in_target_generic 'foos_view_index', File.join('app',"views","foos", "index.html.erb" )
-          output_template_in_target_generic 'foos_view_show', File.join('app',"views","foos", "show.html.erb" )
-          output_template_in_target_generic 'foos_view_example', File.join('app',"views","foos", "example.html.erb" )
-          output_template_in_target_generic 'foos_view_new', File.join('app',"views","foos", "new.html.erb" )
-        end
-      end #not_bio_gem_meta
+      create_plugin_files
     end
 
     def puts_template_message(message, length=70, padding=4)
@@ -111,5 +63,23 @@ class Jeweler
       puts "*"+" "*(length+padding*2)+"*"
       puts "*"*(length+padding*2+2)
     end
+
+    def create_and_push_repo
+      begin 
+        Net::HTTP.post_form URI.parse('http://github.com/api/v2/yaml/repos/create'),
+        'login' => github_username,
+        'token' => github_token,
+        'description' => summary,
+        'name' => github_repo_name
+        # BY DEFAULT THE REPO IS CREATED
+        # DO NOT PUSH THE REPO BECAUSE USER MUST ADD INFO TO CONFIGURATION FILES
+        # TODO do a HEAD request to see when it's ready?
+        #@repo.push('origin')
+      rescue  SocketError => se
+        puts_template_message("Seems you are not connected to Internet, can't create a remote repository. Do not forget to create it by hand, from GitHub, and sync it with this project.")
+      end
+    end
+
+
   end #Generator
 end #Jeweler
