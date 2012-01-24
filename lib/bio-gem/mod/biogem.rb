@@ -65,7 +65,8 @@ module Biogem
         create_rails_engine if options[:biogem_engine]
       end 
       # Always do these
-      output_template_in_target_generic_append 'gitignore', '.gitignore', template_dir_biogem
+      output_template_in_target_generic_append 'README.rdoc'
+      output_template_in_target_generic_append 'gitignore', '.gitignore'
     end
 
     def create_meta
@@ -91,7 +92,7 @@ module Biogem
       # create the 'binary' in ./bin
       mkdir_in_target bin_dir
       output_template_in_target_generic path('bin/bio-plugin'), path(bin_dir, bin_name)
-      # TODO: set the file as executable
+      # TODO: set the file as executable (Windows?)
       File.chmod 0655, path(target_dir, bin_dir, bin_name)
     end
 
@@ -130,6 +131,7 @@ module Biogem
 
     def create_rails_engine
       # create the structures and files needed to have a ready to go Rails' engine
+      namespace = options[:biogem_engine] # are we using this?
       engine_dirs.each do |dir|
         mkdir_in_target(dir) unless exists_dir?(dir)
       end
