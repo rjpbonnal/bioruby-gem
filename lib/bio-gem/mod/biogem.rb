@@ -19,7 +19,7 @@ module Biogem
     end
 
     def render_template_generic(source, template_dir = template_dir_biogem)
-      template_contents = File.read(File.join(template_dir, source))
+      template_contents = File.read(path(template_dir, source))
       template          = ERB.new(template_contents, nil, '<>')
 
       # squish extraneous whitespace from some of the conditionals
@@ -27,7 +27,7 @@ module Biogem
     end
 
     def output_template_in_target_generic(source, destination = source, template_dir = template_dir_biogem, write_type='w')
-      final_destination = File.join(target_dir, destination)
+      final_destination = path(target_dir, destination)
       template_result   = render_template_generic(source, template_dir)
 
       File.open(final_destination, write_type) {|file| file.write(template_result)}
@@ -40,7 +40,7 @@ module Biogem
     end
 
     def output_template_in_target_generic_append(source, destination = source, template_dir = template_dir_biogem)
-      final_destination = File.join(target_dir, destination)
+      final_destination = path(target_dir, destination)
       template_result   = render_template_generic(source, template_dir)
 
       File.open(final_destination, 'a') {|file| file.write(template_result)}
@@ -49,7 +49,7 @@ module Biogem
     end    
 
     def template_dir_biogem
-      File.join(File.dirname(__FILE__),'..', 'templates')
+      path(File.dirname(__FILE__),'..', 'templates')
     end
 
     def create_plugin_files
@@ -79,27 +79,27 @@ module Biogem
         if options[:biogem_bin] 
           # create the 'binary' in ./bin
           mkdir_in_target bin_dir
-          output_template_in_target_generic File.join('bin','bio-plugin'), File.join(bin_dir, bin_name)
+          output_template_in_target_generic path('bin','bio-plugin'), path(bin_dir, bin_name)
           # TODO: set the file as executable
-          File.chmod 0655, File.join(target_dir, bin_dir, bin_name)
+          File.chmod 0655, path(target_dir, bin_dir, bin_name)
         end
 
         # create lib/bio-plugin.rb with some default comments
-        output_template_in_target_generic File.join('lib','bioruby-plugin.rb'), File.join(lib_dir, lib_filename)
+        output_template_in_target_generic path('lib','bioruby-plugin.rb'), path(lib_dir, lib_filename)
 
         # creates the strutures and files needed to have a ready to go Rails' engine
         if namespace=options[:biogem_engine]
           engine_dirs.each do |dir|
             mkdir_in_target(dir) unless exists_dir?(dir)
           end
-          output_template_in_target_generic 'engine', File.join('lib', engine_filename )
-          output_template_in_target_generic_append 'library', File.join('lib', lib_filename)
-          output_template_in_target_generic 'routes', File.join('config', "routes.rb" )
-          output_template_in_target_generic 'foos_controller', File.join('app',"controllers", "foos_controller.rb" )
-          output_template_in_target_generic 'foos_view_index', File.join('app',"views","foos", "index.html.erb" )
-          output_template_in_target_generic 'foos_view_show', File.join('app',"views","foos", "show.html.erb" )
-          output_template_in_target_generic 'foos_view_example', File.join('app',"views","foos", "example.html.erb" )
-          output_template_in_target_generic 'foos_view_new', File.join('app',"views","foos", "new.html.erb" )
+          output_template_in_target_generic 'engine', path('lib', engine_filename )
+          output_template_in_target_generic_append 'library', path('lib', lib_filename)
+          output_template_in_target_generic 'routes', path('config', "routes.rb" )
+          output_template_in_target_generic 'foos_controller', path('app',"controllers", "foos_controller.rb" )
+          output_template_in_target_generic 'foos_view_index', path('app',"views","foos", "index.html.erb" )
+          output_template_in_target_generic 'foos_view_show', path('app',"views","foos", "show.html.erb" )
+          output_template_in_target_generic 'foos_view_example', path('app',"views","foos", "example.html.erb" )
+          output_template_in_target_generic 'foos_view_new', path('app',"views","foos", "new.html.erb" )
         end
       end #not_bio_gem_meta
       # Always do these
@@ -109,37 +109,41 @@ module Biogem
     def create_ffi_structure
       # create ./ext/src and ./ext/include for the .c and .h files
       mkdir_in_target(ext_dir)
-      src_dir = File.join(ext_dir,'src')
+      src_dir = path(ext_dir,'src')
       mkdir_in_target(src_dir)
       # create ./lib/ffi for the Ruby ffi
-      mkdir_in_target(File.join(lib_dir,"ffi"))
+      mkdir_in_target(path(lib_dir,"ffi"))
       # copy C files
-      output_template_in_target_generic File.join('ffi','ext.c'), File.join(src_dir, "ext.c" )
-      output_template_in_target_generic File.join('ffi','ext.h'), File.join(src_dir, "ext.h" )
+      output_template_in_target_generic path('ffi','ext.c'), path(src_dir, "ext.c" )
+      output_template_in_target_generic path('ffi','ext.h'), path(src_dir, "ext.h" )
     end
 
     def create_db_structure
-      migrate_dir = File.join(db_dir, "migrate")
+      migrate_dir = path(db_dir, "migrate")
       mkdir_in_target(db_dir)
       mkdir_in_target(migrate_dir)
       mkdir_in_target("config") unless exists_dir?("config")
       mkdir_in_target("lib/bio")
       mkdir_in_target(lib_sub_module)
-      output_template_in_target_generic 'database', File.join("config", "database.yml")
-      output_template_in_target_generic 'migration', File.join(migrate_dir, "001_create_example.rb" )
-      output_template_in_target_generic 'seeds', File.join(db_dir, "seeds.rb")
+      output_template_in_target_generic 'database', path("config", "database.yml")
+      output_template_in_target_generic 'migration', path(migrate_dir, "001_create_example.rb" )
+      output_template_in_target_generic 'seeds', path(db_dir, "seeds.rb")
       output_template_in_target_generic 'rakefile', 'Rakefile', template_dir_biogem, 'a' #need to spec all the option to enable the append option
       #TODO I'd like to have a parameter from command like with defines the Namespace of the created bio-gem to automatically costruct directory structure
-      output_template_in_target_generic 'db_connection', File.join(lib_sub_module,"connect.rb")
-      output_template_in_target_generic 'db_model', File.join(lib_sub_module,"example.rb")
+      output_template_in_target_generic 'db_connection', path(lib_sub_module,"connect.rb")
+      output_template_in_target_generic 'db_model', path(lib_sub_module,"example.rb")
     end
 
   end
 
   module Path
 
+    def path(*items)
+      File.join(*items)
+    end
+
     def exists_dir?(dir)
-      Dir.exists?(File.join(target_dir,dir))
+      Dir.exists?(path(target_dir,dir))
     end
 
     def lib_dir
@@ -205,7 +209,7 @@ module Biogem
     end
     
     def lib_sub_module
-      File.join(lib_dir,"bio",sub_module.downcase)
+      path(lib_dir,"bio",sub_module.downcase)
     end
   end
 
