@@ -54,56 +54,50 @@ module Biogem
 
     def create_plugin_files
       if options[:biogem_meta]
-
-        unless File.exists?(target_dir) || File.directory?(target_dir)
-          FileUtils.mkdir target_dir
-        else
-          raise FileInTheWay, "The directory #{target_dir} already exists, aborting. Maybe move it out of the way before continuing?"
-        end
-
-        output_template_in_target '.gitignore'
-        output_template_in_target 'Rakefile'
-        output_template_in_target 'Gemfile'  if should_use_bundler
-        output_template_in_target 'LICENSE.txt'
-        output_template_in_target 'README.rdoc'
-        output_template_in_target '.document'
+        create_meta 
       else
         original_create_files
-
-        if options[:biogem_test_data]
-          mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
-          mkdir_in_target test_data_dir  
-        end
+        create_lib
+        create_bin if options[:biogem_bin]
+        create_test_data if options[:biogem_test_data]
         create_ffi_structure if options[:biogem_ffi]
         create_db_structure if options[:biogem_db]
-        if options[:biogem_bin] 
-          # create the 'binary' in ./bin
-          mkdir_in_target bin_dir
-          output_template_in_target_generic path('bin/bio-plugin'), path(bin_dir, bin_name)
-          # TODO: set the file as executable
-          File.chmod 0655, path(target_dir, bin_dir, bin_name)
-        end
-
-        # create lib/bio-plugin.rb with some default comments
-        output_template_in_target_generic path('lib/bioruby-plugin.rb'), path(lib_dir, lib_filename)
-
-        # creates the strutures and files needed to have a ready to go Rails' engine
-        if namespace=options[:biogem_engine]
-          engine_dirs.each do |dir|
-            mkdir_in_target(dir) unless exists_dir?(dir)
-          end
-          output_template_in_target_generic 'engine', path('lib', engine_filename )
-          output_template_in_target_generic_append 'library', path('lib', lib_filename)
-          output_template_in_target_generic 'routes', path('config', "routes.rb" )
-          output_template_in_target_generic 'foos_controller', path('app',"controllers", "foos_controller.rb" )
-          output_template_in_target_generic 'foos_view_index', path('app',"views","foos", "index.html.erb" )
-          output_template_in_target_generic 'foos_view_show', path('app',"views","foos", "show.html.erb" )
-          output_template_in_target_generic 'foos_view_example', path('app',"views","foos", "example.html.erb" )
-          output_template_in_target_generic 'foos_view_new', path('app',"views","foos", "new.html.erb" )
-        end
-      end #not_bio_gem_meta
+        create_rails_engine if options[:biogem_engine]
+      end 
       # Always do these
       output_template_in_target_generic_append 'gitignore', '.gitignore', template_dir_biogem
+    end
+
+    def create_meta
+      # this section is for Biogem META packages only!
+      unless File.exists?(target_dir) || File.directory?(target_dir)
+        FileUtils.mkdir target_dir
+      else
+        raise FileInTheWay, "The directory #{target_dir} already exists, aborting. Maybe move it out of the way before continuing?"
+      end
+      output_template_in_target '.gitignore'
+      output_template_in_target 'Rakefile'
+      output_template_in_target 'Gemfile'  if should_use_bundler
+      output_template_in_target 'LICENSE.txt'
+      output_template_in_target 'README.rdoc'
+      output_template_in_target '.document'
+    end
+
+    def create_lib
+      output_template_in_target_generic path('lib/bioruby-plugin.rb'), path(lib_dir, lib_filename)
+    end
+
+    def create_bin
+      # create the 'binary' in ./bin
+      mkdir_in_target bin_dir
+      output_template_in_target_generic path('bin/bio-plugin'), path(bin_dir, bin_name)
+      # TODO: set the file as executable
+      File.chmod 0655, path(target_dir, bin_dir, bin_name)
+    end
+
+    def create_test_data
+      mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
+      mkdir_in_target test_data_dir  
     end
 
     def create_ffi_structure
@@ -134,6 +128,20 @@ module Biogem
       output_template_in_target_generic 'db_model', path(lib_sub_module,"example.rb")
     end
 
+    def create_rails_engine
+      # create the structures and files needed to have a ready to go Rails' engine
+      engine_dirs.each do |dir|
+        mkdir_in_target(dir) unless exists_dir?(dir)
+      end
+      output_template_in_target_generic 'engine', path('lib', engine_filename )
+      output_template_in_target_generic_append 'library', path('lib', lib_filename)
+      output_template_in_target_generic 'routes', path('config', "routes.rb" )
+      output_template_in_target_generic 'foos_controller', path('app',"controllers", "foos_controller.rb" )
+      output_template_in_target_generic 'foos_view_index', path('app',"views","foos", "index.html.erb" )
+      output_template_in_target_generic 'foos_view_show', path('app',"views","foos", "show.html.erb" )
+      output_template_in_target_generic 'foos_view_example', path('app',"views","foos", "example.html.erb" )
+      output_template_in_target_generic 'foos_view_new', path('app',"views","foos", "new.html.erb" )
+    end
   end
 
   module Path
