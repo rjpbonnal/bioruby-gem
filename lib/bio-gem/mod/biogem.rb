@@ -5,7 +5,7 @@ module Biogem
     # new hook for removing stuff
     def after_render_template(source,buf)
       if source == 'other_tasks.erb'
-        $stdout.puts "\tRemoving rcov lines"
+        $stdout.puts "\tremove jeweler rcov lines"
         # remove rcov related lines from jeweler Rakefile
         remove = "require 'rcov/rcovtask'"
         if buf =~ /#{remove}/
@@ -34,18 +34,18 @@ module Biogem
       status = 
         case write_type
           when 'w' then 'create'
-          when 'a' then 'update'
+          when 'a' then 'append'
         end
       $stdout.puts "\t#{status}\t#{destination}"
     end
 
-    def output_template_in_target_generic_update(source, destination = source, template_dir = template_dir_biogem)
+    def output_template_in_target_generic_append(source, destination = source, template_dir = template_dir_biogem)
       final_destination = File.join(target_dir, destination)
       template_result   = render_template_generic(source, template_dir)
 
       File.open(final_destination, 'a') {|file| file.write(template_result)}
 
-      $stdout.puts "\tcreate\t#{destination}"
+      $stdout.puts "\tappend\t#{destination}"
     end    
 
     def template_dir_biogem
@@ -93,7 +93,7 @@ module Biogem
             mkdir_in_target(dir) unless exists_dir?(dir)
           end
           output_template_in_target_generic 'engine', File.join('lib', engine_filename )
-          output_template_in_target_generic_update 'library', File.join('lib', lib_filename)
+          output_template_in_target_generic_append 'library', File.join('lib', lib_filename)
           output_template_in_target_generic 'routes', File.join('config', "routes.rb" )
           output_template_in_target_generic 'foos_controller', File.join('app',"controllers", "foos_controller.rb" )
           output_template_in_target_generic 'foos_view_index', File.join('app',"views","foos", "index.html.erb" )
@@ -102,6 +102,8 @@ module Biogem
           output_template_in_target_generic 'foos_view_new', File.join('app',"views","foos", "new.html.erb" )
         end
       end #not_bio_gem_meta
+      # Always do these
+      output_template_in_target_generic_append 'gitignore', '.gitignore', template_dir_biogem
     end
 
     def create_ffi_structure
