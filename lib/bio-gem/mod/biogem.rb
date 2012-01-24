@@ -123,10 +123,10 @@ module Biogem
       mkdir_in_target(db_dir)
       mkdir_in_target(migrate_dir)
       mkdir_in_target("config") unless exists_dir?("config")
-      mkdir_in_target("lib/bio")
+      mkdir_in_target(path("lib/bio"))
       mkdir_in_target(lib_sub_module)
-      output_template_in_target_generic 'database', path("config", "database.yml")
-      output_template_in_target_generic 'migration', path(migrate_dir, "001_create_example.rb" )
+      output_template_in_target_generic 'database', path("config/database.yml")
+      output_template_in_target_generic 'migration', path(migrate_dir,"001_create_example.rb" )
       output_template_in_target_generic 'seeds', path(db_dir, "seeds.rb")
       output_template_in_target_generic 'rakefile', 'Rakefile', template_dir_biogem, 'a' #need to spec all the option to enable the append option
       #TODO I'd like to have a parameter from command like with defines the Namespace of the created bio-gem to automatically costruct directory structure
@@ -139,7 +139,7 @@ module Biogem
   module Path
 
     def path(*items)
-      File.join(*items)
+      File.join(*items).gsub(File::SEPARATOR, File::ALT_SEPARATOR || File::SEPARATOR)
     end
 
     def exists_dir?(dir)
