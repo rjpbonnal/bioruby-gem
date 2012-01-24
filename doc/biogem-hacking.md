@@ -134,7 +134,7 @@ The generated file is in your module *lib* directory. The template for that file
 
 which contains Ruby code that gets invoked at code generation time. This
 example contains no real helper functions. Another example that generates the
-binary, when generating with the --with-bin switch, contains the line
+binary from a [template](https://github.com/pjotrp/bioruby-gem/blob/master/lib/bio-gem/templates/bin/bio-plugin), when generating with the --with-bin switch, contains the line
 
 ```ruby
         require '<%= project_name %>'
@@ -154,17 +154,9 @@ Here, original_project_name is a method of jeweler. The main thing to note is th
 can create your own helpers - they are available in the erb based templates when they 
 exist in the Jeweler name space.
   
-
-
-
-
-Generate tests by adding a helper
-
-(to be continued)
-
 ## Adapt the Rakefile
 
-The Rakefile needs to be adapted to compile the C file(s).
+For our FFI the Rakefile needs to be adapted to compile the C file(s).
 
 (to be continued)
 
