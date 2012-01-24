@@ -46,7 +46,7 @@ module Bio
               $stderr.puts %Q{No github.token found in ~/.gitconfig. Please tell git about your GitHub account (see http://github.com/blog/180-local-github-config for details). For example: git config --global github.token 6ef8395fecf207165f1a82178ae1b984}
               return {:exit=>1}
             rescue Jeweler::FileInTheWay
-              $stderr.puts "The directory #{options[:project_name]} already exists. Maybe move it out of the way before continuing?"
+              $stderr.puts "The directory for #{options[:project_name]} already exists. Maybe move it out of the way before continuing?"
               return {:exit=>1}
             end
           end #run!
