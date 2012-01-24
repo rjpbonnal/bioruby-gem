@@ -383,14 +383,14 @@ our fix will go upstream.
 Still, for stuff that will not go into jeweler, this is a way of changing
 behaviour.
 
-## DRY (Do not repeat yourself)
+# DRY (Do not repeat yourself)
 
 This document should help you preventing repeating yourself. Code generation
 can be very useful. When you have something that is useful to yourself, or
 others, and is bioinformatics related, add it to biogem.  When it is more
 generic, add it to jeweler. You may make a lot of people happy.
 
-## More on meta-programming
+# More on meta-programming
 
 Thanks to Ruby meta-programming we do not have to change jeweler. With another
 computer language, we would have cloned jeweler and modified the source code
