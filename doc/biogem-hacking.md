@@ -334,7 +334,7 @@ Thanks to Ruby meta-programming we do not have to change jeweler. With another
 computer language, we would have cloned jeweler and modified the source code
 for our purposes. This would imply a fork of the code base - and the projects
 would have diverged irrevocably. As it stands, we can build on the existing
-jeweler project. Some 'brittleness' may exist, as explained above, but in
+jeweler project. Some 'brittleness' may get introduced, as explained above, but in
 general we should normally be able to continue adapting our code base to that
 of jeweler.
 
