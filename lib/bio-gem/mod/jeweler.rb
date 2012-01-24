@@ -1,17 +1,9 @@
-#Overdrive Jeweler's classes for properly configure a BioRuby Development Environment/Layout.
+#Override Jeweler's classes for properly configure a BioRuby Development Environment/Layout.
+# This module should only include methods that are overridden in Jeweler (by
+# breaking open the Jeweler::Generator class
 
 require 'bio-gem/mod/jeweler/options'
 require 'bio-gem/mod/jeweler/github_mixin'
-
-class String
-  def underscore
-    self.gsub(/::/, '/').
-    gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-    gsub(/([a-z\d])([A-Z])/,'\1_\2').
-    tr("-", "_").
-    downcase
-  end
-end
 
 class Jeweler
   class Generator 
@@ -143,10 +135,11 @@ class Jeweler
       template_result   = render_template_generic(source, template_dir)
 
       File.open(final_destination, write_type) {|file| file.write(template_result)}
-      status = case write_type
-      when 'w' then 'create'
-      when 'a' then 'update'
-      end
+      status = 
+        case write_type
+          when 'w' then 'create'
+          when 'a' then 'update'
+        end
       $stdout.puts "\t#{status}\t#{destination}"
     end
 
