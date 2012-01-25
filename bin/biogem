@@ -24,4 +24,8 @@ if (application_exit[:exit]==0)
   sh "rake version:write"
   print "\trake gemspec\n"
   sh "rake gemspec"
+  print "Done!\n"
+else
+  $stderr.print "\nERROR: Biogem failed!\n"
 end
+

@@ -170,7 +170,8 @@ exist in the Jeweler::Generator namespace.
   
 ## Adapt the Rakefile
 
-For our FFI DRY the Rakefile needs to be adapted to compile the C file(s).
+For our FFI (DRY) the Rakefile needs to be adapted to compile the C file(s) properly. For this
+implementatin I am adding a working example of a C binding, similar to what we do for tests. 
 
 (to be continued)
 
