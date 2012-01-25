@@ -24,17 +24,12 @@ module Biogem
       template.result(binding).gsub(/\n\n\n+/, "\n\n")
     end
 
-    def output_template_in_target_generic(source, destination = source, template_dir = template_dir_biogem, write_type='w')
+    def output_template_in_target_generic(source, destination = source, template_dir = template_dir_biogem)
       final_destination = path(target_dir, destination)
       template_result   = render_template_generic(source, template_dir)
 
-      File.open(final_destination, write_type) {|file| file.write(template_result)}
-      status = 
-        case write_type
-          when 'w' then 'create'
-          when 'a' then 'append'
-        end
-      $stdout.puts "\t#{status}\t#{destination}"
+      File.open(final_destination, 'w') {|file| file.write(template_result)}
+      $stdout.puts "\tcreate\t#{destination}"
     end
 
     def output_template_in_target_generic_append(source, destination = source, template_dir = template_dir_biogem)
@@ -63,7 +58,7 @@ module Biogem
         create_rails_engine if options[:biogem_engine]
       end 
       # Always do these
-      output_template_in_target_generic_append 'README.rdoc'
+      output_template_in_target_generic 'README.rdoc'
       output_template_in_target_generic_append 'gitignore', '.gitignore'
     end
 
@@ -78,7 +73,6 @@ module Biogem
       output_template_in_target 'Rakefile'
       output_template_in_target 'Gemfile'  if should_use_bundler
       output_template_in_target 'LICENSE.txt'
-      output_template_in_target 'README.rdoc'
       output_template_in_target '.document'
     end
 
@@ -121,7 +115,7 @@ module Biogem
       output_template_in_target_generic 'database', path("config/database.yml")
       output_template_in_target_generic 'migration', path(migrate_dir,"001_create_example.rb" )
       output_template_in_target_generic 'seeds', path(db_dir, "seeds.rb")
-      output_template_in_target_generic 'rakefile', 'Rakefile', template_dir_biogem, 'a' #need to spec all the option to enable the append option
+      output_template_in_target_generic_append 'rakefile', 'Rakefile', template_dir_biogem
       #TODO I'd like to have a parameter from command like with defines the Namespace of the created bio-gem to automatically costruct directory structure
       output_template_in_target_generic 'db_connection', path(lib_sub_module,"connect.rb")
       output_template_in_target_generic 'db_model', path(lib_sub_module,"example.rb")
