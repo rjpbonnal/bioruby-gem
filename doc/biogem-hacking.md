@@ -45,7 +45,7 @@ Recommended biogem switches are --with-bin and --rspec
 ```
 
 Note that we are running biogem here within bundler. This may cause a rakefile
-error after generating the plugin (nesting bundler is not a good idea). This can simply be fixed by running the following by hand in the plugin directory after generation
+error after generating the plugin (nesting bundler is not a good idea). This can simply be fixed by running the rake by hand in the plugin directory after generation
 
 ```sh
       cd bioruby-foo
@@ -54,7 +54,7 @@ error after generating the plugin (nesting bundler is not a good idea). This can
       bundle exec rake gemspec
 ```
 
-Alternatively install an updated version of biogem, and run biogem without
+Alternatively, install an updated version of biogem, and run biogem without
 bundler with
 
 ```sh

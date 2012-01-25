@@ -66,6 +66,7 @@ class Jeweler
     end
 
     def create_and_push_repo
+      return if $UNITTEST  # skip github create when testing
       begin 
         Net::HTTP.post_form URI.parse('http://github.com/api/v2/yaml/repos/create'),
         'login' => github_username,
