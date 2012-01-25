@@ -1,3 +1,21 @@
+= <%= project_name %>
+
+Description goes here
+
+== Contributing to <%= project_name %>
+
+== Cite
+
+  If you use this software, please cite
+
+    http://dx.doi.org/10.1093/bioinformatics/btq475
+
 == Biogems.info
 
 This exciting Ruby Biogem is published on http://biogems.info/
+
+== Copyright
+
+Copyright (c) <%= Time.now.year %> <%= user_name %>. See LICENSE.txt for further details.
+
+
