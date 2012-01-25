@@ -4,15 +4,15 @@ require 'fileutils'
 $UNITTEST=true   # prevents github push
 
 class TestBiorubyGem < Test::Unit::TestCase
-  TEST_DIR = 'test/int_test'
+  TEST_DIR = 'test/bioruby-biogem-test'
   def setup
-    #check and create test directory
+    # check and create test directory
      FileUtils.rm_rf(TEST_DIR) if Dir.exist?(TEST_DIR)
      Dir.mkdir TEST_DIR
   end
   
   def teardown
-    #check and remove tested directory
+    # check and remove test directory
     FileUtils.rm_rf TEST_DIR if Dir.exist?(TEST_DIR)
   end
 
@@ -28,7 +28,4 @@ class TestBiorubyGem < Test::Unit::TestCase
     end
 
   end
-  # should "probably rename this file and start testing for real" do
-  #   flunk "hey buddy, you should probably rename this file and start testing for real"
-  # end
 end
