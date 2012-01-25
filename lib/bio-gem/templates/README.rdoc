@@ -1,8 +1,18 @@
 = <%= project_name %>
 
-Description goes here
+Full description goes here
 
-== Contributing to <%= project_name %>
+== Installation
+
+  gem install <%= project_name %>
+
+== Usage
+
+== Project home page
+
+Information on the source tree, documentation, issues and how to contribute, see
+
+  <%= homepage %>
 
 == Cite
 
@@ -12,7 +22,7 @@ Description goes here
 
 == Biogems.info
 
-This exciting Ruby Biogem is published on http://biogems.info/
+This Biogem is published at http://biogems.info/index.html#<%= project_name %>
 
 == Copyright
 
