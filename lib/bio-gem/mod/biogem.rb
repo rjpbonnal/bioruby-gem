@@ -11,12 +11,25 @@ module Biogem
       Dir.exists?(path(target_dir,dir))
     end
 
+    def short_name
+      original_project_name.sub(/^bio-/,'')
+    end
+
+
     def lib_dir
       'lib'
     end
 
     def lib_filename
       "#{project_name}.rb"
+    end
+
+    def lib_plugin_dir
+      path(lib_dir, project_name)
+    end
+
+    def lib_plugin_filename
+      short_name + ".rb"
     end
 
     def require_name

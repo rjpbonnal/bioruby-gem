@@ -78,6 +78,8 @@ module Biogem
 
     def create_lib
       output_template_in_target_generic path('lib/bioruby-plugin.rb'), path(lib_dir, lib_filename)
+      mkdir_in_target(lib_plugin_dir)
+      output_template_in_target_generic path('lib/plugin.rb'), path(lib_dir, project_name, lib_plugin_filename)
     end
 
     def create_bin
