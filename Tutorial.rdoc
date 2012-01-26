@@ -402,11 +402,11 @@ Biogem, like other frameworks, offers a bunch of predefined and common operation
 
    $ rake -T 
 
-but because we are in a "development environment" is strongly suggested to use a very similar command 
+but because we are in a "development environment" we suggest to use
 
    $ bundle exec rake -T
 
-which guarantees that all the called programs/tasks will be executed inside the current development environment (bound to specific libraries versions). Follows the list of all available tasks for Biogem
+which guarantees that all the called programs/tasks will be executed inside the current development environment (bound to specific libraries versions). rake -T displays the list of tasks
 
     rake build               # Build gem into pkg/
     rake clobber_rcov        # Remove rcov products for rcov
@@ -442,7 +442,6 @@ which guarantees that all the called programs/tasks will be executed inside the 
     rake version:bump:minor  # Bump the a minor version by 1
     rake version:bump:patch  # Bump the patch version by 1
     rake version:write       # Writes out an explicit version.
-
 
 ==  Advanced Developers
 

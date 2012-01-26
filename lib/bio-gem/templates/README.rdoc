@@ -1,0 +1,40 @@
+= <%= project_name %>
+
+Full description goes here
+
+Note: this software is under active development!
+
+== Installation
+
+        gem install <%= project_name %>
+
+== Usage
+
+== Developers
+
+To use the library 
+
+        require '<%= project_name %>
+
+The API doc is online. For more code examples see also the test files in
+the source tree.
+        
+== Project home page
+
+Information on the source tree, documentation, issues and how to contribute, see
+
+  <%= homepage %>
+
+== Cite
+
+  If you use this software, please cite http://dx.doi.org/10.1093/bioinformatics/btq475
+
+== Biogems.info
+
+This Biogem is published at http://biogems.info/index.html#<%= project_name %>
+
+== Copyright
+
+Copyright (c) <%= Time.now.year %> <%= user_name %>. See LICENSE.txt for further details.
+
+

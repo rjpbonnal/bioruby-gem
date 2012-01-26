@@ -3,7 +3,7 @@ source "http://rubygems.org"
 # Example:
 #   gem "activesupport", ">= 2.3.5"
 gem "bundler", "~> 1.0.18"
-gem "jeweler", "~> 1.6.4"
+gem "jeweler", ">= 1.7.0"
 gem "rdoc"
 
 
@@ -12,6 +12,6 @@ gem "rdoc"
 group :development do
   gem "shoulda", ">= 0"
   gem "bundler", "~> 1.0.18"
-  gem "jeweler", "~> 1.6.4"
+  gem "jeweler", ">= 1.7.0"
   gem "rdoc"
 end
