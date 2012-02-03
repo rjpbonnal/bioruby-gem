@@ -1,3 +1,6 @@
+# Biogem::Render contains all the logic to render Biogem specific 
+# templates
+
 module Biogem
   module Render
     # new hook for removing stuff

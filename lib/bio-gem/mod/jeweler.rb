@@ -17,8 +17,9 @@ class Jeweler
     alias original_initialize initialize
     def initialize(options = {})
       original_initialize(options)
+      # development_dependencies << ["bio-logger"]
       development_dependencies << ["bio", ">= 1.4.2"]
-      # RCov is not properly supported for Ruby 1.9.2, so we remove it
+      # RCov is not properly supported in Ruby 1.9.2, so we remove it
       development_dependencies.delete_if { |k,v| k == "rcov" }
       if options[:biogem_db]
         development_dependencies << ["activerecord", ">= 3.0.7"]
