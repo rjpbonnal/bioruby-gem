@@ -41,7 +41,7 @@ In case you are not connected to internet the following message will appear:
 
 Note the name of the plugin is important. Plugins are published as Ruby gems on http://rubygems.org/. All plugins that start with the name bio dash (bio-) are automatically listed on the Biogem website http://biogems.info/ !
 
-The first step is to open Rakefile and modify the gem.summary and gem.description.
+The first step is to open the Rakefile and modify the gem.summary and gem.description.
 
   gem.summary = %Q{TODO: one-line summary of your gem}
   gem.description = %Q{TODO: longer description of your gem}
@@ -402,11 +402,11 @@ Biogem, like other frameworks, offers a bunch of predefined and common operation
 
    $ rake -T 
 
-but because we are in a "development environment" is strongly suggested to use a very similar command 
+but because we are in a "development environment" we suggest to use
 
    $ bundle exec rake -T
 
-which guarantees that all the called programs/tasks will be executed inside the current development environment (bound to specific libraries versions). Follows the list of all available tasks for Biogem
+which guarantees that all the called programs/tasks will be executed inside the current development environment (bound to specific libraries versions). rake -T displays the list of tasks
 
     rake build               # Build gem into pkg/
     rake clobber_rcov        # Remove rcov products for rcov
@@ -443,7 +443,6 @@ which guarantees that all the called programs/tasks will be executed inside the 
     rake version:bump:patch  # Bump the patch version by 1
     rake version:write       # Writes out an explicit version.
 
-
 ==  Advanced Developers
 
 * Remember to modify .gitignore to exclude unwanted files.
@@ -463,5 +462,5 @@ which guarantees that all the called programs/tasks will be executed inside the 
 
 == Copyright
 
-Copyright (c) 2010 Raoul J.P. Bonnal, Toshiaki Katayama, and Pjotr Prins. See LICENSE.txt for further details.
+Copyright (c) 2010-2012 Raoul J.P. Bonnal, Toshiaki Katayama, and Pjotr Prins. See LICENSE.txt for further details.
 

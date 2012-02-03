@@ -1,10 +1,8 @@
 #!/usr/bin/env ruby
 #
-# BioRuby <%= project_name %> Plugin
-# Version 0.0.0 
+# BioRuby <%= project_name %> Plugin <%= constant_name %>
 # Author:: <%= user_name %>
 # Copyright:: <%= Time.now.year %>
-# License:: The Ruby License
 
  USAGE = "Describe <%= bin_name %>"
 

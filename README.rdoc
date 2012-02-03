@@ -21,11 +21,15 @@ versioning, releasing it to github.com and/or rubygems.org and
 packaging. Bundler is used used for setting up a predefined developing
 environment.
 
-Also Biogem makes use of webservices. E.g.
+Also Biogem makes use of webservices. Currently
 
-* GitHub.com and RubyGems.org
-  are two different services and you need to create different accounts for them
-  if you already use GitHub.com you are set for using Biogem
+* GitHub.com 
+  is used for maintaining the source tree, tracking changes and
+  issues. Create a github account if you don't have one.
+* RubyGems.org
+  publishes your software for other people to install and use
+* biogems.info
+  tracks all biogems, so people can find them
 
 == Installation
 
@@ -45,8 +49,12 @@ Also Biogem makes use of webservices. E.g.
    $ git config --global github.token "TOKEN ASSIGNED BY GITHUB"
 
 Note: another Ruby version management system used in BioRuby community is https://github.com/sstephenson/rbenv but for now we can not provide support for it.
+
 ==== IMPORTANT NOTE
-Rubygems will not let you install Biogem in an environment with a Ruby interpreter older than 1.9
+
+Rubygems will not let you install Biogem in an environment with a Ruby
+interpreter older than 1.9.X. Biogem can create gems for Ruby 1.8.7 -
+but you need a recent version of Ruby and tools to run Biogem itself.
 
 === Download
 
@@ -95,6 +103,7 @@ Note: the above list of dependencies is just an example and it may vary from you
 
 During the installation you may note how Rubygems install the documentation for you, for each library installed.
 Is possible to access to all the documentations and API installed simply typing in the command line:
+
     $ gem server
 	Server started at http://0.0.0.0:8808
 	Server started at http://[::ffff:0.0.0.0]:8808
@@ -107,10 +116,12 @@ Note: the above link must be update with your current version of Biogem
 == Biogem Tutorial HowTo Develop a plugins
 
 Please follow the guide reported in tutorial https://github.com/helios/bioruby-gem/blob/master/Tutorial.rdoc, which is the most up to date version.
-You'll find out how to create:
+You'll find out how to create
+
 * a simple plugin
 * embed a database
 * create a Biogem Engine to embed your gem into a Ruby on Rails web application
+
 and much more
 
 
@@ -121,11 +132,13 @@ and much more
 == Contributing to Biogem
 
 The source code repositories for Biogem and http://biogems.info
-website are on github.
+website are on github
+
 * https://github.com/helios/bioruby-gem
 * https://github.com/pjotrp/biogems.info
-If you want to contribute, feel free! Clone the
-project!
+
+Use Biogem for all purposes DRY. If you want to contribute, feel free! Clone the
+project! Submit! Send us a pull request!
 
 == BioRuby's Wiki Official Documentation
 
@@ -171,9 +184,13 @@ e.g. biogem the-perfect-gem
         --rdoc                       use rdoc for documentation
     -h, --help                       display this help and exit
 
+Recent versions of Biogem may have more options. For a full list run
+
+    bundle exec rake -T
+
 == Copyright
 
-Copyright (c) 2010, 2011 Raoul J.P. Bonnal. See LICENSE.txt for
+Copyright (c) 2010-2012 Raoul J.P. Bonnal. See LICENSE.txt for
 further details.
 
 
