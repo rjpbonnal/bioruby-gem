@@ -71,7 +71,18 @@ module Biogem
     end
 
     def engine_module_name
-      project_name.split('-').map{|module_sub_name| module_sub_name.capitalize}.join      
+      module_name = project_name.split('-').map{|module_sub_name| module_sub_name.capitalize}.join
+      module_name.instance_eval do
+        # Handle underscore in routing template
+        def underscore
+          self.gsub(/::/, '/').
+          gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+          gsub(/([a-z\d])([A-Z])/,'\1_\2').
+          tr("-", "_").
+          downcase
+        end
+      end
+      module_name
     end
 
     def engine_name_prefix
