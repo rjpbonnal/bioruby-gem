@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "bio-gem"
-  s.version = "1.2.1"
+  s.version = "1.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Raoul J.P. Bonnal", "Pjotr Prins"]
-  s.date = "2012-01-23"
+  s.date = "2012-02-16"
   s.description = "Biogem is a software generator for those bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .\n  The basic idea is to simplify and promote a modular approach to bioinformatics software development"
   s.email = "ilpuccio.febo@gmail.com"
   s.executables = ["biogem"]
@@ -32,10 +32,14 @@ Gem::Specification.new do |s|
     "doc/biogem-hacking.md",
     "lib/bio-gem.rb",
     "lib/bio-gem/application.rb",
+    "lib/bio-gem/generator/render.rb",
+    "lib/bio-gem/mod/biogem-rails.rb",
+    "lib/bio-gem/mod/biogem.rb",
     "lib/bio-gem/mod/jeweler.rb",
     "lib/bio-gem/mod/jeweler/github_mixin.rb",
     "lib/bio-gem/mod/jeweler/options.rb",
-    "lib/bio-gem/templates/bin",
+    "lib/bio-gem/templates/README.rdoc",
+    "lib/bio-gem/templates/bin/bio-plugin",
     "lib/bio-gem/templates/database",
     "lib/bio-gem/templates/db_connection",
     "lib/bio-gem/templates/db_model",
@@ -47,7 +51,9 @@ Gem::Specification.new do |s|
     "lib/bio-gem/templates/foos_view_index",
     "lib/bio-gem/templates/foos_view_new",
     "lib/bio-gem/templates/foos_view_show",
-    "lib/bio-gem/templates/lib",
+    "lib/bio-gem/templates/gitignore",
+    "lib/bio-gem/templates/lib/bioruby-plugin.rb",
+    "lib/bio-gem/templates/lib/plugin.rb",
     "lib/bio-gem/templates/library",
     "lib/bio-gem/templates/migration",
     "lib/bio-gem/templates/rakefile",
