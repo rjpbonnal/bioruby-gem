@@ -1,9 +1,9 @@
 # Integration testing
 
-Continuous integration testing is very useful for biogems/plugins. The Ruby 
+Continuous integration testing is very useful for biogems/plugins. The Ruby
 community has come up with [travis-ci](http://about.travis-ci.org/), which is
-integrated into github! Any time a gem is tagged for release, the automated
-testing on different platforms kicks in. A tested gem is displayed on github.
+integrated into github!  Any time code is submitted to github, the automated
+testing on different platforms kicks in. 
 
 Here we set out to set up travis-ci with a biogem. I chose my bio-gff3 gem 
 for integrated testing.
@@ -74,7 +74,8 @@ You can see 'build status: passing' (as of 27/2/2012).
 
 Clicking on the button takes the viewer directly to the test results!
 
-Ready to run for all Ruby editions. We will add these 
-buttons to http://biogems.info/.
+Ready to run for all Ruby editions. We will add these buttons to
+http://biogems.info/.  Also, we would like to achieve that any time a gem is
+tagged for release, the automated testing on different platforms kicks in. 
 
 This is amazing functionality. 
