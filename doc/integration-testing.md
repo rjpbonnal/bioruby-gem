@@ -43,20 +43,22 @@ Hooray, .travis.yml at /export/local/users/pjotr/git/opensource/ruby/bioruby-gff
 
 Pushing any changes to github should kick in all testing!
 
-You know what? All tests failed. Rubinius did lot like the rcov native extension, which 
-got installed by older editions of biogem. So time to remove that. JRuby was fussy about
-'NameError: uninitialized constant BIN', which was actuall correct. 
+You know what? Tests failed. Rubinius did lot like the rcov native extension,
+which got installed by older editions of biogem. So time to remove that. JRuby
+was fussy about 'NameError: uninitialized constant BIN', which was actually
+correct, and should not have passed in MRI.
 
-And Ruby 1.9.3 complained about
+Ruby 1.9.3 complained about
   
 ```bash
   /home/vagrant/.rvm/rubies/ruby-1.9.3-p125/lib/ruby/1.9.1/test/unit.rb:167:in 'block in non_options': file not found: test/**/test_*.rb (ArgumentError)
 ```
 
 Funny that. On my machine all tests passed. On travis all builds failed, even on the same 
-Ruby interpreter. 
+Ruby interpreter. I had to disable my regression tests because Travis does not like resolving
+paths to external programs (surprise!).
 
-Fixing these bugs made it a better gem!
+Anyway, fixing these bugs/issues made it a better gem!
 
 To add a status button on github, add the following to your README.md
 
@@ -64,9 +66,15 @@ To add a status button on github, add the following to your README.md
   [![Build Status](https://secure.travis-ci.org/[YOUR_GITHUB_USERNAME]/[YOUR_PROJECT_NAME].png)](http://travis-ci.org/[YOUR_GITHUB_USERNAME]/[YOUR_PROJECT_NAME])
 ```
 
+If you check the README of
+
+  https://github.com/pjotrp/bioruby-gff3-plugin
+
+You can see 'build status: passing' (as of 27/2/2012).
+
 Clicking on the button takes the viewer directly to the test results!
 
-This is amazing functionality. Ready to run for all Ruby editions.
+Ready to run for all Ruby editions. We will add these 
+buttons to http://biogems.info/.
 
-
-
+This is amazing functionality. 
