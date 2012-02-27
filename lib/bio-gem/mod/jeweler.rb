@@ -17,10 +17,12 @@ class Jeweler
     alias original_initialize initialize
     def initialize(options = {})
       original_initialize(options)
-      # development_dependencies << ["bio-logger"]
-      development_dependencies << ["bio", ">= 1.4.2"]
       # RCov is not properly supported in Ruby 1.9.2, so we remove it
       development_dependencies.delete_if { |k,v| k == "rcov" }
+      # development_dependencies << ["bio-logger"]
+      development_dependencies << ["bio", ">= 1.4.2"]
+      # we add rdoc because of an upgrade of rake RDocTask causing errors
+      development_dependencies << ["rdoc", ">= 2.4.2"]
       if options[:biogem_db]
         development_dependencies << ["activerecord", ">= 3.0.7"]
         development_dependencies << ["activesupport", ">= 3.0.7"]
