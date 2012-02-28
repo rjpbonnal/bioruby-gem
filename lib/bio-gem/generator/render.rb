@@ -1,3 +1,6 @@
+# Biogem::Render contains all the logic to render Biogem specific 
+# templates
+
 module Biogem
   module Render
     # new hook for removing stuff
@@ -60,6 +63,7 @@ module Biogem
       # Always do these
       output_template_in_target_generic 'README.rdoc'
       output_template_in_target_generic_append 'gitignore', '.gitignore'
+      output_template_in_target_generic_append 'travis.yml', '.travis.yml'
     end
 
     def create_meta

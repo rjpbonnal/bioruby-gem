@@ -19,7 +19,7 @@ if (application_exit[:exit]==0)
 
   Bundler::CLI.start
   #TODO: call rake directly not from shell
-  # print "Note: if rake gives an error try running biogem from an installed gem\n"
+  # print "Note: if rake gives an error try running biogem from an installed gem instead\n"
   print "\trake version:write\n"
   sh "rake version:write"
   print "\trake gemspec\n"
