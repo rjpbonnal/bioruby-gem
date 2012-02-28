@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "bio-gem"
-  s.version = "1.2.2"
+  s.version = "1.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Raoul J.P. Bonnal", "Pjotr Prins"]
-  s.date = "2012-02-16"
+  s.date = "2012-02-28"
   s.description = "Biogem is a software generator for those bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .\n  The basic idea is to simplify and promote a modular approach to bioinformatics software development"
   s.email = "ilpuccio.febo@gmail.com"
   s.executables = ["biogem"]
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
+    ".travis.yml",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
@@ -30,6 +31,7 @@ Gem::Specification.new do |s|
     "bin/biogem",
     "bio-gem.gemspec",
     "doc/biogem-hacking.md",
+    "doc/integration-testing.md",
     "lib/bio-gem.rb",
     "lib/bio-gem/application.rb",
     "lib/bio-gem/generator/render.rb",
@@ -59,6 +61,7 @@ Gem::Specification.new do |s|
     "lib/bio-gem/templates/rakefile",
     "lib/bio-gem/templates/routes",
     "lib/bio-gem/templates/seeds",
+    "lib/bio-gem/templates/travis.yml",
     "test/helper.rb",
     "test/test_bio-gem.rb"
   ]
