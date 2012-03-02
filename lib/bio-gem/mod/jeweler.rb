@@ -22,7 +22,7 @@ class Jeweler
       # development_dependencies << ["bio-logger"]
       development_dependencies << ["bio", ">= 1.4.2"]
       # we add rdoc because of an upgrade of rake RDocTask causing errors
-      development_dependencies << ["rdoc", ">= 2.4.2"]
+      development_dependencies << ["rdoc","~> 3.12"]
       if options[:biogem_db]
         development_dependencies << ["activerecord", ">= 3.0.7"]
         development_dependencies << ["activesupport", ">= 3.0.7"]
