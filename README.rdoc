@@ -1,6 +1,9 @@
 = Biogem
 
-{<img src="https://secure.travis-ci.org/helios/bioruby-gem.png"/>}[http://travis-ci.org/#!/helios/bioruby-gem]
+Helios: {<img
+src="https://secure.travis-ci.org/helios/bioruby-gem.png"/>}[http://travis-ci.org/#!/helios/bioruby-gem]
+
+Pjotr: {<img src="https://secure.travis-ci.org/pjotrp/bioruby-gem.png"/>}[http://travis-ci.org/#!/pjotrp/bioruby-gem]
 
 Biogem provides a set of tools for those Bioinformaticans who want to
 start coding an application, or a library for using/extending
