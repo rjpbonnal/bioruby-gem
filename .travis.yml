@@ -13,5 +13,4 @@ rvm:
 
 before_install:
   - bundle --version
-  - bundle list
   - gem env
