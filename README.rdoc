@@ -58,6 +58,10 @@ Rubygems will not let you install Biogem in an environment with a Ruby
 interpreter older than 1.9.X. Biogem can create gems for Ruby 1.8.7 -
 but you need a recent version of Ruby and tools to run Biogem itself.
 
+Also it is recommended to install the latest version of bundler using
+
+  $ gem install bundler
+
 === Download
 
 Install the Biogem toolset with
