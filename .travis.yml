@@ -12,6 +12,6 @@ rvm:
 # script: bundle exec rspec spec
 
 before_install:
-  bundle --version
-  bundle list
-  gem env
+  - bundle --version
+  - bundle list
+  - gem env
