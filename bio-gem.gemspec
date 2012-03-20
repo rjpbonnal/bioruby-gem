@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "bio-gem"
-  s.version = "1.3.1"
+  s.version = "1.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Raoul J.P. Bonnal", "Pjotr Prins"]
-  s.date = "2012-03-03"
+  s.date = "2012-03-20"
   s.description = "Biogem is a software generator for those bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .\n  The basic idea is to simplify and promote a modular approach to bioinformatics software development"
   s.email = "ilpuccio.febo@gmail.com"
   s.executables = ["biogem"]
@@ -77,24 +77,21 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<bundler>, ["~> 1.0.18"])
-      s.add_runtime_dependency(%q<jeweler>, [">= 1.7.0"])
+      s.add_runtime_dependency(%q<bundler>, ["~> 1.0.21"])
+      s.add_runtime_dependency(%q<jeweler>, [">= 0"])
+      s.add_runtime_dependency(%q<rdoc>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
-      s.add_development_dependency(%q<bundler>, ["~> 1.0.18"])
-      s.add_development_dependency(%q<jeweler>, [">= 1.7.0"])
     else
-      s.add_dependency(%q<bundler>, ["~> 1.0.18"])
-      s.add_dependency(%q<jeweler>, [">= 1.7.0"])
+      s.add_dependency(%q<bundler>, ["~> 1.0.21"])
+      s.add_dependency(%q<jeweler>, [">= 0"])
+      s.add_dependency(%q<rdoc>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
-      s.add_dependency(%q<bundler>, ["~> 1.0.18"])
-      s.add_dependency(%q<jeweler>, [">= 1.7.0"])
     end
   else
-    s.add_dependency(%q<bundler>, ["~> 1.0.18"])
-    s.add_dependency(%q<jeweler>, [">= 1.7.0"])
+    s.add_dependency(%q<bundler>, ["~> 1.0.21"])
+    s.add_dependency(%q<jeweler>, [">= 0"])
+    s.add_dependency(%q<rdoc>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
-    s.add_dependency(%q<bundler>, ["~> 1.0.18"])
-    s.add_dependency(%q<jeweler>, [">= 1.7.0"])
   end
 end
 
