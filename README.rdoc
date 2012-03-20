@@ -1,5 +1,10 @@
 = Biogem
 
+Helios: {<img
+src="https://secure.travis-ci.org/helios/bioruby-gem.png"/>}[http://travis-ci.org/#!/helios/bioruby-gem]
+
+Pjotr: {<img src="https://secure.travis-ci.org/pjotrp/bioruby-gem.png"/>}[http://travis-ci.org/#!/pjotrp/bioruby-gem]
+
 Biogem provides a set of tools for those Bioinformaticans who want to
 start coding an application, or a library for using/extending
 BioRuby's core library and sharing the code as a gem through
@@ -55,6 +60,10 @@ Note: another Ruby version management system used in BioRuby community is https:
 Rubygems will not let you install Biogem in an environment with a Ruby
 interpreter older than 1.9.X. Biogem can create gems for Ruby 1.8.7 -
 but you need a recent version of Ruby and tools to run Biogem itself.
+
+Also it is recommended to install the latest version of bundler using
+
+  $ gem install bundler
 
 === Download
 
