@@ -160,7 +160,7 @@ class Jeweler
             self[:homepage] = homepage
           end
 
-          o.on('--no-create-repo', 'create the repository on GitHub') do
+          o.on('--no-create-repo', 'don\'t create the repository on GitHub') do
             self[:create_repo] = false
           end
 
