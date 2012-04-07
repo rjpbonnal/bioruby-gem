@@ -28,6 +28,8 @@ how to contribute, see
 
   <%= homepage %>
 
+The BioRuby community is on IRC server: irc.freenode.org, channel: #bioruby.
+
 ## Cite
 
 If you use this software, please cite one of
