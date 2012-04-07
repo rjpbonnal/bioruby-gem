@@ -11,6 +11,7 @@ require 'rake'
 orig_argv = ARGV.clone
 # application_exit[:exit] exists, application_exit[:options] it depends.
 application_exit = Bio::Gem::Generator::Application.run!(*ARGV)
+options = application_exit[:options]
 
 if (application_exit[:exit]==0)
   pwd = FileUtils.pwd
@@ -19,7 +20,17 @@ if (application_exit[:exit]==0)
 
   Bundler::CLI.start
   #TODO: call rake directly not from shell
-  # print "Note: if rake gives an error try running biogem from an installed gem instead\n"
+ 
+  if options[:testing_framework] == :rspec
+    # Don't remove the following warning, as it may be encountered by anyone running
+    # biogem from source (especially with the --with-rspec switch)!
+    print "
+    WARNING: if rake gives an (rspec) error try running biogem from a directly 
+             installed gem instead:
+     bundle exec rake install
+     biogem [options] 
+    "
+  end
   print "\trake version:write\n"
   sh "rake version:write"
   print "\trake gemspec\n"
