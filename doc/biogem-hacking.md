@@ -38,14 +38,29 @@ sure to remove the bioruby-foo directory first
       rm -rf bioruby-foo 
 ```
 
-Recommended biogem switches are --with-bin and --rspec
+Recommended biogem switches are --with-bin and --rspec, e.g.
 
 ```sh
-      bundle exec ./bin/biogem --with-bin --rspec foo
+      bundle exec ./bin/biogem --with-bin --rspec --cucumber foo
+```
+
+For a foreign function interface use
+
+```sh
+      bundle exec ./bin/biogem --with-bin --rspec --cucumber --with-ffi foo
+```
+
+There are options for ActiveRecord, Ruby on Rails etc. Naturally, you can see
+all available options with
+
+```sh
+      bundle exec ./bin/biogem --help
 ```
 
 Note that we are running biogem here within bundler. This may cause a rakefile
-error after generating the plugin (nesting bundler is not a good idea). This can simply be fixed by running the rake by hand in the plugin directory after generation
+error after generating the plugin (nesting bundler is not a good idea). This
+can simply be fixed by running the rake by hand in the plugin directory after
+generation
 
 ```sh
       cd bioruby-foo
@@ -54,8 +69,8 @@ error after generating the plugin (nesting bundler is not a good idea). This can
       bundle exec rake gemspec
 ```
 
-Alternatively, install an updated version of biogem, and run biogem without
-bundler with
+Alternatively, install an updated version of biogem on your machine as a gem,
+and run biogem without bundler with
 
 ```sh
       bundle exec rake install

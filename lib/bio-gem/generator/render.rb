@@ -62,6 +62,7 @@ module Biogem
       end 
       # Always do these
       output_template_in_target_generic 'README.rdoc'
+      output_template_in_target_generic 'README.md'
       output_template_in_target_generic_append 'gitignore', '.gitignore'
       output_template_in_target_generic_append 'travis.yml', '.travis.yml'
     end
