@@ -1,8 +1,8 @@
 = <%= project_name %>
 
 {<img
-src="https://secure.travis-ci.org/<%= user_name %>/<%= project_name %>.png"
-/>}[http://travis-ci.org/#!/<%= user_name %>/<%= project_name %>]
+src="https://secure.travis-ci.org/<%= github_username %>/<%= github_repo_name %>.png"
+/>}[http://travis-ci.org/#!/<%= github_username %>/<%= github_repo_name %>]
 
 Full description goes here
 
@@ -18,7 +18,7 @@ Note: this software is under active development!
 
 To use the library 
 
-        require '<%= project_name %>
+        require '<%= project_name %>'
 
 The API doc is online. For more code examples see also the test files in
 the source tree.

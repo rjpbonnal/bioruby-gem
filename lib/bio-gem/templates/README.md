@@ -1,6 +1,6 @@
 # <%= project_name %>
 
-[![Build Status](https://secure.travis-ci.org/<%= user_name %>/<%= project_name %>.png)](http://travis-ci.org/<%= user_name %>/<%= project_name %>)
+[![Build Status](https://secure.travis-ci.org/<%= github_username %>/<%= github_repo_name %>.png)](http://travis-ci.org/<%= github_username %>/<%= github_repo_name %>)
 
 Full description goes here
 
@@ -15,7 +15,7 @@ Note: this software is under active development!
 ## Usage
 
 ```ruby
-    require '<%= project_name %>
+    require '<%= project_name %>'
 ```
 
 The API doc is online. For more code examples see the test files in
