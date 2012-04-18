@@ -1,0 +1,2 @@
+--exclude lib/bio-gem/templates/lib/plugin.rb 
+--exclude lib/bio-gem/templates/lib/bioruby-plugin.rb
