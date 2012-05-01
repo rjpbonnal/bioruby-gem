@@ -19,6 +19,9 @@ class Jeweler
       original_initialize(options)
       # RCov is not properly supported in Ruby 1.9.2, so we remove it
       development_dependencies.delete_if { |k,v| k == "rcov" }
+      # Jeweler has a bug for bundler
+      development_dependencies.delete_if { |k,v| k == "bundler" }
+      development_dependencies << ["bundler", ">= 1.0.21"]
       # development_dependencies << ["bio-logger"]
       development_dependencies << ["bio", ">= 1.4.2"]
       # we add rdoc because of an upgrade of rake RDocTask causing errors
