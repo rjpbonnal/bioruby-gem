@@ -3,7 +3,7 @@
 
 module Biogem
   module Render
-    # new hook for removing stuff
+    # new hook for removing stuff (FIXME: could use a test!!)
     def after_render_template(source,buf)
       if source == 'other_tasks.erb'
         $stdout.puts "\tremove jeweler rcov lines"
