@@ -6,13 +6,14 @@
 
 USAGE = "Describe <%= bin_name %>"
 
-rootpath = File.dirname(File.dirname(__FILE__))
-$: << File.join(rootpath,'lib')
+gempath = File.dirname(File.dirname(__FILE__))
+$: << File.join(gempath,'lib')
 
-VERSION = File.new(File.join(rootpath,'VERSION')).read.chomp
+VERSION_FILENAME=File.join(gempath,'VERSION')
+version = File.new(VERSION_FILENAME).read.chomp
 
 # print banner
-print "<%= bin_name %> #{VERSION} by <%= user_name %> <%= Time.now.year %>\n"
+print "<%= bin_name %> #{version} by <%= user_name %> <%= Time.now.year %>\n"
 
 if ARGV.size == 0
   print USAGE
