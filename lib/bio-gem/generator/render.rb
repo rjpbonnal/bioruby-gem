@@ -3,7 +3,7 @@
 
 module Biogem
   module Render
-    # new hook for removing stuff
+    # new hook for removing stuff (FIXME: could use a test!!)
     def after_render_template(source,buf)
       if source == 'other_tasks.erb'
         $stdout.puts "\tremove jeweler rcov lines"
@@ -92,7 +92,7 @@ module Biogem
       mkdir_in_target bin_dir
       output_template_in_target_generic path('bin/bio-plugin'), path(bin_dir, bin_name)
       # TODO: set the file as executable (Windows?)
-      File.chmod 0655, path(target_dir, bin_dir, bin_name)
+      File.chmod 0755, path(target_dir, bin_dir, bin_name)
     end
 
     def create_test_data

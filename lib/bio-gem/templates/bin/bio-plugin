@@ -4,7 +4,16 @@
 # Author:: <%= user_name %>
 # Copyright:: <%= Time.now.year %>
 
- USAGE = "Describe <%= bin_name %>"
+USAGE = "Describe <%= bin_name %>"
+
+gempath = File.dirname(File.dirname(__FILE__))
+$: << File.join(gempath,'lib')
+
+VERSION_FILENAME=File.join(gempath,'VERSION')
+version = File.new(VERSION_FILENAME).read.chomp
+
+# print banner
+print "<%= bin_name %> #{version} by <%= user_name %> <%= Time.now.year %>\n"
 
 if ARGV.size == 0
   print USAGE
