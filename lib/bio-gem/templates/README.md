@@ -9,13 +9,13 @@ Note: this software is under active development!
 ## Installation
 
 ```sh
-    gem install <%= project_name %>
+gem install <%= project_name %>
 ```
 
 ## Usage
 
 ```ruby
-    require '<%= project_name %>'
+require '<%= project_name %>'
 ```
 
 The API doc is online. For more code examples see the test files in
@@ -39,7 +39,7 @@ If you use this software, please cite one of
 
 ## Biogems.info
 
-This Biogem is published at [#<%= project_name %>](http://biogems.info/index.html)
+This Biogem is published at (http://biogems.info/index.html#<%= project_name %>)
 
 ## Copyright
 
