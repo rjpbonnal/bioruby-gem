@@ -62,6 +62,10 @@ class Jeweler
             self[:biogem_db] = true
           end
           
+          o.on('--with-wrapper', 'setup the biogem to be a wrapper around a command line application') do
+            self[:wrapper] = true
+          end
+          
           o.separator ""
           
           o.separator "These options are for Jeweler"
