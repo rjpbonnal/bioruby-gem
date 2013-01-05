@@ -31,6 +31,7 @@ class Jeweler
         development_dependencies << ["activesupport", ">= 3.0.7"]
         development_dependencies << ["sqlite3", ">= 1.3.3"]
       end
+      development_dependencies << ['systemu', '>=2.5.2'] if options[:wrapper]
     end
 
     alias original_project_name project_name  
