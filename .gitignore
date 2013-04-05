@@ -44,3 +44,4 @@ pkg
 # ignore generated plugins
 bioruby-*
 .rbx/
+Gemfile.lock
