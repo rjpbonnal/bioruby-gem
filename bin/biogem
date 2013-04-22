@@ -10,33 +10,34 @@ require 'rake'
 
 orig_argv = ARGV.clone
 # application_exit[:exit] exists, application_exit[:options] it depends.
-application_exit = Bio::Gem::Generator::Application.run!(*ARGV)
-options = application_exit[:options]
+exit Bio::Gem::Generator::Application.run!(*ARGV)
+# application_exit = Bio::Gem::Generator::Application.run!(*ARGV)
+# options = application_exit[:options]
 
-if (application_exit[:exit]==0)
-  pwd = FileUtils.pwd
-  FileUtils.cd "bioruby-#{application_exit[:options][:project_name]}"
-  ARGV.clear << "install"
+# if (application_exit[:exit]==0)
+#   pwd = FileUtils.pwd
+#   FileUtils.cd "bioruby-#{application_exit[:options][:project_name]}"
+#   ARGV.clear << "install"
 
-  Bundler::CLI.start
-  #TODO: call rake directly not from shell
+#   Bundler::CLI.start
+#   #TODO: call rake directly not from shell
  
-  if options[:testing_framework] == :rspec
-    # Don't remove the following warning, as it may be encountered by anyone running
-    # biogem from source (especially with the --with-rspec switch)!
-    print "
-    WARNING: if rake gives an (rspec) error try running biogem from a directly 
-             installed gem instead:
-     bundle exec rake install
-     biogem [options] 
-    "
-  end
-  print "\trake version:write\n"
-  sh "rake version:write"
-  print "\trake gemspec\n"
-  sh "rake gemspec"
-  print "Done!\n"
-else
-  $stderr.print "\nERROR: Biogem failed!\n"
-end
+#   if options[:testing_framework] == :rspec
+#     # Don't remove the following warning, as it may be encountered by anyone running
+#     # biogem from source (especially with the --with-rspec switch)!
+#     print "
+#     WARNING: if rake gives an (rspec) error try running biogem from a directly 
+#              installed gem instead:
+#      bundle exec rake install
+#      biogem [options] 
+#     "
+#   end
+#   print "\trake version:write\n"
+#   sh "rake version:write"
+#   print "\trake gemspec\n"
+#   sh "rake gemspec"
+#   print "Done!\n"
+# else
+#   $stderr.print "\nERROR: Biogem failed!\n"
+# end
 
