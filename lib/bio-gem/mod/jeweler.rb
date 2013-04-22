@@ -21,6 +21,8 @@ class Jeweler
       development_dependencies.delete_if { |k,v| k == "rcov" }
       # Jeweler has a bug for bundler
       development_dependencies.delete_if { |k,v| k == "bundler" }
+      development_dependencies.delete_if { |k,v| k == "jeweler" }
+      development_dependencies << ["jeweler",'~> 1.8.4", :git => "https://github.com/technicalpickles/jeweler.git']
       development_dependencies << ["bundler", ">= 1.0.21"]
       # development_dependencies << ["bio-logger"]
       development_dependencies << ["bio", ">= 1.4.2"]
@@ -73,20 +75,20 @@ class Jeweler
     end
 
     def create_and_push_repo
-      return if $UNITTEST  # skip github create when testing
-      begin 
-        Net::HTTP.post_form URI.parse('http://github.com/api/v2/yaml/repos/create'),
-        'login' => github_username,
-        'token' => github_token,
-        'description' => summary,
-        'name' => github_repo_name
-        # BY DEFAULT THE REPO IS CREATED
-        # DO NOT PUSH THE REPO BECAUSE USER MUST ADD INFO TO CONFIGURATION FILES
-        # TODO do a HEAD request to see when it's ready?
-        #@repo.push('origin')
-      rescue  SocketError => se
-        puts_template_message("Seems you are not connected to Internet, can't create a remote repository. Do not forget to create it by hand, from GitHub, and sync it with this project.")
+      puts "Please provide your Github password to create the Github repository"
+      begin
+        login = github_username
+        password = ask("Password: ") { |q| q.echo = false }
+        github = Github.new(:login => login.strip, :password => password.strip)
+        github.repos.create(:name => project_name, :description => summary)
+      rescue Github::Error::Unauthorized
+        puts "Wrong login/password! Please try again"
+        retry
+      rescue Github::Error::UnprocessableEntity
+        raise GitRepoCreationFailed, "Can't create that repo. Does it already exist?"
       end
+      # TODO do a HEAD request to see when it's ready?
+      @repo.push('origin')
     end
   end #Generator
 end #Jeweler

@@ -3,7 +3,7 @@ source "http://rubygems.org"
 # Example:
 #   gem "activesupport", ">= 2.3.5"
 gem "bundler", ">= 1.0.21"
-gem "jeweler"
+gem "jeweler", "~> 1.8.4", :git => 'https://github.com/technicalpickles/jeweler.git'
 gem "rdoc"
 
 # Add dependencies to develop your gem here.
