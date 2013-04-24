@@ -11,6 +11,12 @@ require 'rake'
 orig_argv = ARGV.clone
 # application_exit[:exit] exists, application_exit[:options] it depends.
 exit Bio::Gem::Generator::Application.run!(*ARGV)
+
+#run
+## bundle install
+## rake version:write
+## rake gemspec
+
 # application_exit = Bio::Gem::Generator::Application.run!(*ARGV)
 # options = application_exit[:options]
 
