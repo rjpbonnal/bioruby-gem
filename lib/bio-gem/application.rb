@@ -6,6 +6,7 @@ module Bio
         class << self
           include Shellwords 
           def run!(*arguments)
+
           options = build_options(arguments)
 
           if options[:invalid_argument]
@@ -29,9 +30,14 @@ module Bio
           end
 
           begin
-            generator = Jeweler::Generator.new(options)
-            generator.run
-            return 0
+            if options[:directory]!='.'
+              FileUtils.mkdir_p options[:directory]
+            end
+            FileUtils.cd options[:directory] do 
+              generator = Jeweler::Generator.new(options)
+              generator.run
+              return 0
+            end
           rescue Jeweler::NoGitUserName
             $stderr.puts %Q{No user.name found in ~/.gitconfig. Please tell git about yourself (see http://help.github.com/git-email-settings/ for details). For example: git config --global user.name "mad voo"}
             return 1

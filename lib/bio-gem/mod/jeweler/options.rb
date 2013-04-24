@@ -24,6 +24,7 @@ class Jeweler
 
         require 'optparse'
         @opts = OptionParser.new do |o|
+          self[:directory]='.'
           o.banner = "Usage: #{File.basename($0)} [options] reponame\ne.g. #{File.basename($0)} the-perfect-gem"
 
           o.on('--directory [DIRECTORY]', 'specify the directory to generate into') do |directory|
