@@ -97,7 +97,12 @@ module Biogem
 
     def create_test_data
       mkdir_in_target("test") unless File.exists? "#{target_dir}/test"
-      mkdir_in_target test_data_dir  
+      #TODO use and iterator ...
+      mkdir_in_target test_data_dir
+      mkdir_in_target 'test/data/input'
+      mkdir_in_target 'test/data/regression'
+      mkdir_in_target 'test/data/rspec'
+      mkdir_in_target 'test/data/cucumber'
     end
 
     def create_ffi_structure
