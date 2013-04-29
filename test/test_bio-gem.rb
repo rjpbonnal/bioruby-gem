@@ -13,8 +13,8 @@ class TestBiorubyGem < Test::Unit::TestCase
   
   def setup
     # check and create test directory
-    sh 'git config --global user.email "git@example.com"' if `git config user.email`.empty?
-    sh 'git config --global user.name "GitExample"' if `git config user.name`.empty?
+    `git config --global user.email "git@example.com"` if `git config user.email`.empty?
+    `git config --global user.name "GitExample"` if `git config user.name`.empty?
     FileUtils.rm_rf(TEST_DIR) if Dir.exist?(TEST_DIR)
     Dir.mkdir TEST_DIR
   end
