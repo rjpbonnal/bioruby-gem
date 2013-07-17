@@ -204,6 +204,9 @@ In bioinformatics is very common to presents data using a web application, and o
 To example this Biogem's features we want to create a Rails application which provides a form to users. Data are submitted to TogoWS http://togows.dbcls.jp/ and the result is returned in a web page. In the mean time we want to store suers queries and return them in the page of TogoWS' result. We'll create a Rails application and a separated Biogem to store queries and provide connection to TogoWS, following "man in the middle" pattern.
 
     $ biogem --with-engine Foo foo
+    $ cd bioruby-foo
+    $ rake version:write
+    $ bundle install
 
 Note: a database is automatically configure for the newly created gem
 
