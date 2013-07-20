@@ -7,6 +7,13 @@ require 'bio-gem/mod/jeweler/github_mixin'
 require 'bio-gem/mod/biogem'
 
 class Jeweler
+
+  class BiogemActionNotSupported < StandardError
+  end
+
+  class BiogemOldStyleCLI < StandardError
+  end
+
   class Generator 
 
     include Biogem::Naming
@@ -22,7 +29,7 @@ class Jeweler
       # Jeweler has a bug for bundler
       development_dependencies.delete_if { |k,v| k == "bundler" }
       development_dependencies.delete_if { |k,v| k == "jeweler" }
-      development_dependencies << ["jeweler",'~> 1.8.4", :git => "https://github.com/technicalpickles/jeweler.git']
+      development_dependencies << ["jeweler",'= 1.8.6'] #", :git => "https://github.com/technicalpickles/jeweler.git']
       development_dependencies << ["bundler", ">= 1.0.21"]
       # development_dependencies << ["bio-logger"]
       development_dependencies << ["bio", ">= 1.4.2"]
@@ -89,6 +96,21 @@ class Jeweler
       end
       # TODO do a HEAD request to see when it's ready?
       @repo.push('origin')
+    end
+
+    def exec(action)
+      case action
+      when "create"
+        run
+      when "upgrade"
+        upgrade
+      else
+        raise  BiogemActionNotSupported, "Action #{action} is invalid because not yet supported, please send a request to developers"
+      end
+    end
+
+    def upgrade
+      puts  "Upgrading...."
     end
   end #Generator
 end #Jeweler

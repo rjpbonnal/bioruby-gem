@@ -6,7 +6,7 @@
 
 To create a BioRuby plugin named bio-foo in the bioruby-foo directory
 
-   $ biogem foo
+   $ biogem create foo
    create	.gitignore
    create	Rakefile
    create	Gemfile
@@ -53,7 +53,7 @@ These parameters are necessary, because they describe your gem and its importanc
 
 If you want to distribute a library which uses a local database biogem creates for you a database template and add features coming from Ruby on Rails to manage the database. You can define Models, Fixtures and Migrations like a regular Rails application. SQLite3 is the default database engine in order to have a portable library, is also possible to configure the library to use different RDBMS like PostgreSQL, MySQL; please refer to ActiveRecord for further details.
 
-   $ biogem --with-db foo      
+   $ biogem create --with-db foo      
      create	.gitignore
      create	Rakefile
      create	Gemfile
@@ -203,7 +203,7 @@ In bioinformatics is very common to presents data using a web application, and o
 
 To example this Biogem's features we want to create a Rails application which provides a form to users. Data are submitted to TogoWS http://togows.dbcls.jp/ and the result is returned in a web page. In the mean time we want to store suers queries and return them in the page of TogoWS' result. We'll create a Rails application and a separated Biogem to store queries and provide connection to TogoWS, following "man in the middle" pattern.
 
-    $ biogem --with-engine Foo foo
+    $ biogem create --with-engine Foo foo
     $ cd bioruby-foo
     $ rake version:write
     $ bundle install
@@ -271,7 +271,7 @@ The latter path has modified by purpose from standard Rails configuration to kee
 
 A meta package or plugin is a very simple gem, essentially a configuration's gem. This particular plugin is used to aggregate other plugins or gems taking advantage of RubyGems dependencies. An example of this feature are: bio-core, bio-ext, bio-biollinux plugins which have different purposes and they can contain the same plugins but in different versions.
 
-   $ biogem --meta foo                            
+   $ biogem create --meta foo                            
    create	.gitignore
    create	Rakefile
    create	Gemfile
@@ -349,9 +349,13 @@ To create a prerelease of your plugin, set the version to include a letter (e.g.
 
 These are the available options, they come from biogem and from jeweler. I don't know if in the future I'll keep all of them.
 
-Usage: biogem [options] reponame, e.g.
+Usage: biogem [actions] [options] reponame, e.g.
 
-   $ biogem the-perfect-gem
+   $ biogem create the-perfect-gem
+
+Valid actions are
+        create                       initialize a brand new project
+        upgrade                      upgrade the current project name with a new feature, support you want to extend your gem with and engine or a database  
 
         --directory [DIRECTORY]      specify the directory to generate into
 

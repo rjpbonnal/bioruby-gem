@@ -71,7 +71,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.rdoc_options = ["--main", "README", "--line-numbers"]
   s.require_paths = ["lib"]
-  s.required_ruby_version = Gem::Requirement.new("~> 1.9")
+ # s.required_ruby_version = Gem::Requirement.new("~> 1.9")
   s.rubygems_version = "1.8.10"
   s.summary = "Biogem is a software generator for Ruby in bioinformatics"
 

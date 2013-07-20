@@ -1,11 +1,27 @@
 class Jeweler
   class Generator
+
+    # module OptionsExtensions
+    #   def self.included(base)
+    #     base.extend ClassMethods
+    #   end
+
+    #   module ClassMethods
+    #     def valid_action?(action)
+    #       ["create", "upgrade"].inlude? action
+    #     end
+    #   end
+    # end
+
     class Options < Hash
+
+      # include OptionsExtensions
+
+
       attr_reader :opts, :orig_args
 
       def initialize(args)
         super()
-
         @orig_args = args.clone
         self[:testing_framework]       = :shoulda
         self[:documentation_framework] = :rdoc
@@ -187,11 +203,20 @@ class Jeweler
 
         begin
           @opts.parse!(args)
-          self[:project_name] = args.shift
+           if args.length == 2
+            self[:action] = args.shift
+            self[:project_name] = args.shift
+            unless ["create", "upgrade"].include? self[:action]
+              raise  BiogemActionNotSupported, "Action #{self[:action]} is invalid because not yet supported, please send a request to developers"
+            end
+          elsif args.length == 1
+              raise  BiogemOldStyleCLI, "Old style biogem invocation, please switch to the new one: biogem action project_name"
+           end
         rescue OptionParser::InvalidOption => e
           self[:invalid_argument] = e.message
         end
       end
+
 
       def merge(other)
         self.class.new(@orig_args + other.orig_args)

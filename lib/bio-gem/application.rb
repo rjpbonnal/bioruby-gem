@@ -6,7 +6,6 @@ module Bio
         class << self
           include Shellwords 
           def run!(*arguments)
-
           options = build_options(arguments)
 
           if options[:invalid_argument]
@@ -35,7 +34,7 @@ module Bio
             end
             FileUtils.cd options[:directory] do 
               generator = Jeweler::Generator.new(options)
-              generator.run
+              generator.exec options[:action]
               return 0
             end
           rescue Jeweler::NoGitUserName
@@ -57,7 +56,6 @@ module Bio
           env_opts_string = ENV['JEWELER_OPTS'] || ""
           env_opts        = Jeweler::Generator::Options.new(shellwords(env_opts_string))
           argument_opts   = Jeweler::Generator::Options.new(arguments)
-
           env_opts.merge(argument_opts)
         end
 
