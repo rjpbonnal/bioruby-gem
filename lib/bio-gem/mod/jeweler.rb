@@ -110,7 +110,9 @@ class Jeweler
     end
 
     def upgrade
-      puts  "Upgrading...."
+      puts "Biogem is going to upgrade your project..."
+      update_plugin_files
+      puts "Project upgraded."
     end
   end #Generator
 end #Jeweler

@@ -54,17 +54,25 @@ module Biogem
       else
         original_create_files
         create_lib
-        create_bin if options[:biogem_bin]
-        create_test_data if options[:biogem_test_data]
-        create_ffi_structure if options[:biogem_ffi]
-        create_db_structure if options[:biogem_db]
-        create_rails_engine if options[:biogem_engine]
+        update_plugin_files
       end 
       # Always do these
       output_template_in_target_generic 'README.rdoc'
       output_template_in_target_generic 'README.md'
       output_template_in_target_generic_append 'gitignore', '.gitignore'
       output_template_in_target_generic_append 'travis.yml', '.travis.yml'
+    end
+
+    def update_plugin_files
+      if options[:biogem_meta]
+        create_meta 
+      else
+        create_bin if options[:biogem_bin]
+        create_test_data if options[:biogem_test_data]
+        create_ffi_structure if options[:biogem_ffi]
+        create_db_structure if options[:biogem_db]
+        create_rails_engine if options[:biogem_engine]
+      end 
     end
 
     def create_meta
