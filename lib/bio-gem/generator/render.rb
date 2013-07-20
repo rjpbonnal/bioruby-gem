@@ -19,6 +19,11 @@ module Biogem
       buf
     end
 
+
+
+
+
+
     def render_template_generic(source, template_dir = template_dir_biogem)
       template_contents = File.read(path(template_dir, source))
       template          = ERB.new(template_contents, nil, '<>')
@@ -78,7 +83,7 @@ module Biogem
     def create_meta
       # this section is for Biogem META packages only!
       unless File.exists?(target_dir) || File.directory?(target_dir)
-        FileUtils.mkdir target_dir
+        FileUtils.mkdir_p target_dir
       else
         raise FileInTheWay, "The directory #{target_dir} already exists, aborting. Maybe move it out of the way before continuing?"
       end

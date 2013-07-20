@@ -43,6 +43,15 @@ class Jeweler
       development_dependencies << ['systemu', '>=2.5.2'] if options[:wrapper]
     end
 
+    alias original_mkdir_in_target mkdir_in_target
+    def mkdir_in_target(directory)
+      final_destination = File.join(target_dir, directory)
+
+      FileUtils.mkdir_p final_destination
+
+      $stdout.puts "\tcreate\t#{directory}"
+    end
+
     alias original_project_name project_name  
     def project_name
       name = original_project_name
