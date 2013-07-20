@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Raoul J.P. Bonnal", "Pjotr Prins"]
-  s.date = "2012-04-18"
+  s.date = "2013-07-20"
   s.description = "Biogem is a software generator for those bioinformaticans who want to start coding an application or a library for using/extending BioRuby core library and sharing it through rubygems.org .\n  The basic idea is to simplify and promote a modular approach to bioinformatics software development"
   s.email = "ilpuccio.febo@gmail.com"
   s.executables = ["biogem"]
@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
     ".travis.yml",
     ".yardopts",
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
@@ -71,27 +70,27 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.rdoc_options = ["--main", "README", "--line-numbers"]
   s.require_paths = ["lib"]
- # s.required_ruby_version = Gem::Requirement.new("~> 1.9")
-  s.rubygems_version = "1.8.10"
+  s.required_ruby_version = Gem::Requirement.new(">= 1.9.3")
+  s.rubygems_version = "2.0.0"
   s.summary = "Biogem is a software generator for Ruby in bioinformatics"
 
   if s.respond_to? :specification_version then
-    s.specification_version = 3
+    s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<bundler>, [">= 1.0.21"])
-      s.add_runtime_dependency(%q<jeweler>, [">= 0"])
+      s.add_runtime_dependency(%q<jeweler>, ["= 1.8.6"])
       s.add_runtime_dependency(%q<rdoc>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
     else
       s.add_dependency(%q<bundler>, [">= 1.0.21"])
-      s.add_dependency(%q<jeweler>, [">= 0"])
+      s.add_dependency(%q<jeweler>, ["= 1.8.6"])
       s.add_dependency(%q<rdoc>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
     end
   else
     s.add_dependency(%q<bundler>, [">= 1.0.21"])
-    s.add_dependency(%q<jeweler>, [">= 0"])
+    s.add_dependency(%q<jeweler>, ["= 1.8.6"])
     s.add_dependency(%q<rdoc>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
   end
