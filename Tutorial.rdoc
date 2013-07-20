@@ -345,6 +345,15 @@ After hack, git add and commit you may be ready to distribute the plugin and now
 
 To create a prerelease of your plugin, set the version to include a letter (e.g. alpha). This way the gem is registered as prerelease, listed on http://biogems.info/, but not listed in the standard gem lists.
 
+== Have a plugin and want to add new features? Aka Actions
+
+A project is never finished and many times we need to add new features or you just forgot to add an option in the command line. Lets say that you build a biogem but you forgot to add a database and expose the gem as a Rails Engine. You can still add  those functionalities later by simply add an `update` action instead of `create`
+
+   $ biogem upgrade the-perfer-gem
+
+Biogem will take care of adding the needed file and it will report the chances to you. The process is very similar to the one adopted by Rails. 
+We currently support only `create` and `update`, in the future we want to implemente other actions like `destroy` or more fine grained modification/configuration to you base biogem.
+
 == Options
 
 These are the available options, they come from biogem and from jeweler. I don't know if in the future I'll keep all of them.

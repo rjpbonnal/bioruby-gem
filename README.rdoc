@@ -155,9 +155,13 @@ project! Submit! Send us a pull request!
 
 == Biogem options
 
-Usage: biogem [options] reponame
+Usage: biogem  [actions] [options] reponame
 
-e.g. biogem the-perfect-gem
+e.g. biogem create the-perfect-gem
+
+Valid actions are
+        create                       initialize a brand new project
+        upgrade                      upgrade the current project name with a new feature, support you want to extend your gem with and engine or a database  
 
         --directory [DIRECTORY]      specify the directory to generate into
     These options are for BioGem
