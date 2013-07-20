@@ -210,16 +210,22 @@ To example this Biogem's features we want to create a Rails application which pr
 
 Note: a database is automatically configure for the newly created gem
 
+Create a completely new Rails web application NOT inside the newly create biogem, so rememner to 
+
+    $ cd ..
+
+and then create a new web app
+
     $ rails new Webfoo
-
-You can test your application just inserting into Rails application Gemfile the newly created gem:
-
-    gem 'bio-foo', :path=>'path_gem_dir'
 
 update the installation running:
 
      cd Webfoo
      bundle install
+
+You can test your application just inserting into Rails application Gemfile the newly created gem:
+
+    gem 'bio-foo', :path=>'path_gem_dir'
 
 Enable the route for the added gem (in biouby-foo/config/routes.rb) uncomment:
 
