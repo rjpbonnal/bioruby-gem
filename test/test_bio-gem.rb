@@ -28,7 +28,7 @@ class TestBiorubyGem < Test::Unit::TestCase
   def test_create_basic_project
     project_name = "biogem-test"
     Dir.chdir(TEST_DIR) do
-      application_exit = Bio::Gem::Generator::Application.run!("--no-create-repo", "--user-name=\"fake_name\"", "--user-email=\"fake_email\"", "--github-username=\"fake_github_user\"","#{project_name}")
+      application_exit = Bio::Gem::Generator::Application.run!('create',"--no-create-repo", "--user-name=\"fake_name\"", "--user-email=\"fake_email\"", "--github-username=\"fake_github_user\"","#{project_name}")
       basic_generated_files(project_name).each do |path| 
         assert File.exist?(path), path
       end
@@ -39,7 +39,7 @@ class TestBiorubyGem < Test::Unit::TestCase
   def test_create_wrapper_project
     project_name = "biogem-test2"
     Dir.chdir(TEST_DIR) do
-      application_exit = Bio::Gem::Generator::Application.run!('--with-wrapper',"--no-create-repo", "--user-name=\"fake_name\"", "--user-email=\"fake_email\"", "--github-username=\"fake_github_user\"","#{project_name}")
+      application_exit = Bio::Gem::Generator::Application.run!('create','--with-wrapper',"--no-create-repo", "--user-name=\"fake_name\"", "--user-email=\"fake_email\"", "--github-username=\"fake_github_user\"","#{project_name}")
       basic_generated_files(project_name).each do |path| 
         assert File.exist?(path), path
       end
