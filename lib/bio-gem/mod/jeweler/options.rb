@@ -70,13 +70,17 @@ class Jeweler
             self[:biogem_db] = true
           end
 
+          o.on('--without-db', 'do not create the database directory for a db application-library.') do
+            self[:biogem_db] = false
+          end
+
           o.on('--with-test-data','create the data directory inside the test directory if the user need to set up a test with its own dataset') do
             self[:biogem_test_data] = true
           end
           
-          o.on('--with-engine [NAMESPACE]', 'create a Rails engine with the namespace given in input. Set default database creation') do |namespace|
+          o.on('--with-engine NAMESPACE', 'create a Rails engine with the namespace given in input. Set default database creation') do |namespace|
             self[:biogem_engine] = namespace
-            self[:biogem_db] = true
+            self[:biogem_db] ||= true
           end
           
           o.on('--with-wrapper', 'setup the biogem to be a wrapper around a command line application') do
