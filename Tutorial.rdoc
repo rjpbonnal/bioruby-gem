@@ -373,6 +373,7 @@ These options are for Biogem
         --meta                       create a meta package, just the Rakefile, Gemfile, Licence, Readme. This options takes the precedence over every other option.
         --with-bin                   create the bin directory and an executable template script called bioreponame
         --with-db                    create the database directory for a db application-library
+        --without-db                 do not create the database directory for a generic gem (used in conjunction with engine it create a web application similar to Rack, no db support)
         --with-test-data             create the data directory inside the test directory if the user need to set up a test with its own dataset
         --with-engine [NAMESPACE]    create a Rails engine with the namespace given in input. Dy default set up the environment to use an SQLite3 database
 
